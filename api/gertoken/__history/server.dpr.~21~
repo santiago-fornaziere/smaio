@@ -1,0 +1,41 @@
+program server;
+
+{$APPTYPE CONSOLE}
+{$R *.res}
+
+uses Horse,
+     Horse.Jhonson,
+     System.JSON,
+     JOSE.core.JWT,
+     JOSE.core.Builder,
+     System.SysUtils;
+
+begin
+  THorse.Use(Jhonson());
+
+  THorse.GET('/token',
+    procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
+    var
+      LToken: TJWT;
+      LCompactToken: string;
+    begin
+      LToken := TJWT.Create;
+      try
+        // Padrão da ferramenta
+        LToken.Claims.Issuer := 'Gerencial Sistemas';
+        LToken.Claims.Subject := 'Token';
+        LToken.Claims.Expiration := Now + 1;
+
+        // Minhas informações... exemplo
+        //LToken.Claims.SetClaimOfType<String>('inf', 'inf');
+
+        // criando o token
+        LCompactToken := TJOSE.SHA256CompactToken('key', LToken);
+        Res.Send(LCompactToken);
+      finally
+        LToken.Free;
+      end;
+      end);
+
+  THorse.Listen(9099);
+end.

@@ -1,0 +1,30 @@
+unit UntModel.Ini;
+
+interface
+
+type
+  Tini = class
+    private
+      FProvider: string;
+      FHost    : string;
+      FDatabase: string;
+      FUser: string;
+      FPassword: string;
+      procedure SetProvider(const Value: string);
+      procedure SetHost(const Value: string);
+      procedure SetDatabase(const Value: string);
+      procedure SetUser(const Value: string);
+      procedure SetPassword(const Value: string);
+    public
+      constructor Create;
+      destructor Destroy; override;
+      property Provider : string read FProvider write SetProvider;
+      property Host : string  read FHost write SetHost;
+      property Database : string read FDatabase write SetDatabase;
+      property User : string read FUser write SetUser;
+      property Password : string read FPassword write SetPassword;
+  end;
+
+implementation
+
+end.

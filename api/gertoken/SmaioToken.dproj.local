@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/03/27 08:24:38.000.009,C:\projeto\api\Tools\UntDmConexao.pas=</Transaction>
+    <Transaction>2021/03/27 08:24:56.000.583,=C:\projeto\api\Models\UntModel.Connection.pas</Transaction>
+    <Transaction>2021/03/27 08:25:08.000.013,=C:\projeto\api\Models\UntModel.Ini.pas</Transaction>
+    <Transaction>2021/03/27 08:25:15.000.336,=C:\projeto\api\Models\UntModel.Query.pas</Transaction>
+    <Transaction>2021/04/23 08:54:18.005,C:\projeto\smaio\api\gertoken\SmaioToken.dproj=C:\projeto\smaio\api\gertoken\TokenServer.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

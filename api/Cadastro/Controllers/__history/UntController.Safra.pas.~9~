@@ -1,0 +1,150 @@
+﻿unit UntController.Safra;
+
+interface
+
+uses
+  System.SysUtils,
+  Vcl.Dialogs,
+  Uni,
+  UntFuncoes,
+  UntDmConexao,
+  System.Generics.Collections,
+  System.JSON,
+  DataSet.Serialize,
+  Horse,
+  UntModel.Safra,
+  UntController.Authorization;
+
+  function QrySafraToClasse(pQry: TUniQuery): TList<TSafra>;
+  procedure registrar;
+
+implementation
+
+function SelectByID(pID: integer): TJsonobject;
+var
+   vSQL, fLinha : String;
+   vQry : TUniQuery;
+   f : TextFile;
+begin
+  AssignFile(f, Sistema.Path_SQL+'Safra\Safra_by_ID.sql');
+  Reset(f);
+  vSQL := '';
+  While not Eof(f) do
+  begin
+    Readln(f, fLinha);
+    vSQL := vSQL + fLinha;
+  end;
+  vQry := TUniQuery.Create(nil);
+  vQry.Close;
+  vQry.Connection := DmConexao.DbConexao;
+  vQry.SQL.Add(StringReplace(vSQL, '﻿','',[]));
+  vQry.Params[0].AsInteger := pID;
+  vQry.Open;
+  Result := vQry.ToJSONObject;
+end;
+
+function SelectAll: TJSONArray;
+var
+   vSQL, fLinha : String;
+   vQry : TUniQuery;
+   f : TextFile;
+begin
+  AssignFile(f, Sistema.Path_SQL+'Safra\Safra.sql');
+  Reset(f);
+  vSQL := '';
+  While not Eof(f) do
+  begin
+    Readln(f, fLinha);
+    vSQL := vSQL + fLinha;
+  end;
+  vQry := TUniQuery.Create(nil);
+  vQry.Close;
+  vQry.Connection := DmConexao.DbConexao;
+  vQry.SQL.Add(StringReplace(vSQL, '﻿','',[]));
+  vQry.Open;
+  Result := vQry.ToJSONArray;
+end;
+
+function QrySafraToClasse(pQry : TUniQuery) : TList<TSafra>;
+var
+   vSafra : TSafra;
+   vSafras : TList<TSafra>;
+begin
+     vSafra := TSafra.Create;
+     vSafras := TList<TSafra>.Create;
+     pQry.First;
+     while not pQry.Eof do
+     begin
+       vSafra.Id := pQry.FieldByName('saf_ID').AsInteger;
+       vSafra.Nome := pQry.FieldByName('saf_DESCRICAO').AsString;
+       vSafra.DtInicioPlantio := pQry.FieldByName('saf_DT_INIC_PLANTIO').AsDateTime;
+       vSafra.DtInicioColheita := pQry.FieldByName('saf_DT_INIC_COLHEITA').AsDateTime;
+       vSafra.DtFimColheita := pQry.FieldByName('saf_DT_FINAL_COLHEITA').AsDateTime;
+       vSafra.SitReg := pQry.FieldByName('saf_SIT_REG_ID').AsInteger;
+       vSafras.Add(vSafra);
+       pQry.Next;
+     end;
+     Result := vSafras;
+end;
+
+procedure GetByID(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONAncestor>(SelectByID(Req.Params.Items['id'].ToInteger));
+end;
+
+procedure GetAll(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONAncestor>(SelectAll);
+end;
+
+function SaveDB(pJSON : TJSONObject) : TJSONObject;
+var
+   vSQL, fLinha : String;
+   vQry : TUniQuery;
+   f : TextFile;
+begin
+  AssignFile(f, Sistema.Path_SQL+'Safra\Safra_insert.sql');
+  Reset(f);
+  vSQL := '';
+  While not Eof(f) do
+  begin
+    Readln(f, fLinha);
+    vSQL := vSQL + fLinha;
+  end;
+  vQry := TUniQuery.Create(nil);
+  vQry.Connection := DmConexao.DbConexao;
+  vQry.Options.ReturnParams := True;
+  vQry.Options.DefaultValues := True;
+  vQry.Close;
+  vQry.SQL.Add(StringReplace(vSQL, '﻿','',[]));
+  vQry.Params[0].AsString := pJSON.Values['safDescricao'].Value;
+  vQry.Params[1].AsDateTime :=  JSONDateToDatetime(pJSON.Values['safDtInicPlantio'].Value);
+  vQry.Params[2].AsDateTime := JSONDateToDatetime(pJSON.Values['safDtInicColheita'].Value);
+  vQry.Params[3].AsDateTime := JSONDateToDatetime(pJSON.Values['safDtFinalColheita'].Value);
+  vQry.Params[4].AsInteger := StrToInt(pJSON.Values['safSitRegId'].Value);
+  vQry.Open;
+  Result := vQry.ToJSONObject;
+end;
+
+procedure Save(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+   vJSON : TJSONObject;
+begin
+  vJSON := TJSONObject.Create;
+  vJSON := Req.Body<TJSONObject>;
+  try
+    Res.Send<TJSONAncestor>(SaveDB(vJSON)).Status(201);
+  finally
+    FreeAndNil(vJSON);
+  end;
+end;
+
+
+procedure registrar;
+begin
+  THorse.Get('/safra/:id', Authorization(), GetByID);
+  THorse.Get('/safra', Authorization(), GetAll);
+  THorse.Post('/safra', Authorization(), Save);
+end;
+
+end.

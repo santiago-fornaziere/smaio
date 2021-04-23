@@ -1,0 +1,41 @@
+unit UntModel.Query;
+
+interface
+
+uses
+  Uni,
+  UntModel.Connection;
+
+type
+  TQuery = class(TUniQuery)
+    private
+      FQuery : TUniQuery;
+      FConn : TConn;
+    public
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TQuery }
+
+constructor TQuery.Create;
+begin
+   FQuery := TUniQuery.Create(nil);
+   FConn := TConn.Create();
+   FQuery.Connection := FConn;
+end;
+
+destructor TQuery.Destroy;
+begin
+  FreeAndNil(FConn);
+  FQuery.Close;
+  FreeAndNil(FQuery);
+  inherited;
+end;
+
+end.

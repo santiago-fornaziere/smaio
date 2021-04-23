@@ -1,0 +1,134 @@
+unit UntSafra;
+
+interface
+
+uses
+  UntConst,
+  System.SysUtils,
+  Vcl.Dialogs,
+  Uni,
+  UntFuncoes,
+  UntDmConexao,
+  System.Generics.Collections, System.JSON,
+  DataSet.Serialize;
+
+type
+  TSafra = class
+    private
+      FId: integer;
+      FNome: String;
+      FDtInicioPlantio: TDate;
+      FDtFimColheita: TDate;
+      FDtInicioColheita: TDate;
+      FSitReg: integer;
+      procedure SetId(const Value: integer);
+      procedure SetNome(const Value: String);
+      procedure SetDtInicioPlantio(const Value: TDate);
+      procedure SetDtFimColheita(const Value: TDate);
+      procedure SetDtInicioColheita(const Value: TDate);
+    procedure SetSitReg(const Value: integer);
+    function QryToClasse(pQry: TUniQuery): TList<TSafra>;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      property Id : integer read FId write SetId;
+      property Nome : String read FNome write SetNome;
+      property DtInicioPlantio : TDate read FDtInicioPlantio write SetDtInicioPlantio;
+      property DtInicioColheita : TDate read FDtInicioColheita write SetDtInicioColheita;
+      property DtFimColheita : TDate read FDtFimColheita write SetDtFimColheita;
+      property SitReg : integer read FSitReg write SetSitReg;
+
+      function getID (pID : integer) : TJsonobject;
+  end;
+
+implementation
+
+{ TSafra }
+
+constructor TSafra.Create;
+begin
+  self.FSitReg := ConstSitRegAtivo;
+end;
+
+destructor TSafra.Destroy;
+begin
+
+  inherited;
+end;
+
+function TSafra.getID(pID: integer): TJsonobject;
+var
+   vSQL, fLinha : String;
+   vQry : TUniQuery;
+   f : TextFile;
+begin
+  AssignFile(f, Sistema.Path_SQL+'Safra\Safra_by_ID.sql');
+  Reset(f);
+  vSQL := '';
+  While not Eof(f) do
+  begin
+    Readln(f, fLinha);
+    vSQL := vSQL + fLinha;
+  end;
+  vQry := TUniQuery.Create(nil);
+  vQry.Close;
+  vQry.Connection := DmConexao.DbConexao;
+  vQry.SQL.Add(StringReplace(vSQL, '﻿','',[]));
+  vQry.Params[0].AsInteger := pID;
+  vQry.Open;
+  Result := vQry.ToJSONObject;
+end;
+
+function TSafra.QryToClasse(pQry : TUniQuery) : TList<TSafra>;
+var
+   vSafra : TSafra;
+   vSafras : TList<TSafra>;
+begin
+     vSafra := TSafra.Create;
+     vSafras := TList<TSafra>.Create;
+     pQry.First;
+     while not pQry.Eof do
+     begin
+       vSafra.Id := pQry.FieldByName('saf_ID').AsInteger;
+       vSafra.Nome := pQry.FieldByName('saf_DESCRICAO').AsString;
+       vSafra.DtInicioPlantio := pQry.FieldByName('saf_DT_INIC_PLANTIO').AsDateTime;
+       vSafra.DtInicioColheita := pQry.FieldByName('saf_DT_INIC_COLHEITA').AsDateTime;
+       vSafra.DtFimColheita := pQry.FieldByName('saf_DT_FINAL_COLHEITA').AsDateTime;
+       vSafra.SitReg := pQry.FieldByName('saf_SIT_REG_ID').AsInteger;
+       vSafras.Add(vSafra);
+       pQry.Next;
+     end;
+     Result := vSafras;
+end;
+
+procedure TSafra.SetDtFimColheita(const Value: TDate);
+begin
+  FDtFimColheita := Value;
+end;
+
+procedure TSafra.SetDtInicioColheita(const Value: TDate);
+begin
+  FDtInicioColheita := Value;
+end;
+
+procedure TSafra.SetDtInicioPlantio(const Value: TDate);
+begin
+  FDtInicioPlantio := Value;
+end;
+
+procedure TSafra.SetId(const Value: integer);
+begin
+  FId := Value;
+end;
+
+procedure TSafra.SetNome(const Value: String);
+begin
+  FNome := Value;
+end;
+
+procedure TSafra.SetSitReg(const Value: integer);
+begin
+  FSitReg := Value;
+end;
+
+end.

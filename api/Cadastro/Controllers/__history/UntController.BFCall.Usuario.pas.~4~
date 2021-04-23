@@ -1,0 +1,59 @@
+﻿unit UntController.BFCall.Usuario;
+
+interface
+
+uses
+  System.SysUtils,
+  Vcl.Dialogs,
+  Uni,
+  UntFuncoes,
+  UntDmConexao,
+  System.Generics.Collections,
+  System.JSON,
+  DataSet.Serialize,
+  Horse,
+  UntController.Authorization;
+
+  procedure registrar;
+
+implementation
+
+function SelectByEmpresa: TJSONArray;
+var
+   vSQL, fLinha : String;
+   vQry : TUniQuery;
+   f : TextFile;
+begin
+  try
+    AssignFile(f, Sistema.Path_SQL+'usuario\usuario_by_nivel_empresa.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL + fLinha;
+    end;
+    CloseFile(f);
+    vQry := TUniQuery.Create(nil);
+    vQry.Close;
+    vQry.Connection := DmConexao.DbConexao;
+    vQry.SQL.Add(StringReplace(vSQL, 'ï»¿﻿','',[]));
+    vQry.Open;
+    Result := vQry.ToJSONArray;
+  finally
+    FreeAndNil(vQry);
+  end;
+end;
+
+procedure GetbyEmpresa(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONAncestor>(SelectByEmpresa);
+end;
+
+procedure registrar;
+begin
+  THorse.Get( 'bfcall/usuario/empresa', Authorization(), GetbyEmpresa);
+//  THorse.Get( 'usuario/cliente', Authorization(), GetbyEmpresa);
+end;
+
+end.

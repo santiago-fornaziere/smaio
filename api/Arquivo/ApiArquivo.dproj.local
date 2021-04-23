@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/04/06 20:36:20.000.140,=C:\Users\santi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/04/12 16:17:19.000.235,=C:\Users\santi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/05/29 16:52:17.000.384,=C:\Users\santi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/09/02 14:24:55.000.473,=C:\Users\santi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/09/16 09:53:09.000.900,=C:\Users\santi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/09/16 11:00:30.000.312,=C:\Users\santi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/03/25 13:42:42.000.647,=C:\Users\santi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/03/25 13:44:37.000.143,C:\Users\santi\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\projeto\api\Arquivo\ApiArquivo.dproj</Transaction>
+    <Transaction>2021/03/25 14:23:17.000.991,=C:\projeto\api\Models\UntModel.Claims.pas</Transaction>
+    <Transaction>2021/03/25 14:31:57.000.365,=C:\projeto\api\Tools\UntDmConexao.pas</Transaction>
+    <Transaction>2021/03/25 14:36:38.000.420,=C:\projeto\api\Tools\UntFuncoes.pas</Transaction>
+    <Transaction>2021/03/25 17:07:19.000.318,=C:\projeto\api\Arquivo\Controllers\UntController.BFCall.ChamadoAnexo.pas</Transaction>
+    <Transaction>2021/03/25 17:19:41.000.517,C:\projeto\api\Models\UntModel.Claims.pas=</Transaction>
+    <Transaction>2021/03/25 17:20:08.000.784,=C:\projeto\api\Models\UntModel.Claims.pas</Transaction>
+    <Transaction>2021/03/25 17:23:16.000.261,=C:\projeto\api\Arquivo\Controllers\UntController.BFCall.ChamadoAnexo.pas</Transaction>
+    <Transaction>2021/03/25 17:24:07.000.451,=C:\projeto\api\Tools\UntController.Authorization.pas</Transaction>
+    <Transaction>2021/03/25 17:29:07.000.779,=C:\projeto\api\Tools\UntController.Authorization.pas</Transaction>
+    <Transaction>2021/03/25 17:29:21.000.357,=C:\projeto\api\Arquivo\Controllers\UntController.BFCall.ChamadoAnexo.pas</Transaction>
+    <Transaction>2021/03/27 08:27:35.000.265,C:\projeto\api\Tools\UntDmConexao.pas=</Transaction>
+    <Transaction>2021/03/27 08:27:58.000.623,=C:\projeto\api\Models\UntModel.Connection.pas</Transaction>
+    <Transaction>2021/03/27 08:28:04.000.795,=C:\projeto\api\Models\UntModel.Ini.pas</Transaction>
+    <Transaction>2021/03/27 08:28:11.000.736,=C:\projeto\api\Models\UntModel.Query.pas</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5" Android="Android"/>
+	</ActiveMobileDevice>
+</BorlandProject>

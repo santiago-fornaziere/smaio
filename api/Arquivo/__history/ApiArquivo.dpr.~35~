@@ -1,0 +1,43 @@
+﻿program ApiArquivo;
+{$APPTYPE CONSOLE}
+{$R *.res}
+uses
+  Vcl.Forms,
+  Uni,
+  Horse,
+  Horse.OctetStream,
+  System.Classes,
+  System.SysUtils,
+  Horse.JWT,
+  Horse.Cors,
+  Horse.Jhonson,
+  Horse.Logger.Provider.LogFile,
+  Horse.Logger,
+  Horse.HandleException,
+  UntDmConexao in '..\Tools\UntDmConexao.pas' {DmConexao: TDataModule},
+  UntModel.Claims in '..\Models\UntModel.Claims.pas',
+  UntFuncoes in '..\Tools\UntFuncoes.pas',
+  UntController.Authorization in '..\Tools\UntController.Authorization.pas',
+  UntController.BFCall.ChamadoAnexo in 'Controllers\UntController.BFCall.ChamadoAnexo.pas';
+
+begin
+  Application.CreateForm(TDmConexao, DmConexao);
+  THorse.Use(OctetStream);
+  THorse.Use(Cors);
+  THorse.Use(Jhonson);
+  THorseLoggerManager.RegisterProvider(THorseLoggerProviderLogFile.New());
+  THorse.Use(THorseLoggerManager.HorseCallback());
+  THorse.Use(HandleException);
+
+  UntController.BFCall.ChamadoAnexo.registrar;
+
+  THorse.Listen(9098,
+    procedure(Horse: THorse)
+    begin
+      Writeln('Servidor api-anexos rodando na porta ' + THorse.Port.ToString);
+      Write('Precione qualquer tecla para parar...');
+      ReadLn;
+      THorse.StopListen;
+    end);
+
+  end.

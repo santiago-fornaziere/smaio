@@ -1,0 +1,64 @@
+unit UntModel.Connection;
+
+interface
+
+uses
+  UntFuncoes,
+  Uni,
+  UntModel.Ini,
+  System.SysUtils,
+  MySQLUniProvider,
+  UniSQLMonitor;
+
+type
+  TConn = class
+    private
+    FConn : TUniConnection;
+    FMySql : TMySQLUniProvider;
+    FMonitor : TUniSQLMonitor;
+    public
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
+implementation
+
+{ TConn }
+
+
+constructor TConn.Create;
+var vIni : Tini;
+begin
+  FConn := TUniConnection.Create(nil);
+  FMysql := TMySQLUniProvider.Create(nil);
+  FMonitor := TUniSQLMonitor.Create(nil);
+  vIni := Tini.Create;
+  try
+    vIni := ValidaConexao;
+    FConn.Connected := False;
+    FConn.Database := vIni.Database;
+    FConn.ProviderName := vIni.Provider;
+    FConn.Server := vIni.Host;
+    FConn.Username := vIni.User;
+    FConn.Password := vIni.Password;
+
+    if not DirectoryExists(ExtractFilePath(ParamStr(0))+'SQL\') then
+       forceDirectories(ExtractFilePath(ParamStr(0))+'SQL\');
+
+    Sistema.Path_Executavel   := ExtractFilePath(ParamStr(0));
+    Sistema.Path_SQL          := Sistema.Path_Executavel+'SQL\';
+
+  finally
+    FreeAndNil(vIni);
+  end;
+end;
+
+destructor TConn.Destroy;
+begin
+  FreeAndNil(FMysql);
+  FreeAndNil(FMonitor);
+  FreeAndNil(FConn);
+  inherited;
+end;
+
+end.

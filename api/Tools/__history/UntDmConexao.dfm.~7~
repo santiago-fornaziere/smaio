@@ -1,0 +1,26 @@
+object DmConexao: TDmConexao
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 486
+  Width = 746
+  object DbConexao: TUniConnection
+    ProviderName = 'SQL Server'
+    Port = 1433
+    Database = 'Desenvolvimento'
+    Username = 'gerencial'
+    Server = '147.135.87.217,1433'
+    LoginPrompt = False
+    AfterDisconnect = DbConexaoAfterDisconnect
+    Left = 80
+    Top = 95
+    EncryptedPassword = 'CEFFCAFFCCFFCDFFCAFFC9FFC9FFBFFF9EFF9DFF9CFF'
+  end
+  object Provider: TSQLServerUniProvider
+    Left = 80
+    Top = 145
+  end
+  object Monitor: TUniSQLMonitor
+    Left = 125
+    Top = 95
+  end
+end

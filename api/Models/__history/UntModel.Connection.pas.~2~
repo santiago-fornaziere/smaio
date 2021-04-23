@@ -1,0 +1,53 @@
+unit UntModel.Connection;
+
+interface
+
+uses
+  Uni;
+
+type
+  TConn = class
+    private
+    FConn : TUniConnection;
+    public
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
+implementation
+
+{ TConn }
+
+constructor TConn.Create;
+var vIni : Tini;
+begin
+  FConn := TUniConnection.Create(nil);
+  vIni := Tini.Create;
+  try
+    vIni := ValidaConexao;
+    DbConexao.Connected := False;
+    DbConexao.Database := vIni.Database;
+    DbConexao.ProviderName := vIni.Provider;
+    DbConexao.Server := vIni.Host;
+    DbConexao.Username := vIni.User;
+    DbConexao.Password := vIni.Password;
+    DbConexao.Connected := True;
+
+    if not DirectoryExists(ExtractFilePath(ParamStr(0))+'SQL\') then
+       forceDirectories(ExtractFilePath(ParamStr(0))+'SQL\');
+
+    Sistema.Path_Executavel   := ExtractFilePath(ParamStr(0));
+    Sistema.Path_SQL          := Sistema.Path_Executavel+'SQL\';
+  finally
+    FreeAndNil(vIni);
+  end;
+
+end;
+
+destructor TConn.Destroy;
+begin
+  FConn.DisposeOf;
+  inherited;
+end;
+
+end.

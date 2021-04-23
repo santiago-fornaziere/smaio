@@ -1,0 +1,66 @@
+unit UntDmConexao;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  UniProvider,
+  SQLServerUniProvider,
+  Data.DB,
+  DBAccess,
+  Uni,
+  DASQLMonitor,
+  UniSQLMonitor;
+
+type
+  TDmConexao = class(TDataModule)
+    DbConexao: TUniConnection;
+    Provider: TSQLServerUniProvider;
+    Monitor: TUniSQLMonitor;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure DbConexaoAfterDisconnect(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DmConexao: TDmConexao;
+
+
+implementation
+
+uses UntFuncoes;
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+
+procedure TDmConexao.DataModuleCreate(Sender: TObject);
+var vIni : Tini;
+begin
+  vIni := Tini.Create;
+  try
+    vIni := ValidaConexao;
+    DbConexao.Connected := False;
+    DbConexao.Database := vIni.Database;
+    DbConexao.ProviderName := vIni.Provider;
+    DbConexao.Server := vIni.Host;
+    DbConexao.Username := vIni.User;
+    DbConexao.Password := vIni.Password;
+    DbConexao.Connected := True;
+  finally
+    FreeAndNil(vIni);
+  end;
+end;
+
+procedure TDmConexao.DbConexaoAfterDisconnect(Sender: TObject);
+begin
+  DbConexao.LoginPrompt := False;
+  DbConexao.Connected := True;
+end;
+
+end.

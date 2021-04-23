@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{3EA903CF-931D-47B8-A7C3-F829BD4F9567}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TokenServer.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TokenServer">
+        <MSBuild Projects="TokenServer.dproj"/>
+    </Target>
+    <Target Name="TokenServer:Clean">
+        <MSBuild Projects="TokenServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TokenServer:Make">
+        <MSBuild Projects="TokenServer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TokenServer"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TokenServer:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TokenServer:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

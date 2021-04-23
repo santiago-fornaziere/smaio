@@ -1,0 +1,45 @@
+unit UntController.Login;
+
+interface
+
+uses
+  System.JSON,
+  Uni,
+  UntDmConexao;
+
+  function ConsultaLogin(pUser: TJSONObject): Boolean;
+
+implementation
+
+
+
+function ConsultaLogin(pUser: TJSONObject): Boolean;
+var
+   vSQL : String;
+   vQry : TUniQuery;
+begin
+  vSQL := 'SELECT login_LOGIN '
+         +'  FROM usuario '
+         +' INNER JOIN login '
+         +'         ON usuario_LOGIN_ID = login_ID '
+         +'   WHERE usuario_SIT_REG_ID = 1 '
+         +'   AND login_SIT_REG_ID = 1 '
+         +'   AND login_LOGIN = :usuario '
+         +'   AND login_SENHA = dbo.fnc_md5(:senha)';
+
+  vQry := TUniQuery.Create(nil);
+  vQry.Connection := DmConexao.DbConexao;
+  vQry.SQL.Add(vSQL);
+
+  vQry.Close;
+  vQry.Params[0].AsString := pUser.GetValue('usuario').Value;
+  vQry.Params[1].AsString := pUser.GetValue('senha').Value;
+  vQry.Open;
+  if vQry.IsEmpty then
+     Result := False
+  else
+      Result := True;
+  vQry.Free;
+end;
+
+end.
