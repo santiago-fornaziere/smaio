@@ -8,7 +8,6 @@ uses
   UntModel.Ini,
   System.SysUtils,
   MySQLUniProvider,
-  PostgreSQLUniProvider,
   UniSQLMonitor;
 
 type
@@ -16,7 +15,6 @@ type
     private
     FConn : TUniConnection;
     FMySql : TMySQLUniProvider;
-    FPostgres : TPostgreSQLUniProvider;
     FMonitor : TUniSQLMonitor;
     procedure SetConn(const Value: TUniConnection);
     public
@@ -34,11 +32,7 @@ constructor TConn.Create;
 var vIni : Tini;
 begin
   FConn := TUniConnection.Create(nil);
-  if UpperCase(vIni.Provider) = 'MYSQL' then
-     FMysql := TMySQLUniProvider.Create(nil);
-  if UpperCase(vIni.Provider) = 'POSTGRESQL' then
-     FPostgres := TPostgreSQLUniProvider.Create(nil);
-
+  FMysql := TMySQLUniProvider.Create(nil);
   FMonitor := TUniSQLMonitor.Create(nil);
   vIni := Tini.Create;
   try
@@ -56,10 +50,7 @@ end;
 
 destructor TConn.Destroy;
 begin
-  if Assigned(FMySql) then
-     FreeAndNil(FMysql);
-  if Assigned(FPostgres) then
-     FreeAndNil(FPostgres);
+  FreeAndNil(FMysql);
   FreeAndNil(FMonitor);
   FreeAndNil(FConn);
   inherited;

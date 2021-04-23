@@ -23,8 +23,7 @@ uses
   System.Generics.Collections,
   UntModel.Connection in '..\Models\UntModel.Connection.pas',
   UntModel.Ini in '..\Models\UntModel.Ini.pas',
-  UntModel.Query in '..\Models\UntModel.Query.pas',
-  UntErros in '..\Tools\UntErros.pas';
+  UntModel.Query in '..\Models\UntModel.Query.pas';
 
 begin
   THorse.Use(Jhonson());
@@ -34,7 +33,7 @@ begin
   THorse.use(Cors);
   DicSistema;
 
-  THorse.POST('/smaio/token',
+  THorse.POST('/gertoken',
     procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
     var
       LToken: TJWT;
@@ -51,15 +50,17 @@ begin
         try
           LClaims := TClaims(LToken.Claims);
           // Padrão da ferramenta
-          LClaims.Issuer := 'Smaio - Ferro Velho On line';
+          LClaims.Issuer := 'Gerencial Sistemas';
           LClaims.Subject := 'Token';
           LClaims.Expiration := Now + 1;
 
           // Minhas informações... exemplo
-          LClaims.UsuarioID := vUsuarioDB.Values['usu_id'].Value;
-          LClaims.UsuarioNome := vUsuarioDB.Values['usu_nome'].Value;
-          LClaims.UsuarioNivel := vUsuarioDB.Values['usu_nivel'].Value;
-          LClaims.UsuarioEmail := vUsuarioDB.Values['usu_email'].Value;
+          LClaims.UsuarioID := vUsuarioDB.Values['usuario_ID'].Value;
+          LClaims.UsuarioNome := vUsuarioDB.Values['usuario_NOME'].Value;
+          LClaims.UsuarioNivel := vUsuarioDB.Values['usuario_NIVEL'].Value;
+          LClaims.ClienteID := vUsuarioDB.Values['usuario_CLIENTE_ID'].Value;
+          LClaims.ClienteNome := vUsuarioDB.Values['cli_NOME'].Value;
+          LClaims.AtendenteID := vUsuarioDB.Values['usuario_ATEND_ID'].Value;
 
           // criando o token
           LCompactToken := TJOSE.SHA256CompactToken('key', LToken);
@@ -75,7 +76,7 @@ begin
       end;
     end);
 
-  THorse.Listen(9199,
+  THorse.Listen(9099,
     procedure(Horse: THorse)
     begin
       Writeln('TOKEN Server está rondando na porta ' + THorse.Port.ToString);

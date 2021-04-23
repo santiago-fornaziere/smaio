@@ -33,10 +33,13 @@ begin
   try
     vQry := TQuery.Create;
     vQry.Query.SQL.Add(vSQL);
-    vQry.Query.Params[0].AsString := pUser.GetValue('email').Value;
+    vQry.Query.Params[0].AsString := pUser.GetValue('usuario').Value;
     vQry.Query.Params[1].AsString := pUser.GetValue('senha').Value;
     vQry.Query.Open;
-    Result := vQry.Query.ToJSONObject
+    if not (vQry.Query.FieldByName('usu_dt_validade').AsDateTime < Date) then
+       Result := vQry.Query.ToJSONObject
+    else
+       Result := ErroUsuarioExpirado;
   finally
     FreeAndNil(vQry);
   end;

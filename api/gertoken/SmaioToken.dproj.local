@@ -6,5 +6,7 @@
     <Transaction>2021/03/27 08:25:08.000.013,=C:\projeto\api\Models\UntModel.Ini.pas</Transaction>
     <Transaction>2021/03/27 08:25:15.000.336,=C:\projeto\api\Models\UntModel.Query.pas</Transaction>
     <Transaction>2021/04/23 08:54:18.005,C:\projeto\smaio\api\gertoken\SmaioToken.dproj=C:\projeto\smaio\api\gertoken\TokenServer.dproj</Transaction>
+    <Transaction>2021/04/23 10:32:00.846,=C:\projeto\smaio\api\gertoken\Unit1.pas</Transaction>
+    <Transaction>2021/04/23 10:32:26.714,C:\projeto\smaio\api\Tools\UntErros.pas=C:\projeto\smaio\api\gertoken\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

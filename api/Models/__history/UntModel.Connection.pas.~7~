@@ -36,7 +36,7 @@ begin
   FConn := TUniConnection.Create(nil);
   if UpperCase(vIni.Provider) = 'MYSQL' then
      FMysql := TMySQLUniProvider.Create(nil);
-  if UpperCase(vIni.Provider) = 'POSTGRESQL' then
+  if UpperCase(vIni.Provider) = 'PPOSTGRESQL' then
      FPostgres := TPostgreSQLUniProvider.Create(nil);
 
   FMonitor := TUniSQLMonitor.Create(nil);

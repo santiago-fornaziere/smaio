@@ -13,7 +13,7 @@ uses
 implementation
 
 uses
-  UntModel.Query, UntErros;
+  UntModel.Query;
 
 function ConsultaLogin(pUser: TJSONObject): TJSONObject;
 var
@@ -21,7 +21,7 @@ var
    vQry : TQuery;
    f : TextFile;
 begin
-  AssignFile(f, Sistema.Path_SQL+'Smaio\Usuario\usuario_by_login_senha.sql');
+  AssignFile(f, Sistema.Path_SQL+'Usuario\usuario_by_login_senha.sql');
   Reset(f);
   vSQL := '';
   While not Eof(f) do
@@ -31,12 +31,12 @@ begin
   end;
   CloseFile(f);
   try
-    vQry := TQuery.Create;
-    vQry.Query.SQL.Add(vSQL);
-    vQry.Query.Params[0].AsString := pUser.GetValue('email').Value;
-    vQry.Query.Params[1].AsString := pUser.GetValue('senha').Value;
-    vQry.Query.Open;
-    Result := vQry.Query.ToJSONObject
+  vQry := TQuery.Create;
+  vQry.Query.SQL.Add(StringReplace(vSQL, 'ï»¿﻿','',[]));
+  vQry.Query.Params[0].AsString := pUser.GetValue('usuario').Value;
+  vQry.Query.Params[1].AsString := pUser.GetValue('senha').Value;
+  vQry.Query.Open;
+  Result := vQry.Query.ToJSONObject;
   finally
     FreeAndNil(vQry);
   end;
