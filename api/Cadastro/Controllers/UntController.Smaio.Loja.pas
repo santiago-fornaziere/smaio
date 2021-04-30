@@ -214,7 +214,7 @@ var
    vJSON : TJSONObject;
    LClaims: TClaims;
 begin
-  vJSON := TJSONObject.Create;
+vJSON := TJSONObject.Create;
   vJSON := Req.Body<TJSONObject>;
   LClaims := Req.Session<TClaims>;
   try

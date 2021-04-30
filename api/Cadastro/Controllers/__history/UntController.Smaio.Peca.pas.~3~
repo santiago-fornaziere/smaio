@@ -59,7 +59,6 @@ end;
 
 procedure registrar;
 begin
-  THorse.Post('smaio/peca', AuthorizationClaim(), Append);
   THorse.Post('smaio/peca/localizar', Authorization(), Get);
 end;
 

@@ -17,14 +17,14 @@ uses
 
 implementation
 
-function Select(pJSON : TJSONObject): TJSONArray;
+function SelectAll: TJSONArray;
 var
    vSQL, fLinha : String;
    vQry : TQuery;
    f : TextFile;
 begin
   try
-    AssignFile(f, Sistema.Path_SQL+'Smaio\Peca\peca_select.sql');
+    AssignFile(f, Sistema.Path_SQL+'Smaio\Grupo\grupo_by_all.sql');
     Reset(f);
     vSQL := '';
     While not Eof(f) do
@@ -35,8 +35,6 @@ begin
     CloseFile(f);
     vQry := TQuery.Create;
     vQry.Query.SQL.Add(vSQL);
-    vQry.Query.AddWhere(pJSON.Values['where'].Value);
-    vQry.Query.SetOrderBy(pJSON.Values['orderby'].Value);
     vQry.Query.Open;
     Result := vQry.Query.ToJSONArray;
   finally
@@ -45,21 +43,13 @@ begin
 end;
 
 procedure Get(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-var
-   vJSON : TJSONObject;
 begin
-  vJSON := TJSONObject.Create;
-  vJSON := Req.Body<TJSONObject>;
-  try
-    Res.Send<TJSONAncestor>(Select(vJSON)).Status(201);
-  finally
-    FreeAndNil(vJSON);
-  end;
+  Res.Send<TJSONAncestor>(SelectAll);
 end;
+
 
 procedure registrar;
 begin
-  THorse.Post('smaio/peca', AuthorizationClaim(), Append);
   THorse.Post('smaio/peca/localizar', Authorization(), Get);
 end;
 
