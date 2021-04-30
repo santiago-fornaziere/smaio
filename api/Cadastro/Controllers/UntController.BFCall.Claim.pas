@@ -25,12 +25,10 @@ begin
       try
         LClaims := Req.Session<TClaims>;
         vUsuario := TJSONObject.Create;
-        vUsuario.AddPair('usuarioID', LClaims.UsuarioID);
-        vUsuario.AddPair('usuarioNome', LClaims.UsuarioNome);
-        vUsuario.AddPair('usuarioNivel', LClaims.UsuarioNivel);
-        vUsuario.AddPair('ClienteID', LClaims.ClienteID);
-        vUsuario.AddPair('ClienteNome', LClaims.ClienteNome);
-        vUsuario.AddPair('AtendenteID', LClaims.AtendenteID);
+        vUsuario.AddPair('usu_id', LClaims.UsuarioID);
+        vUsuario.AddPair('usu_nome', LClaims.UsuarioNome);
+        vUsuario.AddPair('usu_nivel', LClaims.UsuarioNivel);
+        vUsuario.AddPair('usu_email', LClaims.UsuarioEmail);
         Res.Send(vUsuario).Status(200);
       finally
       end;

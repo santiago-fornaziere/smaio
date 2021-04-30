@@ -1,0 +1,87 @@
+unit UntModel.SubGruVeiAno;
+
+interface
+
+uses
+  UntInterface.SubGruVeiAno,
+  System.JSON,
+  System.SysUtils,
+  UntModel.Query,
+  DataSet.Serialize,
+  UntFuncoes;
+
+type
+  TVeiculoAno = class(TInterfacedObject, iSubgrupoVeiculoAno)
+  private
+    function sgvano_id : integer; overload;
+    function sgvano_id (const Value : integer): iSubgrupoVeiculoAno; overload;
+    function sgvano_sgru_id : integer; overload;
+    function sgvano_sgru_id (const Value : integer): iSubgrupoVeiculoAno; overload;
+    function sgvano_vano_id : integer; overload;
+    function sgvano_vano_id (const Value : integer): iSubgrupoVeiculoAno; overload;
+    function Cadastrar: TJSONObject;
+    constructor Create;
+  public
+    destructor Destroy; override;
+    class function New : iSubgrupoVeiculoAno;
+  end;
+
+implementation
+
+{ TVeiculoAno }
+
+function TVeiculoAno.Cadastrar: TJSONObject;
+begin
+
+end;
+
+constructor TVeiculoAno.Create;
+begin
+
+end;
+
+destructor TVeiculoAno.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TVeiculoAno.New: iSubgrupoVeiculoAno;
+begin
+   Result := Self.Create;
+end;
+
+function TVeiculoAno.sgvano_id: integer;
+begin
+   Result := sgvano_id;
+end;
+
+function TVeiculoAno.sgvano_id(const Value: integer): iSubgrupoVeiculoAno;
+begin
+  Result := Self;
+  sgvano_id := Value;
+end;
+
+function TVeiculoAno.sgvano_sgru_id(const Value: integer): iSubgrupoVeiculoAno;
+begin
+  Result := Self;
+  sgvano_sgru_id := Value;
+end;
+
+function TVeiculoAno.sgvano_sgru_id: integer;
+begin
+  Result := sgvano_sgru_id;
+end;
+
+function TVeiculoAno.sgvano_vano_id: integer;
+begin
+   Result := sgvano_vano_id
+end;
+
+function TVeiculoAno.sgvano_vano_id(const Value: integer): iSubgrupoVeiculoAno;
+begin
+   Result := Self;
+   sgvano_vano_id := Value;
+end;
+
+end.

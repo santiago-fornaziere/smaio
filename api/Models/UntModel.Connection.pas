@@ -23,11 +23,13 @@ type
     constructor Create;
     destructor Destroy; override;
     property Conn : TUniConnection read FConn write SetConn;
+
   end;
 
 implementation
 
 { TConn }
+
 
 
 constructor TConn.Create;

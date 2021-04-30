@@ -8,7 +8,8 @@ uses
   System.SysUtils,
   Vcl.Dialogs,
   System.DateUtils,
-  UntModel.Ini;
+  UntModel.Ini,
+  System.JSON;
 
 type
   TSistema = record
@@ -22,9 +23,35 @@ type
 
   function ValidaConexao: Tini;
   function JSONDateToDatetime(JSONDate: string): TDatetime;
+  function GeraTransacao(pUsuario : integer): integer;
   procedure DicSistema;
+  function AssignFieldsApi(pCampos : Array of String; pJSON : TJSONObject) : Boolean;
+  function SoNumero(pTexto: string): string;
 
 implementation
+
+uses
+  UntModel.Query;
+
+function AssignFieldsApi(pCampos : Array of String ; pJSON : TJSONObject) : Boolean;
+var Field : String;
+    I : integer;
+begin
+  try
+    for I := 0 to length(pCampos) -1 do
+    begin
+      Field := pCampos[I];
+      Field := pJSON.Values[pCampos[I]].Value;
+    end;
+    Result := True;
+  except
+    on E : Exception do
+    begin
+      Result := False;
+      raise Exception.Create('Erro ao validar campo "'+Field+'" da Api...');
+    end;
+  end;
+end;
 
 procedure DicSistema;
 begin
@@ -89,6 +116,24 @@ begin
   vIni.User := vUserServer;
   vIni.Password := vPwdServer;
   Result := vIni;
+end;
+
+function GeraTransacao(pUsuario : integer): integer;
+var vQry : TQuery;
+begin
+    vQry := TQuery.Create;
+    vQry.Query.SQL.Add('INSERT INTO transacao (tra_dt_lancamento , tra_usu_id ) values (current_date, '+IntToStr(pUsuario)+') RETURNING tra_id');
+    vQry.Query.Open;
+    Result := vQry.Query.Fields[0].AsInteger;
+end;
+
+function SoNumero(pTexto: string): string;
+var vCont: Integer;
+begin
+   Result := '';
+   for vCont := 1 To Length(pTexto) do
+       if pTexto [vCont] In ['0'..'9'] Then
+          Result := Result + pTexto [vCont];
 end;
 
 end.

@@ -31,12 +31,12 @@ implementation
 
 function TClaims.GetUsuarioNivel: string;
 begin
-  Result := TJSONUtils.GetJSONValue('Nivel', FJSON).AsString;
+  Result := TJSONUtils.GetJSONValue('usu_nivel', FJSON).AsString;
 end;
 
 function TClaims.GetUsuarioEmail: string;
 begin
-  Result := TJSONUtils.GetJSONValue('usu_nivel', FJSON).AsString;
+  Result := TJSONUtils.GetJSONValue('usu_email', FJSON).AsString;
 end;
 
 function TClaims.GetUsuarioID: string;

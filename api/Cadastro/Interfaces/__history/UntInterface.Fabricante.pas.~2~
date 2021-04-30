@@ -1,0 +1,13 @@
+unit UntInterface.Fabricante;
+
+interface
+
+type
+  iFabricante = interface
+    ['{1650ABEB-D616-4792-B666-D35200460080}']
+
+  end;
+
+implementation
+
+end.

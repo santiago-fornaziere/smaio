@@ -4,9 +4,11 @@ interface
 
 uses
   Horse,
-  Horse.JWT;
+  Horse.JWT,
+  UntModel.Claims;
 
 function Authorization: THorseCallback;
+function AuthorizationClaim: THorseCallback;
 
 implementation
 
@@ -15,5 +17,9 @@ begin
   Result := HorseJWT('key');
 end;
 
+function AuthorizationClaim: THorseCallback;
+begin
+  Result := HorseJWT('key', TClaims);
+end;
 
 end.

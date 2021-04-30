@@ -173,7 +173,7 @@ begin
     CloseFile(f);
 
     vQry := TQuery.Create;
-    vQry.Query.SQL.Add(StringReplace(vSQL, 'ï»¿﻿','',[]));
+    vQry.Query.SQL.Add(vSQL);
 
     for I := 0 to pJson.Count -1 do
     begin

@@ -1,0 +1,32 @@
+unit UntModel.SubGruVeiAno;
+
+interface
+
+type
+  TVeiculoAno = class
+  private
+    sgvano_id : integer;
+    sgvano_sgru_id : integer;
+    sgvano_vano_id : integer;
+    constructor Create;
+  public
+    destructor Destroy; override;
+  end;
+
+implementation
+
+
+{ TVeiculoAno }
+
+constructor TVeiculoAno.Create;
+begin
+
+end;
+
+destructor TVeiculoAno.Destroy;
+begin
+
+  inherited;
+end;
+
+end.

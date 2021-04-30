@@ -1,0 +1,27 @@
+unit UntController.Smaio.VeiculoAno;
+
+interface
+
+uses
+  System.SysUtils,
+  Vcl.Dialogs,
+  UntFuncoes,
+  System.Generics.Collections,
+  System.JSON,
+  DataSet.Serialize,
+  Horse,
+  UntController.Authorization,
+  UntModel.Query,
+  UntModel.VeiculoAno;
+
+  procedure registrar;
+
+  var
+     campos_insert : Array of String = ['vano_vei_id', 'vano_ano_id'];
+     campos_update : Array of String = [];
+
+
+
+implementation
+
+end.

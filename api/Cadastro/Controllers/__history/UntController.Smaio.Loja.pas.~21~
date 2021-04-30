@@ -1,0 +1,250 @@
+﻿unit UntController.Smaio.Loja;
+
+interface
+
+uses
+  System.SysUtils,
+  Vcl.Dialogs,
+  UntFuncoes,
+  System.Generics.Collections,
+  System.JSON,
+  DataSet.Serialize,
+  Horse,
+  UntController.Authorization,
+  UntModel.Query;
+
+  procedure registrar;
+
+implementation
+
+uses
+  UntModel.Claims;
+
+function SelectLoja(pID : integer): TJSONArray;
+var
+   vSQL, fLinha : String;
+   vQry : TQuery;
+   f : TextFile;
+begin
+  try
+    AssignFile(f, Sistema.Path_SQL+'Smaio\Loja\loja_by_usuario.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL + fLinha;
+    end;
+    CloseFile(f);
+    vQry := TQuery.Create;
+    vQry.Query.SQL.Add(vSQL);
+    vQry.Query.Params[0].AsInteger := pID;
+    vQry.Query.Open;
+    Result := vQry.Query.ToJSONArray;
+  finally
+    FreeAndNil(vQry);
+  end;
+end;
+
+function SelectAll: TJSONArray;
+var
+   vSQL, fLinha : String;
+   vQry : TQuery;
+   f : TextFile;
+begin
+  try
+    AssignFile(f, Sistema.Path_SQL+'Smaio\Loja\loja_by_all.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL + fLinha;
+    end;
+    CloseFile(f);
+    vQry := TQuery.Create;
+    vQry.Query.SQL.Add(vSQL);
+    vQry.Query.Open;
+    Result := vQry.Query.ToJSONArray;
+  finally
+    FreeAndNil(vQry);
+  end;
+end;
+
+function SaveDB(pJSON : TJSONObject; pUsuario : integer; pID : integer = 0) : TJSONObject;
+var
+   vSQL, fLinha : String;
+   vQry : TQuery;
+   f : TextFile;
+   I : integer;
+begin
+  try
+    if pID = 0 then
+      AssignFile(f, Sistema.Path_SQL+'Smaio\Loja\loja_insert.sql')
+    else
+      AssignFile(f, Sistema.Path_SQL+'Smaio\Loja\loja_update.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL + ' '+fLinha;
+    end;
+    CloseFile(f);
+
+    vQry := TQuery.Create;
+    vQry.Query.SQL.Add(vSQL);
+
+    for I := 0 to pJson.Count -1 do
+    begin
+      try
+      if Assigned(pJSON.Values[vQry.Query.Params[I].Name]) then
+        if not (LowerCase(pJSON.Values[vQry.Query.Params[I].Name].Value) = 'null') then
+          vQry.Query.Params[I].Value := pJSON.Values[vQry.Query.Params[I].Name].Value;
+      except
+      end;
+    end;
+    vQry.Query.Open;
+    Result := vQry.Query.ToJSONObject;
+  finally
+    freeandnil(vQry);
+  end;
+end;
+
+function UpdateStatus(pID: integer; pTipo: String) : TJSONObject;
+var
+   vSQL, fLinha : String;
+   vQry : TQuery;
+   f : TextFile;
+   I : integer;
+begin
+  try
+    AssignFile(f, Sistema.Path_SQL+'Smaio\Loja\loja_update_status.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL + ' '+fLinha;
+    end;
+    CloseFile(f);
+
+    vQry := TQuery.Create;
+    vQry.Query.SQL.Add(vSQL);
+    if pTipo = 'I' then
+       vQry.Query.ParamByName('loj_status').AsString := 'Inátivo'
+    else
+    if pTipo = 'S' then
+       vQry.Query.ParamByName('loj_status').AsString := 'Suspenso';
+    vQry.Query.ParamByName('loj_id').AsInteger := pID;
+    vQry.Query.Open;
+    Result := vQry.Query.ToJSONObject;
+  finally
+    freeandnil(vQry);
+  end;
+end;
+
+function UpdateValidade(pJSON : TJSONObject): TJSONObject;
+var
+   vSQL, fLinha : String;
+   vQry : TQuery;
+   f : TextFile;
+   I : integer;
+begin
+  try
+    AssignFile(f, Sistema.Path_SQL+'Smaio\Loja\loja_update_validade.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL + ' '+fLinha;
+    end;
+    CloseFile(f);
+
+    vQry := TQuery.Create;
+    vQry.Query.SQL.Add(vSQL);
+    vQry.Query.ParamByName('loj_dt_validade').Value := pJSON.Values['loj_dt_validade'].Value;
+    vQry.Query.ParamByName('loj_id').AsInteger := pJSON.Values['loj_id'].Value.ToInteger;
+    vQry.Query.Open;
+    Result := vQry.Query.ToJSONObject;
+  finally
+    freeandnil(vQry);
+  end;
+end;
+
+procedure GetbyUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONAncestor>(SelectLoja(Req.Params.Items['id'].ToInteger));
+end;
+
+procedure GetbyAll(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONAncestor>(SelectAll);
+end;
+
+procedure Append(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+   vJSON : TJSONObject;
+   LClaims: TClaims;
+begin
+  vJSON := TJSONObject.Create;
+  vJSON := Req.Body<TJSONObject>;
+  LClaims := Req.Session<TClaims>;
+  try
+    Res.Send<TJSONAncestor>(SaveDB(vJSON, LClaims.UsuarioID.ToInteger)).Status(201);
+  finally
+    FreeAndNil(vJSON);
+  end;
+end;
+
+procedure UpdateStatusSuspenso(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONAncestor>(UpdateStatus(Req.Params.Items['id'].ToInteger, 'S'));
+end;
+
+procedure UpdateStatusInativo(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+begin
+  Res.Send<TJSONAncestor>(UpdateStatus(Req.Params.Items['id'].ToInteger, 'I'));
+end;
+
+procedure UpdateValidadeByID(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+   vJSON : TJSONObject;
+begin
+  try
+    vJSON := TJSONObject.Create;
+    vJSON := Req.Body<TJSONObject>;
+    Res.Send<TJSONAncestor>(UpdateValidade(vJSON)).Status(202);
+  finally
+    FreeAndNil(vJSON);
+  end;
+end;
+
+procedure Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+   vJSON : TJSONObject;
+   LClaims: TClaims;
+begin
+  try
+    vJSON := TJSONObject.Create;
+    vJSON := Req.Body<TJSONObject>;
+    LClaims := Req.Session<TClaims>;
+    Res.Send<TJSONAncestor>(SaveDB(vJSON, 0, Req.Params.Items['id'].ToInteger)).Status(202);
+  finally
+    FreeAndNil(vJSON);
+  end;
+end;
+
+procedure registrar;
+begin
+  THorse.Get( 'smaio/loja/usuario/:id', Authorization(), GetbyUsuario);
+  THorse.Get( 'smaio/loja', Authorization(), GetbyAll);
+  THorse.Post('smaio/loja', AuthorizationClaim(), Append);
+  THorse.Put('smaio/loja/:id', Authorization(), Update);
+  THorse.Patch('smaio/loja/inativo/:id', Authorization, UpdateStatusInativo);
+  THorse.Patch('smaio/loja/suspenso/:id', Authorization, UpdateStatusSuspenso);
+  THorse.Post('smaio/loja/validade', Authorization, UpdateValidadeByID);
+end;
+
+end.
