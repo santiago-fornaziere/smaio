@@ -5,14 +5,10 @@ interface
 uses
   UntModel.SubGruVeiAno,
   System.Generics.Collections,
-  System.JSON,
-  UntInterface.SubGrupo,
-  UntModel.Query,
-  DataSet.Serialize,
-  UntFuncoes, System.SysUtils;
+  System.JSON, UntInterface.Peca;
 
 type
-  TSubGrupo = class(TInterfacedObject, iSubGrupo)
+  TSubGrupo = class
   public
     Fsgru_id : integer;
     Fsgru_descricao : String;
@@ -34,7 +30,6 @@ type
     constructor Create;
     procedure AddVeiculoAno(const Value : TSubGrupoVeiculoAno);
     destructor Destroy; override;
-    class function New : iSubGrupo;
   end;
 implementation
 
@@ -53,7 +48,7 @@ var
 begin
   try
     // lendo arquivos de sql
-    AssignFile(f, Sistema.Path_SQL+'Smaio\SubGrupo\subgrupo_update.sql');
+    AssignFile(f, Sistema.Path_SQL+'Smaio\Peca\peca_update.sql');
     Reset(f);
     vSQL := '';
     While not Eof(f) do
@@ -66,10 +61,10 @@ begin
     vQry.Query.Connection.StartTransaction;
     try
       vQry.Query.SQL.Add(vSQL);
-      vQry.Query.ParamByName('sgru_id').AsInteger := Fsgru_id;
-      vQry.Query.ParamByName('sgru_descricao').AsString := Fsgru_descricao;
-      vQry.Query.ParamByName('sgru_pec_id').AsInteger := Fsgru_pec_id;
-      vQry.Query.ParamByName('sgru_sit_reg').AsBoolean := Fsgru_sit_reg;
+      vQry.Query.ParamByName('pec_id').AsInteger := Fpec_id;
+      vQry.Query.ParamByName('pec_descricao').AsString := Fpec_descricao;
+      vQry.Query.ParamByName('pec_gru_id').AsInteger := Fpec_gru_id;
+      vQry.Query.ParamByName('pec_sit_reg').AsBoolean := Fpec_sit_reg;
       vQry.Query.Open;
       vQry.Query.Connection.Commit;
 
@@ -96,11 +91,6 @@ destructor TSubGrupo.Destroy;
 begin
   Fsgru_vanos.Free;
   inherited;
-end;
-
-class function TSubGrupo.New: iSubGrupo;
-begin
-  Result := Self.Create;
 end;
 
 function TSubGrupo.sgru_descricao(const Value: String): iSubGrupo;

@@ -144,6 +144,7 @@
         <DCCReference Include="Models\UntModel.SubGrupo.pas"/>
         <DCCReference Include="Models\UntModel.SubGruVeiAno.pas"/>
         <DCCReference Include="Controllers\UntController.Smaio.Peca.pas"/>
+        <DCCReference Include="Interfaces\UntInterface.SubGrupo.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

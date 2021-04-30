@@ -208,7 +208,7 @@ constructor TLoja.Create;
 begin
   Floj_sit_reg := True;
   Floj_ativacao := Now;
-  Floj_dt_validade := Now+31;
+  Floj_ativacao := Now+31;
   Floj_status := TyStatus.stAtivo;
 end;
 

@@ -30,8 +30,8 @@
     <Transaction>2021/03/15 14:36:37.000.094,=C:\projeto\api\Cadastro\Unit1.pas</Transaction>
     <Transaction>2021/03/15 14:37:05.000.340,C:\projeto\api\Cadastro\Unit1.pas=C:\projeto\api\Cadastro\Interfaces\UntInterface.BfCall.Chamado.pas</Transaction>
     <Transaction>2021/03/15 16:51:27.000.557,=C:\projeto\api\Cadastro\Unit1.pas</Transaction>
-    <Transaction>2021/03/15 16:52:22.000.749,C:\projeto\api\Cadastro\Dio\UntDio.BfCall.Chamado.dfm=C:\projeto\api\Cadastro\Unit1.dfm</Transaction>
     <Transaction>2021/03/15 16:52:22.000.749,C:\projeto\api\Cadastro\Dio\UntDio.BfCall.Chamado.pas=C:\projeto\api\Cadastro\Unit1.pas</Transaction>
+    <Transaction>2021/03/15 16:52:22.000.749,C:\projeto\api\Cadastro\Dio\UntDio.BfCall.Chamado.dfm=C:\projeto\api\Cadastro\Unit1.dfm</Transaction>
     <Transaction>2021/03/16 07:51:51.000.034,C:\projeto\api\Cadastro\Dio\UntDio.BfCall.Chamado.pas=</Transaction>
     <Transaction>2021/03/16 07:55:47.000.227,=C:\projeto\api\Cadastro\Unit1.pas</Transaction>
     <Transaction>2021/03/16 07:56:19.000.688,C:\projeto\api\Cadastro\Unit1.pas=C:\projeto\api\Cadastro\Controllers\UntController.BFCall.Dicionario.pas</Transaction>
@@ -137,6 +137,8 @@
     <Transaction>2021/04/29 16:29:24.000.507,C:\projeto\smaio\api\Cadastro\Unit1.pas=C:\projeto\smaio\api\Cadastro\Models\UntModel.SubGrupo.pas</Transaction>
     <Transaction>2021/04/29 16:52:57.000.512,=C:\projeto\smaio\api\Cadastro\Unit1.pas</Transaction>
     <Transaction>2021/04/29 16:53:14.000.266,C:\projeto\smaio\api\Cadastro\Unit1.pas=C:\projeto\smaio\api\Cadastro\Controllers\UntController.Smaio.Peca.pas</Transaction>
+    <Transaction>2021/04/30 16:55:24.408,=C:\projeto\smaio\api\Cadastro\Unit1.pas</Transaction>
+    <Transaction>2021/04/30 16:56:02.190,C:\projeto\smaio\api\Cadastro\Interfaces\UntInterface.SubGrupo.pas=C:\projeto\smaio\api\Cadastro\Unit1.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5" Android="Android"/>
@@ -169,6 +171,7 @@
     <File Path="Interfaces\UntInterface.Veiculo.pas"/>
     <File Path="Interfaces\UntInterface.VeiculoAno.pas"/>
     <File Path="Interfaces\UntInterface.Peca.pas"/>
+    <File Path="Interfaces\UntInterface.SubGrupo.pas"/>
     <File Path="Models"/>
     <File Path="Models\UntModel.Loja.pas"/>
     <File Path="Models\UntModel.Usuario.pas"/>

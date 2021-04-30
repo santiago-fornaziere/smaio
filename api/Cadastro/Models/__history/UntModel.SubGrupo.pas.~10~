@@ -9,10 +9,10 @@ uses
   UntInterface.SubGrupo,
   UntModel.Query,
   DataSet.Serialize,
-  UntFuncoes, System.SysUtils;
+  UntFuncoes;
 
 type
-  TSubGrupo = class(TInterfacedObject, iSubGrupo)
+  TSubGrupo = class
   public
     Fsgru_id : integer;
     Fsgru_descricao : String;
@@ -34,7 +34,6 @@ type
     constructor Create;
     procedure AddVeiculoAno(const Value : TSubGrupoVeiculoAno);
     destructor Destroy; override;
-    class function New : iSubGrupo;
   end;
 implementation
 
@@ -96,11 +95,6 @@ destructor TSubGrupo.Destroy;
 begin
   Fsgru_vanos.Free;
   inherited;
-end;
-
-class function TSubGrupo.New: iSubGrupo;
-begin
-  Result := Self.Create;
 end;
 
 function TSubGrupo.sgru_descricao(const Value: String): iSubGrupo;

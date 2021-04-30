@@ -9,7 +9,7 @@ uses
 
 type
   TSubGrupo = class
-  private
+  public
     sgru_id : integer;
     sgru_descricao : String;
     sgru_pec_id : integer;
@@ -17,16 +17,28 @@ type
     sgru_sit_reg : boolean;
     sgru_vanos : TList<TSubGrupoVeiculoAno>;
     constructor Create;
-  public
+    procedure AddVeiculoAno(const Value : TSubGrupoVeiculoAno);
     destructor Destroy; override;
+    function Clone : TSubGrupo;
   end;
 implementation
 
 { TSubGrupo }
 
+procedure TSubGrupo.AddVeiculoAno(const Value: TSubGrupoVeiculoAno);
+begin
+  sgru_vanos.Add(Value);
+end;
+
+function TSubGrupo.Clone: TSubGrupo;
+begin
+  Result := Self.clone;
+end;
+
 constructor TSubGrupo.Create;
 begin
   sgru_vanos := TList<TSubGrupoVeiculoAno>.Create;
+  sgru_sit_reg := true;
 end;
 
 destructor TSubGrupo.Destroy;

@@ -56,44 +56,8 @@ begin
 end;
 
 function TPeca.Alterar: TJSONObject;
-var
-   vSQL, fLinha : String;
-   vQry : TQuery;
-   f : TextFile;
 begin
-  try
-    // lendo arquivos de sql
-    AssignFile(f, Sistema.Path_SQL+'Smaio\Peca\peca_update.sql');
-    Reset(f);
-    vSQL := '';
-    While not Eof(f) do
-    begin
-      Readln(f, fLinha);
-      vSQL := vSQL + ' '+fLinha;
-    end;
-    CloseFile(f);
-    vQry := TQuery.Create;
-    vQry.Query.Connection.StartTransaction;
-    try
-      vQry.Query.SQL.Add(vSQL);
-      vQry.Query.ParamByName('pec_id').AsInteger := Fpec_id;
-      vQry.Query.ParamByName('pec_descricao').AsString := Fpec_descricao;
-      vQry.Query.ParamByName('pec_gru_id').AsInteger := Fpec_gru_id;
-      vQry.Query.ParamByName('pec_sit_reg').AsBoolean := Fpec_sit_reg;
-      vQry.Query.Open;
-      vQry.Query.Connection.Commit;
 
-      Result := vQry.Query.ToJSONObject;
-    except
-      on E : Exception do
-      begin
-        vQry.Query.Connection.Rollback;
-        raise Exception.Create(E.Message);
-      end;
-    end;
-  finally
-    freeandnil(vQry);
-  end;
 end;
 
 function TPeca.Cadastrar: TJSONObject;
@@ -157,18 +121,18 @@ begin
       begin
         vQry.Query.SQL.Clear;
         vQry.Query.SQL.Add(vSQLSG);
-        vQry.Query.ParamByName('sgru_descricao').AsString := vSgru.Fsgru_descricao;
+        vQry.Query.ParamByName('sgru_descricao').AsString := vSgru.sgru_descricao;
         vQry.Query.ParamByName('sgru_pec_id').AsInteger := Fpec_id;
         vQry.Query.ParamByName('sgru_tra_id').AsInteger := Fpec_tra_id;
         vQry.Query.Execute;
-        vSgru.Fsgru_id := vQry.Query.FieldByName('sgru_id').AsInteger;
+        vSgru.sgru_id := vQry.Query.FieldByName('sgru_id').AsInteger;
 
         // inicio da gravação do sgvano
-        for vSgvano in vSgru.Fsgru_vanos do
+        for vSgvano in vSgru.sgru_vanos do
         begin
           vQry.Query.SQL.Clear;
           vQry.Query.SQL.Add(vSQLSGV);
-          vQry.Query.ParamByName('sgvano_sgru_id').AsInteger := vSgru.Fsgru_id;
+          vQry.Query.ParamByName('sgvano_sgru_id').AsInteger := vSgru.sgru_id;
           vQry.Query.ParamByName('sgvano_vano_id').AsInteger := vSgvano.sgvano_vano_id;
           vQry.Query.Execute;
           vSgvano.sgvano_id := vQry.Query.FieldByName('sgvano_id').AsInteger;
@@ -301,8 +265,8 @@ begin
     begin
       vSgru := TSubGrupo.Create;
       vJsonSgru := Value.Get(Isgru) as TJSONObject;
-      vSgru.Fsgru_id := Isgru;
-      vSgru.Fsgru_descricao := vJsonSgru.Values['sgru_descricao'].Value;
+      vSgru.sgru_id := Isgru;
+      vSgru.sgru_descricao := vJsonSgru.Values['sgru_descricao'].Value;
       jv := vJsonSgru.Get('sgru_vanos').JsonValue;
       ja := jv as TJSONArray;
       for Isgvano := 0 to ja.Count -1 do
@@ -312,7 +276,7 @@ begin
         vSgvano.sgvano_id := Isgvano;
         vSgvano.sgvano_sgru_id := Isgru;
         vSgvano.sgvano_vano_id := vJsonSgvano.Values['sgvano_vano_id'].Value.ToInteger();
-        vSgru.Fsgru_vanos.Add(vSgvano);
+        vSgru.sgru_vanos.Add(vSgvano);
       end;
       Fpec_sgrus.Add(vSgru);
     end;

@@ -42,7 +42,8 @@ uses
   UntModel.Peca in 'Models\UntModel.Peca.pas',
   UntModel.SubGrupo in 'Models\UntModel.SubGrupo.pas',
   UntModel.SubGruVeiAno in 'Models\UntModel.SubGruVeiAno.pas',
-  UntController.Smaio.Peca in 'Controllers\UntController.Smaio.Peca.pas';
+  UntController.Smaio.Peca in 'Controllers\UntController.Smaio.Peca.pas',
+  UntInterface.SubGrupo in 'Interfaces\UntInterface.SubGrupo.pas';
 
 begin
   ReportMemoryLeaksOnShutdown := True;
@@ -61,6 +62,7 @@ begin
   UntController.Smaio.Veiculo.registrar;
   UntController.Smaio.VeiculoAno.registrar;
   UntController.Smaio.Grupo.registrar;
+  UntController.Smaio.Peca.registrar;
 
   THorse.Listen(9101,
     procedure(Horse: THorse)

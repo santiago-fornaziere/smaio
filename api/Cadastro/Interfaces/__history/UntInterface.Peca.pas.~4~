@@ -22,10 +22,7 @@ type
     function pec_sit_reg (const Value : boolean): iPeca; overload;
     function pec_sgrus : TList<TSubGrupo>; overload;
     function pec_sgrus (const Value : TList<TSubGrupo>): iPeca; overload;
-    function pec_sgrus (const Value : TJSONArray): iPeca; overload;
     function AddSubGrupos(const Value : TSubGrupo) : iPeca;
-    function pec_usu_id : integer; overload;
-    function pec_usu_id (const Value : integer): iPeca; overload;
     function Cadastrar: TJSONObject;
     function Alterar: TJSONObject;
   end;
