@@ -16,7 +16,10 @@ type
     function sgru_pec_id (const Value : integer): iSubGrupo; overload;
     function sgru_sit_reg : boolean; overload;
     function sgru_sit_reg (const Value : boolean): iSubGrupo; overload;
+    function sgru_usu_id : integer; overload;
+    function sgru_usu_id (const Value : integer): iSubGrupo; overload;
     function Alterar: TJSONObject;
+    function Cadastrar: TJSONObject;
   end;
 
 implementation

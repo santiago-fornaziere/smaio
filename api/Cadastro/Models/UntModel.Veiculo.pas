@@ -57,10 +57,10 @@ begin
     vQry.Query.Connection.StartTransaction;
     try
       vQry.Query.SQL.Add(vSQL);
-      vQry.Query.ParamByName('veic_descricao').AsString := Fvei_descricao;
-      vQry.Query.ParamByName('veic_id').AsInteger := Fvei_id;
-      vQry.Query.ParamByName('veic_fab_id').AsInteger := Fvei_fab_id;
-      vQry.Query.ParamByName('veic_sit_reg').AsBoolean := Fvei_sit_reg;
+      vQry.Query.ParamByName('vei_descricao').AsString := Fvei_descricao;
+      vQry.Query.ParamByName('vei_id').AsInteger := Fvei_id;
+      vQry.Query.ParamByName('vei_fab_id').AsInteger := Fvei_fab_id;
+      vQry.Query.ParamByName('vei_sit_reg').AsBoolean := Fvei_sit_reg;
       vQry.Query.Open;
       vQry.Query.Connection.Commit;
 
@@ -97,8 +97,8 @@ begin
     vQry.Query.Connection.StartTransaction;
     try
       vQry.Query.SQL.Add(vSQL);
-      vQry.Query.ParamByName('veic_descricao').AsString := Fvei_descricao;
-      vQry.Query.ParamByName('veic_fab_id').AsInteger := Fvei_fab_id;
+      vQry.Query.ParamByName('vei_descricao').AsString := Fvei_descricao;
+      vQry.Query.ParamByName('vei_fab_id').AsInteger := Fvei_fab_id;
       vQry.Query.Open;
       Fvei_id := vQry.Query.FieldByName('vei_ID').AsInteger;
       vQry.Query.Connection.Commit;

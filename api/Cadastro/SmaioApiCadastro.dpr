@@ -56,6 +56,7 @@ begin
   DicSistema;
 
   // registro de rotas de Api
+  UntController.BFCall.Claim.registrar;
   UntController.Smaio.Loja.registrar;
   UntController.Smaio.Usuario.registrar;
   UntController.Smaio.Fabricante.registrar;

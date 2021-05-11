@@ -300,7 +300,7 @@ begin
     for Isgru := 0 to Value.Count -1 do
     begin
       vSgru := TSubGrupo.Create;
-      vJsonSgru := Value.Get(Isgru) as TJSONObject;
+      vJsonSgru := Value.Items[Isgru] as TJSONObject;
       vSgru.Fsgru_id := Isgru;
       vSgru.Fsgru_descricao := vJsonSgru.Values['sgru_descricao'].Value;
       jv := vJsonSgru.Get('sgru_vanos').JsonValue;

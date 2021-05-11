@@ -16,7 +16,7 @@ implementation
 
 procedure registrar;
 begin
-  THorse.Get( '/bfcall/claim', HorseJWT('key', TClaims),
+  THorse.Get( '/smaio/claim', HorseJWT('key', TClaims),
     procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
     var
       LClaims: TClaims;

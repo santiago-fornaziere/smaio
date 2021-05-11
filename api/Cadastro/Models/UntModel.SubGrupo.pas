@@ -19,6 +19,7 @@ type
     Fsgru_pec_id : integer;
     Fsgru_tra_id : integer;
     Fsgru_sit_reg : boolean;
+    Fsgru_usu_id : integer;
     Fsgru_vanos : TList<TSubGrupoVeiculoAno>;
 
     function sgru_id : integer; overload;
@@ -29,8 +30,11 @@ type
     function sgru_pec_id (const Value : integer): iSubGrupo; overload;
     function sgru_sit_reg : boolean; overload;
     function sgru_sit_reg (const Value : boolean): iSubGrupo; overload;
+    function sgru_usu_id : integer; overload;
+    function sgru_usu_id (const Value : integer): iSubGrupo; overload;
 
     function Alterar: TJSONObject;
+    function Cadastrar: TJSONObject;
     constructor Create;
     procedure AddVeiculoAno(const Value : TSubGrupoVeiculoAno);
     destructor Destroy; override;
@@ -71,6 +75,48 @@ begin
       vQry.Query.ParamByName('sgru_pec_id').AsInteger := Fsgru_pec_id;
       vQry.Query.ParamByName('sgru_sit_reg').AsBoolean := Fsgru_sit_reg;
       vQry.Query.Open;
+      vQry.Query.Connection.Commit;
+
+      Result := vQry.Query.ToJSONObject;
+    except
+      on E : Exception do
+      begin
+        vQry.Query.Connection.Rollback;
+        raise Exception.Create(E.Message);
+      end;
+    end;
+  finally
+    freeandnil(vQry);
+  end;
+end;
+
+function TSubGrupo.Cadastrar: TJSONObject;
+var
+   vSQL, fLinha : String;
+   vQry : TQuery;
+   f : TextFile;
+begin
+  try
+    // lendo arquivos de sql
+    AssignFile(f, Sistema.Path_SQL+'Smaio\SubGrupo\subgrupo_insert.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL + ' '+fLinha;
+    end;
+    CloseFile(f);
+    vQry := TQuery.Create;
+    vQry.Query.Connection.StartTransaction;
+    try
+      vQry.Query.SQL.Add(vSQL);
+      Fsgru_tra_id := GeraTransacao(Fsgru_usu_id);
+      vQry.Query.ParamByName('sgru_descricao').AsString := Fsgru_descricao;
+      vQry.Query.ParamByName('sgru_pec_id').AsInteger := Fsgru_pec_id;
+      vQry.Query.ParamByName('sgru_tra_id').AsInteger := Fsgru_tra_id;
+      vQry.Query.Open;
+      Fsgru_id := vQry.Query.FieldByName('sgru_id').AsInteger;
       vQry.Query.Connection.Commit;
 
       Result := vQry.Query.ToJSONObject;
@@ -145,6 +191,17 @@ function TSubGrupo.sgru_sit_reg(const Value: boolean): iSubGrupo;
 begin
   Result := Self;
   Fsgru_sit_reg := Value;
+end;
+
+function TSubGrupo.sgru_usu_id: integer;
+begin
+  Result := Fsgru_usu_id;
+end;
+
+function TSubGrupo.sgru_usu_id(const Value: integer): iSubGrupo;
+begin
+  Result := Self;
+  Fsgru_usu_id := Value;
 end;
 
 end.
