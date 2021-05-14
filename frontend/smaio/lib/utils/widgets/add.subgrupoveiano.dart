@@ -120,6 +120,7 @@ class WidgetAddSubGrupoVeiAno extends StatelessWidget {
                       DataTable(
                         dataRowHeight: 60,
                         showCheckboxColumn: false,
+                        showBottomBorder: true,
                         columns: [
                           DataColumn(
                             label: Text(""),
@@ -136,6 +137,9 @@ class WidgetAddSubGrupoVeiAno extends StatelessWidget {
                                           return TextButton(
                                             onPressed: !_showProgress
                                                 ? () async {
+                                                    lista.setShowProgress(true);
+                                                    onPress(itens.gruId!,
+                                                        itens.gruDescricao!);
                                                     _showProgress = true;
                                                     List<SubGrupo> retorno =
                                                         await PecaApi.getSGWhere(
@@ -145,24 +149,22 @@ class WidgetAddSubGrupoVeiAno extends StatelessWidget {
                                                     if (retorno.isNotEmpty) {
                                                       lista.setSubGrupos(
                                                           retorno);
-                                                      onPress(itens.gruId!,
-                                                          itens.gruDescricao!);
                                                       _showProgress = false;
                                                     } else {
-                                                      showSnackMessage(context,
-                                                          'Erro na consulta...');
+                                                      lista.setSubGrupos([]);
                                                       _showProgress = false;
                                                     }
                                                   }
                                                 : null,
-                                            child: Container(
-                                              height: 60,
-                                              width: 300,
-                                              child: Center(
-                                                child: Text(
-                                                  itens.gruDescricao.toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 14,
+                                            child: SafeArea(
+                                              child: Container(
+                                                child: Center(
+                                                  child: Text(
+                                                    itens.gruDescricao
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                    ),
                                                   ),
                                                 ),
                                               ),

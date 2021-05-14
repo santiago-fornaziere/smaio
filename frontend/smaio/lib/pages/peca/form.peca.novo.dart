@@ -80,6 +80,7 @@ class _PecaNovo extends State<PecaNovo> {
         descricao: _gruDescricaoController,
         texto: 'Selecione o grupo',
         codigo: _gruIdController,
+        tipo: 'peca',
       ),
       Divider(),
       WidgetAddSubGrupo(
@@ -95,19 +96,25 @@ class _PecaNovo extends State<PecaNovo> {
     ];
   }
 
-  onPressed(List<SubGrupo> subGrupos) async {
-    var novo = Peca(
-      pecDescricao: _pecDescricaoController.text,
-      pecGruId: int.parse(_gruIdController.text),
-      pecGruDescricao: _gruDescricaoController.text,
-      pecSitReg: true,
-      pecSgrus: subGrupos,
-    );
-    int retorno = await PecaApi.post(novo);
-    if (retorno == 201) {
-      push(context, PecaLocalizar());
+  Future<bool> onPressed(List<SubGrupo> subGrupos) async {
+    if (_formKey.currentState!.validate()) {
+      var novo = Peca(
+        pecDescricao: _pecDescricaoController.text,
+        pecGruId: int.parse(_gruIdController.text),
+        pecGruDescricao: _gruDescricaoController.text,
+        pecSitReg: true,
+        pecSgrus: subGrupos,
+      );
+      int retorno = await PecaApi.post(novo);
+      if (retorno == 201) {
+        push(context, PecaLocalizar());
+        return true;
+      } else {
+        showSnackMessage(context, 'Erro ao inserir nova peça...');
+        return false;
+      }
     } else {
-      showSnackMessage(context, 'Erro ao inserir nova peça...');
+      return false;
     }
   }
 }

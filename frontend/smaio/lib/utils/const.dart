@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smaio/models/model.ano.dart';
 import 'package:smaio/models/model.grupo.dart';
+import 'package:intl/intl.dart';
 
 Color menuCadastroLateral = Colors.grey[200]!;
 Color fundoBranco = Colors.grey[50]!;
@@ -16,6 +17,12 @@ TextStyle styleTexto() {
     fontWeight: FontWeight.bold,
   );
 }
+
+var formatFloat = new NumberFormat.currency(
+  decimalDigits: 2,
+  locale: 'pt',
+  symbol: '',
+);
 
 List<Grupo> dicGrupo = [
   Grupo(gruId: 1, gruDescricao: "Ar & Combustível"),

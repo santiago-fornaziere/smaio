@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/notifiers/notifier.fabricante.dart';
+import 'package:smaio/notifiers/notifier.item.dart';
 import 'package:smaio/notifiers/notifier.peca.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:smaio/models/model.usuario.dart';
@@ -25,26 +26,37 @@ void main() async {
         ChangeNotifierProvider(
             create: (context) => Veiculos(
                   veiculos: [],
+                  showProgress: false,
                 )),
         ChangeNotifierProvider(
             create: (context) => Fabricantes(
                   fabricantes: [],
+                  showProgress: false,
                 )),
         ChangeNotifierProvider(
             create: (context) => VeiAnos(
                   veiAno: [],
+                  showProgress: false,
                 )),
         ChangeNotifierProvider(
             create: (context) => Pecas(
                   pecas: [],
+                  showProgress: false,
                 )),
         ChangeNotifierProvider(
             create: (context) => SubGrupos(
                   subGrupo: [],
+                  showProgress: false,
                 )),
         ChangeNotifierProvider(
             create: (context) => SubGrupoVeiAnos(
                   subGrupoveiAno: [],
+                  showProgress: false,
+                )),
+        ChangeNotifierProvider(
+            create: (context) => Itens(
+                  itens: [],
+                  showProgress: false,
                 )),
       ],
       child: MyApp(

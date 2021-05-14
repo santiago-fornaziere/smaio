@@ -85,6 +85,7 @@ class _PecaLocalizar extends State<PecaLocalizar> {
         descricao: _gruDescricaoController,
         texto: 'Selecione o grupo',
         codigo: _gruIdController,
+        tipo: 'peca',
       ),
       WidgetPecaLista(
         context: context,

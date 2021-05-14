@@ -110,7 +110,7 @@ class WidgetComboFabricante extends StatelessWidget {
                     return Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(right: 20),
+                          padding: EdgeInsets.only(right: 20, top: 10),
                           child: TextFormField(
                             autofocus: true,
                             controller: _fabDescricaoController,
@@ -130,6 +130,7 @@ class WidgetComboFabricante extends StatelessWidget {
                         DataTable(
                           dataRowHeight: 60,
                           showCheckboxColumn: false,
+                          showBottomBorder: true,
                           columns: [
                             DataColumn(
                               label: Text(""),
@@ -145,21 +146,22 @@ class WidgetComboFabricante extends StatelessWidget {
                                           builder: (context, lista, child) {
                                             return TextButton(
                                               onPressed: () async {
+                                                lista.setShowProgress(true);
+                                                onPress(itens.fabId!,
+                                                    itens.fabNome!);
                                                 List<Veiculo> veiculos =
                                                     await VeiculoApi.getAll(
                                                         itens.fabId!);
                                                 lista.setVeiculos(veiculos);
-                                                onPress(itens.fabId!,
-                                                    itens.fabNome!);
                                               },
-                                              child: Container(
-                                                height: 60,
-                                                width: 300,
-                                                child: Center(
-                                                  child: Text(
-                                                    itens.fabNome.toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 14,
+                                              child: SafeArea(
+                                                child: Container(
+                                                  child: Center(
+                                                    child: Text(
+                                                      itens.fabNome.toString(),
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

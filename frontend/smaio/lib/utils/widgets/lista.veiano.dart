@@ -30,6 +30,7 @@ class WidgetVeiculoAnoLista extends StatelessWidget {
           return DataTable(
             dataRowHeight: 60,
             showCheckboxColumn: false,
+            showBottomBorder: true,
             columns: [
               DataColumn(
                 label: Text("Ano"),
@@ -93,6 +94,7 @@ class WidgetVeiculoAnoLista extends StatelessWidget {
                                         return TextButton(
                                           onPressed: ((itens.vanoId ?? 0) > 0)
                                               ? () async {
+                                                  sgvano.setShowProgress(true);
                                                   List<SubGrupoVeiAno> retorno =
                                                       await PecaApi.getByVeiAno(
                                                           itens.vanoId!);
@@ -125,6 +127,4 @@ class WidgetVeiculoAnoLista extends StatelessWidget {
       ),
     );
   }
-
-  onClikVeiAno(int veiId) {}
 }

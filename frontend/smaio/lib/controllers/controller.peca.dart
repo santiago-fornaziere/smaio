@@ -68,7 +68,6 @@ class PecaApi {
 
     try {
       String c = pRegistro.toJson();
-      c.replaceAll("\\", '');
       var url = Uri.http('$hostapi:9101', '/smaio/peca');
       var response = await http.post(url, headers: headers, body: c);
       return response.statusCode;

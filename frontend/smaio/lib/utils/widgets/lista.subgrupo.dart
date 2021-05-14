@@ -24,25 +24,29 @@ class WidgetSubGrupoLista extends StatelessWidget {
           return DataTable(
             dataRowHeight: 60,
             showCheckboxColumn: false,
+            showBottomBorder: true,
             columns: [
               DataColumn(
                 label: Text("Subgrupo"),
               ),
               DataColumn(
-                label: TextButton(
-                  onPressed: () {
-                    push(
-                        context,
-                        SubGrupoAlterar(
-                            subGrupo: SubGrupo(
-                              sgruPecId: pecId,
-                              sgruSitReg: true,
-                            ),
-                            subGrupoIndice: lista.getIndice(-1)));
-                  },
-                  child: Icon(
-                    Icons.add_circle,
-                    color: Colors.green,
+                label: Container(
+                  width: 30,
+                  child: TextButton(
+                    onPressed: () {
+                      push(
+                          context,
+                          SubGrupoAlterar(
+                              subGrupo: SubGrupo(
+                                sgruPecId: pecId,
+                                sgruSitReg: true,
+                              ),
+                              subGrupoIndice: lista.getIndice(-1)));
+                    },
+                    child: Icon(
+                      Icons.add_circle,
+                      color: Colors.green,
+                    ),
                   ),
                 ),
               ),
@@ -70,7 +74,6 @@ class WidgetSubGrupoLista extends StatelessWidget {
                               children: [
 // BOTAO EDITAR
                                 Container(
-                                  width: 25,
                                   child: TextButton(
                                     onPressed: () async {
                                       push(
@@ -88,7 +91,6 @@ class WidgetSubGrupoLista extends StatelessWidget {
                                 ),
 // BOTAO EXCLUIR
                                 Container(
-                                  width: 25,
                                   child: TextButton(
                                     onPressed: () async {
                                       itens.sgruSitReg = false;
@@ -121,6 +123,4 @@ class WidgetSubGrupoLista extends StatelessWidget {
       ),
     );
   }
-
-  onClikVeiAno(int veiId) {}
 }

@@ -1,5 +1,6 @@
 //import 'package:smaio/controllers/controller.dashboard.dart';
 import 'package:smaio/pages/form.dashboard.dart';
+import 'package:smaio/pages/item/form.item.localizar.dart';
 import 'package:smaio/pages/peca/form.peca.localizar.dart';
 import 'package:smaio/pages/veiculo/form.veiculo.localizar.dart';
 import 'package:smaio/utils/funcoes.dart';
@@ -22,4 +23,8 @@ onClikVeiculos(BuildContext context) async {
 
 onClikPecas(BuildContext context) async {
   push(context, PecaLocalizar());
+}
+
+onClikItens(BuildContext context) async {
+  push(context, ItemLocalizar());
 }

@@ -1,7 +1,10 @@
 import 'package:smaio/controllers/controller.menu_lateral.dart';
 import 'package:flutter/material.dart';
+import 'package:smaio/notifiers/notifier.item.dart';
+import 'package:smaio/notifiers/notifier.peca.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:provider/provider.dart';
+import 'package:smaio/notifiers/notifier.veiculo.dart';
 
 // ignore: must_be_immutable
 class DrawerList extends StatelessWidget {
@@ -39,27 +42,32 @@ class DrawerList extends StatelessWidget {
   }
 
   _item(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        Icons.shopping_cart,
-        size: 50,
-        color: Colors.blueGrey,
-      ),
-      hoverColor: Colors.greenAccent[50],
-      title: Text(
-        "Itens para venda",
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
+    return Consumer<Itens>(builder: (context, lista, child) {
+      return ListTile(
+        leading: Icon(
+          Icons.shopping_cart,
+          size: 50,
+          color: Colors.blueGrey,
         ),
-      ),
-      subtitle: Text("Lançamento de peças para venda"),
-      trailing: Icon(
-        Icons.navigate_next,
-        color: Colors.blueGrey,
-      ),
-      //onTap: () => onClickCadastroChamado(context),
-    );
+        hoverColor: Colors.greenAccent[50],
+        title: Text(
+          "Itens para venda",
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text("Lançamento de peças para venda"),
+        trailing: Icon(
+          Icons.navigate_next,
+          color: Colors.blueGrey,
+        ),
+        onTap: () {
+          lista.setItens([]);
+          onClikItens(context);
+        },
+      );
+    });
   }
 
   _dashboard(BuildContext context) {
@@ -87,51 +95,61 @@ class DrawerList extends StatelessWidget {
   }
 
   _veiculos(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        Icons.car_repair,
-        size: 50,
-        color: Colors.blueGrey,
-      ),
-      hoverColor: Colors.greenAccent[50],
-      title: Text(
-        "Veículos",
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
+    return Consumer<Veiculos>(builder: (context, lista, child) {
+      return ListTile(
+        leading: Icon(
+          Icons.car_repair,
+          size: 50,
+          color: Colors.blueGrey,
         ),
-      ),
-      subtitle: Text("Opções de veículos"),
-      trailing: Icon(
-        Icons.navigate_next,
-        color: Colors.blueGrey,
-      ),
-      onTap: () => onClikVeiculos(context),
-    );
+        hoverColor: Colors.greenAccent[50],
+        title: Text(
+          "Veículos",
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text("Opções de veículos"),
+        trailing: Icon(
+          Icons.navigate_next,
+          color: Colors.blueGrey,
+        ),
+        onTap: () {
+          lista.setVeiculos([]);
+          onClikVeiculos(context);
+        },
+      );
+    });
   }
 
   _pecas(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        Icons.app_registration,
-        size: 50,
-        color: Colors.blueGrey,
-      ),
-      hoverColor: Colors.greenAccent[50],
-      title: Text(
-        "Peças",
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
+    return Consumer<Pecas>(builder: (context, lista, child) {
+      return ListTile(
+        leading: Icon(
+          Icons.app_registration,
+          size: 50,
+          color: Colors.blueGrey,
         ),
-      ),
-      subtitle: Text("Cadastro de peças e subgrupos"),
-      trailing: Icon(
-        Icons.navigate_next,
-        color: Colors.blueGrey,
-      ),
-      onTap: () => onClikPecas(context),
-    );
+        hoverColor: Colors.greenAccent[50],
+        title: Text(
+          "Peças",
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text("Cadastro de peças e subgrupos"),
+        trailing: Icon(
+          Icons.navigate_next,
+          color: Colors.blueGrey,
+        ),
+        onTap: () {
+          lista.setPecas([]);
+          onClikPecas(context);
+        },
+      );
+    });
   }
 
   Widget _perfilEmpresa(BuildContext context) {

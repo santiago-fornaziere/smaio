@@ -1,0 +1,430 @@
+unit UntModel.Item;
+
+interface
+
+uses
+  UntInterface.Item,
+  System.Generics.Collections,
+  System.JSON,
+  System.SysUtils,
+  DataSet.Serialize,
+  UntModel.Query;
+
+type
+  TItem = class(TInterfacedObject, iItem)
+  private
+    Fite_id : integer;
+    Fite_descricao : String;
+    Fite_sgvano_id : integer;
+    Fite_gru_id : integer;
+    Fite_gru_descricao : String;
+    Fite_pec_id : integer;
+    Fite_pec_descricao : String;
+    Fite_sgru_id : integer;
+    Fite_sgru_descricao : String;
+    Fite_vei_id : integer;
+    Fite_vei_descricao : String;
+    Fite_vei_fab_id : integer;
+    Fite_vei_fab_nome : String;
+    Fite_vano_ano_id : integer;
+    Fite_vano_ano_descricao : String;
+    Fite_valor : Currency;
+    Fite_situacao : String;
+    Fite_status : String;
+    Fite_loj_id : integer;
+    Fite_loj_nome : String;
+    Fite_tra_entrada : integer;
+    Fite_tra_dt_entrada : TDateTime;
+    Fite_tra_saida : integer;
+    Fite_tra_dt_saida : TDateTime;
+    Fite_sit_reg : Boolean;
+    Fite_usu_id : integer;
+
+    function ite_id : integer; overload;
+    function ite_id (const Value : integer): iItem; overload;
+    function ite_descricao : String; overload;
+    function ite_descricao (const Value : String) : iItem; overload;
+    function ite_sgvano_id : integer; overload;
+    function ite_sgvano_id (const Value : integer) : iItem; overload;
+    function ite_gru_id : integer; overload;
+    function ite_gru_id (const Value : integer) : iItem; overload;
+    function ite_gru_descricao : String; overload;
+    function ite_gru_descricao (const Value : String) : iItem; overload;
+    function ite_pec_id : integer; overload;
+    function ite_pec_id (const Value : integer) : iItem; overload;
+    function ite_pec_descricao : String; overload;
+    function ite_pec_descricao (const Value : String) : iItem; overload;
+    function ite_sgru_id : integer; overload;
+    function ite_sgru_id (const Value : integer) : iItem; overload;
+    function ite_sgru_descricao : String; overload;
+    function ite_sgru_descricao (const Value : String) : iItem; overload;
+    function ite_vei_id : integer; overload;
+    function ite_vei_id (const Value : integer) : iItem; overload;
+    function ite_vei_descricao : String; overload;
+    function ite_vei_descricao (const Value : String) : iItem; overload;
+    function ite_vei_fab_id : integer; overload;
+    function ite_vei_fab_id (const Value : integer) : iItem; overload;
+    function ite_vei_fab_nome : String; overload;
+    function ite_vei_fab_nome (const Value : String) : iItem; overload;
+    function ite_vano_ano_id : integer; overload;
+    function ite_vano_ano_id (const Value : integer) : iItem; overload;
+    function ite_vano_ano_descricao : String; overload;
+    function ite_vano_ano_descricao (const Value : String) : iItem; overload;
+    function ite_valor : Currency; overload;
+    function ite_valor (const Value : Currency) : iItem; overload;
+    function ite_situacao : String; overload;
+    function ite_situacao (const Value : String) : iItem; overload;
+    function ite_status : String; overload;
+    function ite_status (const Value : String) : iItem; overload;
+    function ite_loj_id : integer; overload;
+    function ite_loj_id (const Value : integer) : iItem; overload;
+    function ite_loj_nome : String; overload;
+    function ite_loj_nome (const Value : String) : iItem; overload;
+    function ite_tra_entrada : integer; overload;
+    function ite_tra_entrada (const Value : integer) : iItem; overload;
+    function ite_tra_dt_entrada : TDateTime; overload;
+    function ite_tra_dt_entrada (const Value : TDateTime) : iItem; overload;
+    function ite_tra_dt_entrada (const Value : String) : iItem; overload;
+    function ite_tra_saida : integer; overload;
+    function ite_tra_saida (const Value : integer) : iItem; overload;
+    function ite_tra_dt_saida : TDateTime; overload;
+    function ite_tra_dt_saida (const Value : TDateTime) : iItem; overload;
+    function ite_tra_dt_saida (const Value : String) : iItem; overload;
+    function ite_sit_reg : boolean; overload;
+    function ite_sit_reg (const Value : boolean): iItem; overload;
+    function ite_usu_id (const Value : integer): iItem; overload;
+    constructor Create;
+    function Cadastrar: TJSONObject;
+    function Alterar: TJSONObject;
+  public
+    destructor Destroy; override;
+    class function New : iItem;
+  end;
+
+implementation
+
+uses UntFuncoes;
+
+
+{ TItem }
+
+function TItem.Alterar: TJSONObject;
+begin
+
+end;
+
+function TItem.Cadastrar: TJSONObject;
+begin
+
+end;
+
+constructor TItem.Create;
+begin
+
+end;
+
+destructor TItem.Destroy;
+begin
+
+  inherited;
+end;
+
+function TItem.ite_descricao: String;
+begin
+  Result := Fite_descricao;
+end;
+
+function TItem.ite_descricao(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_descricao := Value;
+end;
+
+function TItem.ite_gru_descricao(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_gru_descricao := Value;
+end;
+
+function TItem.ite_gru_descricao: String;
+begin
+
+end;
+
+function TItem.ite_gru_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_gru_id := Value;
+end;
+
+function TItem.ite_gru_id: integer;
+begin
+
+end;
+
+function TItem.ite_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_id := Value;
+end;
+
+function TItem.ite_id: integer;
+begin
+
+end;
+
+function TItem.ite_loj_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_loj_id := Value;
+end;
+
+function TItem.ite_loj_id: integer;
+begin
+
+end;
+
+function TItem.ite_loj_nome: String;
+begin
+end;
+
+function TItem.ite_loj_nome(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_loj_nome := Value;
+end;
+
+function TItem.ite_pec_descricao(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_pec_descricao := Value;
+end;
+
+function TItem.ite_pec_descricao: String;
+begin
+
+end;
+
+function TItem.ite_pec_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_pec_id := Value;
+end;
+
+function TItem.ite_pec_id: integer;
+begin
+
+end;
+
+function TItem.ite_sgru_descricao(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_sgru_descricao := Value;
+end;
+
+function TItem.ite_sgru_descricao: String;
+begin
+
+end;
+
+function TItem.ite_sgru_id: integer;
+begin
+
+end;
+
+function TItem.ite_sgru_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_sgru_id := Value;
+end;
+
+function TItem.ite_sgvano_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_sgvano_id := Value;
+end;
+
+function TItem.ite_sgvano_id: integer;
+begin
+
+end;
+
+function TItem.ite_situacao: String;
+begin
+
+end;
+
+function TItem.ite_situacao(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_situacao := Value;
+end;
+
+function TItem.ite_sit_reg: boolean;
+begin
+
+end;
+
+function TItem.ite_sit_reg(const Value: boolean): iItem;
+begin
+   Result := Self;
+   Fite_sit_reg := Value;
+end;
+
+function TItem.ite_status: String;
+begin
+
+end;
+
+function TItem.ite_status(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_status := Value;
+end;
+
+function TItem.ite_tra_dt_entrada: TDateTime;
+begin
+
+end;
+
+function TItem.ite_tra_dt_entrada(const Value: TDateTime): iItem;
+begin
+   Result := Self;
+   Fite_tra_dt_entrada := Value;
+end;
+
+function TItem.ite_tra_dt_entrada(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_tra_dt_entrada := Value;
+end;
+
+function TItem.ite_tra_dt_saida(const Value: TDateTime): iItem;
+begin
+   Result := Self;
+   Fite_tra_dt_saida := Value;
+end;
+
+function TItem.ite_tra_dt_saida: TDateTime;
+begin
+
+end;
+
+function TItem.ite_tra_dt_saida(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_tra_dt_saida := Value;
+end;
+
+function TItem.ite_tra_entrada: integer;
+begin
+
+end;
+
+function TItem.ite_tra_entrada(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_tra_entrada := Value;
+end;
+
+function TItem.ite_tra_saida(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_tra_saida := Value;
+end;
+
+function TItem.ite_tra_saida: integer;
+begin
+
+end;
+
+function TItem.ite_usu_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_usu_id := Value;
+end;
+
+function TItem.ite_valor: Currency;
+begin
+
+end;
+
+function TItem.ite_valor(const Value: Currency): iItem;
+begin
+   Result := Self;
+   Fite_valor := Value;
+end;
+
+function TItem.ite_vano_ano_descricao: String;
+begin
+
+end;
+
+function TItem.ite_vano_ano_descricao(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_vano_ano_descricao := Value;
+end;
+
+function TItem.ite_vano_ano_id: integer;
+begin
+
+end;
+
+function TItem.ite_vano_ano_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_vano_ano_id := Value;
+end;
+
+function TItem.ite_vei_descricao(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_vei_descricao := Value;
+end;
+
+function TItem.ite_vei_descricao: String;
+begin
+
+end;
+
+function TItem.ite_vei_fab_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_vei_fab_id := Value;
+end;
+
+function TItem.ite_vei_fab_id: integer;
+begin
+
+end;
+
+function TItem.ite_vei_fab_nome: String;
+begin
+
+end;
+
+function TItem.ite_vei_fab_nome(const Value: String): iItem;
+begin
+   Result := Self;
+   Fite_vei_fab_nome := Value;
+end;
+
+function TItem.ite_vei_id: integer;
+begin
+
+end;
+
+function TItem.ite_vei_id(const Value: integer): iItem;
+begin
+   Result := Self;
+   Fite_vei_id := Value;
+end;
+
+class function TItem.New: iItem;
+begin
+  Result := Self.Create;
+end;
+
+end.
+

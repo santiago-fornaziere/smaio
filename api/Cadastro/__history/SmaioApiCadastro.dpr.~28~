@@ -33,7 +33,17 @@ uses
   UntController.Smaio.Fabricante in 'Controllers\UntController.Smaio.Fabricante.pas',
   UntInterface.Veiculo in 'Interfaces\UntInterface.Veiculo.pas',
   UntModel.Veiculo in 'Models\UntModel.Veiculo.pas',
-  UntController.Smaio.Veiculo in 'Controllers\UntController.Smaio.Veiculo.pas';
+  UntController.Smaio.Veiculo in 'Controllers\UntController.Smaio.Veiculo.pas',
+  UntInterface.VeiculoAno in 'Interfaces\UntInterface.VeiculoAno.pas',
+  UntModel.VeiculoAno in 'Models\UntModel.VeiculoAno.pas',
+  UntController.Smaio.VeiculoAno in 'Controllers\UntController.Smaio.VeiculoAno.pas',
+  UntController.Smaio.Grupo in 'Controllers\UntController.Smaio.Grupo.pas',
+  UntInterface.Peca in 'Interfaces\UntInterface.Peca.pas',
+  UntModel.Peca in 'Models\UntModel.Peca.pas',
+  UntModel.SubGrupo in 'Models\UntModel.SubGrupo.pas',
+  UntModel.SubGruVeiAno in 'Models\UntModel.SubGruVeiAno.pas',
+  UntController.Smaio.Peca in 'Controllers\UntController.Smaio.Peca.pas',
+  UntInterface.SubGrupo in 'Interfaces\UntInterface.SubGrupo.pas';
 
 begin
   ReportMemoryLeaksOnShutdown := True;
@@ -46,9 +56,14 @@ begin
   DicSistema;
 
   // registro de rotas de Api
+  UntController.BFCall.Claim.registrar;
   UntController.Smaio.Loja.registrar;
   UntController.Smaio.Usuario.registrar;
   UntController.Smaio.Fabricante.registrar;
+  UntController.Smaio.Veiculo.registrar;
+  UntController.Smaio.VeiculoAno.registrar;
+  UntController.Smaio.Grupo.registrar;
+  UntController.Smaio.Peca.registrar;
 
   THorse.Listen(9101,
     procedure(Horse: THorse)

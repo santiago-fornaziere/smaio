@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/controllers/controller.item.dart';
 import 'package:smaio/controllers/controller.peca.dart';
+import 'package:smaio/models/model.grupo.dart';
+import 'package:smaio/models/model.item.dart';
 import 'package:smaio/models/model.peca.dart';
+import 'package:smaio/notifiers/notifier.item.dart';
 import 'package:smaio/notifiers/notifier.peca.dart';
+import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:smaio/utils/const.dart';
 import 'package:smaio/utils/funcoes.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +17,13 @@ class WidgetComboGrupo extends StatelessWidget {
   BuildContext context;
   String texto;
   TextEditingController codigo;
+  String tipo;
   WidgetComboGrupo({
     required this.descricao,
     required this.context,
     required this.texto,
     required this.codigo,
+    required this.tipo,
   });
 
   @override
@@ -106,6 +113,7 @@ class WidgetComboGrupo extends StatelessWidget {
                       DataTable(
                         dataRowHeight: 60,
                         showCheckboxColumn: false,
+                        showBottomBorder: true,
                         columns: [
                           DataColumn(
                             label: Text(""),
@@ -117,33 +125,13 @@ class WidgetComboGrupo extends StatelessWidget {
                                 cells: [
                                   DataCell(
                                     Container(
-                                      child: Center(child: Consumer<Pecas>(
-                                        builder: (context, lista, child) {
-                                          return TextButton(
-                                            onPressed: () async {
-                                              List<Peca> pecas =
-                                                  await PecaApi.getWhere(
-                                                      ' pec_gru_id = ${itens.gruId} ',
-                                                      'pec_descricao');
-                                              lista.setPecas(pecas);
-                                              onPress(itens.gruId!,
-                                                  itens.gruDescricao!);
-                                            },
-                                            child: Container(
-                                              height: 60,
-                                              width: 300,
-                                              child: Center(
-                                                child: Text(
-                                                  itens.gruDescricao.toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      )),
+                                      child: Center(
+                                        child: Consumer<Sistema>(
+                                            builder: (context, sistema, child) {
+                                          return listaTipo(
+                                              itens, sistema.loja!.lojId!);
+                                        }),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -160,6 +148,71 @@ class WidgetComboGrupo extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget listaTipo(Grupo itens, int loja) {
+    if (tipo == 'peca') {
+      return Consumer<Pecas>(
+        builder: (context, lista, child) {
+          return TextButton(
+            onPressed: () async {
+              lista.setShowProgress(true);
+              onPress(itens.gruId!, itens.gruDescricao!);
+              List<Peca> retorno = await PecaApi.getWhere(
+                  ' pec_gru_id = ${itens.gruId} ', 'pec_descricao');
+              if (retorno.isNotEmpty) {
+                lista.setPecas(retorno);
+              } else {
+                lista.setPecas(retorno);
+              }
+            },
+            child: SafeArea(
+              child: Container(
+                child: Center(
+                  child: Text(
+                    itens.gruDescricao.toString(),
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Consumer<Itens>(
+        builder: (context, lista, child) {
+          return TextButton(
+            onPressed: () async {
+              lista.setShowProgress(true);
+              onPress(itens.gruId!, itens.gruDescricao!);
+              List<Item> retorno = await ItemApi.getWhere(
+                  'ite_sit_reg = true and ite_gru_id = ${itens.gruId} and ite_loj_id = $loja',
+                  'ite_gru_descricao, ite_pec_descricao, ite_sgru_descricao');
+              if (retorno.isNotEmpty) {
+                lista.setItens(retorno);
+              } else {
+                lista.setItens([]);
+              }
+            },
+            child: SafeArea(
+              child: Container(
+                child: Center(
+                  child: Text(
+                    itens.gruDescricao.toString(),
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
   }
 
   void onPress(int pCodigo, String pNome) {

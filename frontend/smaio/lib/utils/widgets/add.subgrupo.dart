@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smaio/models/model.subgrupo.dart';
 import 'package:smaio/notifiers/notifier.subgrupo.dart';
-import 'package:smaio/utils/funcoes.dart';
 
 // ignore: must_be_immutable
 class WidgetAddSubGrupo extends StatelessWidget {
@@ -16,33 +15,33 @@ class WidgetAddSubGrupo extends StatelessWidget {
   @override
   Widget build(Object context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 5),
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(10),
       child: Consumer<SubGrupos>(
         builder: (context, lista, child) {
           return DataTable(
-            dataRowHeight: 50,
+            dataRowHeight: 60,
             showCheckboxColumn: false,
+            showBottomBorder: true,
             columns: [
               DataColumn(
                 label: Container(
-                  width: 300,
-                  alignment: Alignment.centerLeft,
+                  height: 60,
+                  alignment: Alignment.center,
                   padding: EdgeInsets.only(
+                    bottom: 5,
+                    top: 0,
                     left: 15,
                     right: 15,
-                    bottom: 5,
-                    top: 5,
                   ),
-                  child: Wrap(
+                  child: Row(
                     children: [
                       Container(
-                        width: 200,
+                        width: MediaQuery.of(context).size.width -
+                            (MediaQuery.of(context).size.width / 6) -
+                            150,
                         child: TextFormField(
                           controller: _sgruDescricaoController,
-                          validator: (String? text) => (text!.isEmpty)
-                              ? showSnackMessage(
-                                  context, 'Favor informar o Subgrupo...')
-                              : null,
                           decoration: InputDecoration(
                             labelText: 'Adicionar Subgrupo',
                             border: OutlineInputBorder(),
@@ -78,12 +77,6 @@ class WidgetAddSubGrupo extends StatelessWidget {
                   ),
                 ),
               ),
-              DataColumn(
-                label: Container(
-                  width: 25,
-                  child: Text(''),
-                ),
-              ),
             ],
             rows: lista.subGrupo
                 .map(
@@ -91,30 +84,35 @@ class WidgetAddSubGrupo extends StatelessWidget {
                     cells: [
                       DataCell(
                         Container(
-                          width: 290,
-                          child: Center(
-                            child: Text(
-                              itens.sgruDescricao.toString(),
-                              style: TextStyle(
-                                fontSize: 14,
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(15),
+                                width: MediaQuery.of(context).size.width -
+                                    (MediaQuery.of(context).size.width / 6) -
+                                    120,
+                                child: Center(
+                                  child: Text(
+                                    itens.sgruDescricao.toString(),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      DataCell(
-                        Container(
-                          width: 25,
-                          child: Center(
-                            child: TextButton(
-                              onPressed: () async {
-                                lista.removeSubGrupos(itens);
-                              },
-                              child: Icon(
-                                Icons.delete_forever,
-                                color: Colors.red,
+                              Container(
+                                width: 50,
+                                child: TextButton(
+                                  onPressed: () async {
+                                    lista.removeSubGrupos(itens);
+                                  },
+                                  child: Icon(
+                                    Icons.delete_forever,
+                                    color: Colors.red,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),

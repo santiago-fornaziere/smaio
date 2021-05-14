@@ -94,6 +94,7 @@ class _PecaAlterar extends State<PecaAlterar> {
         descricao: _gruDescricaoController,
         texto: 'Alterar o Grupo',
         codigo: _gruIdController,
+        tipo: 'peca',
       ),
       Container(
         padding: EdgeInsets.all(20),

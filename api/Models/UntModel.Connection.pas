@@ -51,6 +51,7 @@ begin
     FConn.Server := vIni.Host;
     FConn.Username := vIni.User;
     FConn.Password := vIni.Password;
+    FMonitor.Active := True;
   finally
     FreeAndNil(vIni);
   end;

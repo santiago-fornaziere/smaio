@@ -43,7 +43,10 @@ uses
   UntModel.SubGrupo in 'Models\UntModel.SubGrupo.pas',
   UntModel.SubGruVeiAno in 'Models\UntModel.SubGruVeiAno.pas',
   UntController.Smaio.Peca in 'Controllers\UntController.Smaio.Peca.pas',
-  UntInterface.SubGrupo in 'Interfaces\UntInterface.SubGrupo.pas';
+  UntInterface.SubGrupo in 'Interfaces\UntInterface.SubGrupo.pas',
+  UntModel.Item in 'Models\UntModel.Item.pas',
+  UntInterface.Item in 'Interfaces\UntInterface.Item.pas',
+  UntController.Smaio.Item in 'Controllers\UntController.Smaio.Item.pas';
 
 begin
   ReportMemoryLeaksOnShutdown := True;
@@ -64,6 +67,7 @@ begin
   UntController.Smaio.VeiculoAno.registrar;
   UntController.Smaio.Grupo.registrar;
   UntController.Smaio.Peca.registrar;
+  UntController.Smaio.Item.registrar;
 
   THorse.Listen(9101,
     procedure(Horse: THorse)

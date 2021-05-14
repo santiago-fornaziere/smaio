@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
           await TokenApi.post(_loginController.text, _senhaController.text);
       if (retorno.isNotEmpty) {
         Usuario usuario = await TokenApi.getClaims(retorno);
-        push(context, LoginLojaPage(usuario: usuario), replace: false);
+        push(context, LoginLojaPage(usuario: usuario), replace: true);
         _loginController.clear();
         _senhaController.clear();
         setState(() {

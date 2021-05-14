@@ -108,10 +108,21 @@ class _LoginLojaPage extends State<LoginLojaPage> {
                           color: Colors.black54,
                         ),
                       ),
+                      leading: (widget.usuario.usuNivel == 'Smaio')
+                          ? Icon(
+                              Icons.store,
+                              size: 50,
+                              color: Colors.blueGrey,
+                            )
+                          : Icon(
+                              Icons.car_rental,
+                              size: 50,
+                              color: Colors.blueGrey,
+                            ),
                       onTap: () {
                         sistema.setLoja(itemLista);
                         sistema.setUsuario(widget.usuario);
-                        push(context, Dashboard(), replace: false);
+                        push(context, Dashboard(), replace: true);
                       },
                     ),
                   ],
