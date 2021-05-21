@@ -62,7 +62,11 @@ class _VeiculoAlterar extends State<VeiculoAlterar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("ALTERAR VEÍCULOS", Icons.car_repair),
+          formTitulo(
+            "ALTERAR VEÍCULOS",
+            Icons.car_repair,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

@@ -181,6 +181,7 @@ begin
       vQry.Query.ParamByName('ite_situacao').AsString := Fite_situacao;
       vQry.Query.ParamByName('ite_loj_id').AsInteger := Fite_loj_id;
       vQry.Query.ParamByName('ite_tra_entrada').AsInteger := Fite_tra_entrada;
+      vQry.Query.ParamByName('ite_status').AsString := Fite_status;
       vQry.Query.Open;
       Fite_id := vQry.Query.FieldByName('ite_id').AsInteger;
       vQry.Query.Connection.Commit;
@@ -200,7 +201,7 @@ end;
 
 constructor TItem.Create;
 begin
-
+  Fite_status := 'Á venda';
 end;
 
 destructor TItem.Destroy;

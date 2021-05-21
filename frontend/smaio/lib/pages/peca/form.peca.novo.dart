@@ -59,7 +59,11 @@ class _PecaNovo extends State<PecaNovo> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("NOVA PEÇA", Icons.app_registration),
+          formTitulo(
+            "NOVA PEÇA",
+            Icons.app_registration,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

@@ -43,8 +43,8 @@ class WidgetItemLista extends StatelessWidget {
                             DataCell(
                               Row(
                                 children: [
-                                  icone(itens.iteStatus),
-                                  descricao(itens),
+                                      icone(itens.iteStatus),
+                                      descricao(itens),
                                 ],
                               ),
                             ),
@@ -128,6 +128,7 @@ class WidgetItemLista extends StatelessWidget {
   Column descricao(Item itens) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           itens.iteDescricao.toString(),
@@ -136,10 +137,16 @@ class WidgetItemLista extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          '${itens.itePecDescricao.toString()} - ${itens.iteSgruDescricao.toString()}',
-          style: TextStyle(
-            fontSize: 11,
+        Flexible(
+          child: Text(
+            '${itens.itePecDescricao.toString()} \n${itens.iteSgruDescricao.toString()}',
+            overflow: TextOverflow.ellipsis,
+            softWrap: false,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 11,
+            ),
           ),
         ),
         Text(

@@ -62,7 +62,11 @@ class _PecaAlterar extends State<PecaAlterar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("ALTERAR PEÇAS", Icons.app_registration),
+          formTitulo(
+            "ALTERAR PEÇAS",
+            Icons.app_registration,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

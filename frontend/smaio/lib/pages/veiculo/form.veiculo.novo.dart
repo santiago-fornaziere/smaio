@@ -56,7 +56,11 @@ class _VeiculoNovo extends State<VeiculoNovo> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("NOVO VEÍCULO", Icons.car_repair),
+          formTitulo(
+            "NOVO VEÍCULO",
+            Icons.car_repair,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

@@ -64,8 +64,10 @@ class _VeiculoSubGrupoVeiAno extends State<VeiculoSubGrupoVeiAno> {
       child: Column(
         children: [
           formTitulo(
-              "${widget.veiano.vanoVeiFabNome} / ${widget.veiano.vanoVeiDescricao.toString().toUpperCase()} - ${widget.veiano.vanoAnoDescricao}",
-              Icons.ballot_outlined),
+            "${widget.veiano.vanoVeiFabNome} / ${widget.veiano.vanoVeiDescricao.toString().toUpperCase()} - ${widget.veiano.vanoAnoDescricao}",
+            Icons.ballot_outlined,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, null, _tela())
         ],
       ),

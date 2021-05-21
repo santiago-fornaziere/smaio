@@ -66,7 +66,11 @@ class _ItemLocalizar extends State<ItemLocalizar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("ITENS PARA VENDA", Icons.shopping_cart),
+          formTitulo(
+            "ITENS PARA VENDA",
+            Icons.shopping_cart,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

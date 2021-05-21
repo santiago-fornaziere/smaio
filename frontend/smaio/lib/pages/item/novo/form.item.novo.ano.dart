@@ -4,7 +4,6 @@ import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:smaio/utils/widget.form.corpo.dart';
 import 'package:smaio/utils/widget.form.titulo.dart';
 import 'package:provider/provider.dart';
-import 'package:smaio/utils/widget.menu.lateral.dart';
 import 'package:smaio/utils/widgets/lista.ano.dart';
 
 class ItemNovoAnoLocalizar extends StatefulWidget {
@@ -35,13 +34,6 @@ class _ItemNovoAnoLocalizar extends State<ItemNovoAnoLocalizar> {
         ],
       ),
       body: _body(),
-      drawer: Consumer<Sistema>(
-        builder: (context, sistema, child) {
-          return DrawerList(
-            usuNivel: sistema.usuario!.usuNivel!,
-          );
-        },
-      ),
     );
   }
 
@@ -50,7 +42,11 @@ class _ItemNovoAnoLocalizar extends State<ItemNovoAnoLocalizar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("NOVO ITEM PARA VENDA", Icons.shopping_cart),
+          formTitulo(
+            "NOVO ITEM PARA VENDA",
+            Icons.shopping_cart,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, null, _tela())
         ],
       ),

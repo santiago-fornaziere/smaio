@@ -71,7 +71,11 @@ class _PecaLocalizar extends State<PecaLocalizar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("PEÇAS", Icons.app_registration),
+          formTitulo(
+            "PEÇAS",
+            Icons.app_registration,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

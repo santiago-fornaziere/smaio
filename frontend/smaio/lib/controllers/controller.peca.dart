@@ -160,6 +160,39 @@ class PecaApi {
     }
   }
 
+  static Future<List<SubGrupoVeiAno>> getSGVanoWhere(
+      String pWhere, String pOrderBy) async {
+    String token = await Prefs.getString("token");
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer $token",
+      "Content-Type": "application/json; charset=utf-8",
+    };
+    var where = Where(
+      where: pWhere,
+      orderBy: pOrderBy,
+    );
+    String jsonWhere = where.toJson();
+
+    try {
+      var url = Uri.http('$hostapi:9101', '/smaio/peca/sgvano/localizar');
+      var response = await http.post(url, headers: headers, body: jsonWhere);
+      if (response.statusCode == 201) {
+        String json = response.body;
+        List lista = converte.json.decode(json);
+        List<SubGrupoVeiAno> tabela = lista
+            .map<SubGrupoVeiAno>((map) => SubGrupoVeiAno.fromJson(map))
+            .toList();
+        return tabela;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      List<SubGrupoVeiAno> tabela = [];
+      return tabela;
+    }
+  }
+
   static Future<int> deleteSGVano(int pID) async {
     String token = await Prefs.getString("token");
 

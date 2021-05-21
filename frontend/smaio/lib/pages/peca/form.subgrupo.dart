@@ -60,7 +60,11 @@ class _SubGrupoAlterar extends State<SubGrupoAlterar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("SUBGRUPO", Icons.app_registration),
+          formTitulo(
+            "SUBGRUPO",
+            Icons.app_registration,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

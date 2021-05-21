@@ -168,6 +168,34 @@ begin
   end;
 end;
 
+function SelectSGVanoWhere(pJSON : TJSONObject): TJSONArray;
+var
+   vSQL, fLinha : String;
+   vQry : TQuery;
+   f : TextFile;
+begin
+  try
+    AssignFile(f, Sistema.Path_SQL+'Smaio\SubGrupo\sgvano_by_veiano.sql');
+    Reset(f);
+    vSQL := '';
+    While not Eof(f) do
+    begin
+      Readln(f, fLinha);
+      vSQL := vSQL +' '+ fLinha;
+    end;
+    CloseFile(f);
+    vQry := TQuery.Create;
+    vQry.Query.SQL.Add(vSQL);
+    vQry.Query.DeleteWhere;
+    vQry.Query.AddWhere(pJSON.Values['where'].Value);
+    vQry.Query.SetOrderBy(pJSON.Values['orderby'].Value);
+    vQry.Query.Open;
+    Result := vQry.Query.ToJSONArray;
+  finally
+    FreeAndNil(vQry);
+  end;
+end;
+
 function SelectSubGrupo(pID : integer): TJSONArray;
 var
    vSQL, fLinha : String;
@@ -444,6 +472,19 @@ begin
   Res.Send<TJSONAncestor>(SelectSGVano(Req.Params.Items['id'].ToInteger, 'GR'));
 end;
 
+procedure GetSGVano(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+   vJSON : TJSONObject;
+begin
+  vJSON := TJSONObject.Create;
+  vJSON := Req.Body<TJSONObject>;
+  try
+    Res.Send<TJSONAncestor>(SelectSGVanoWhere(vJSON)).Status(201);
+  finally
+    FreeAndNil(vJSON);
+  end;
+end;
+
 procedure registrar;
 begin
   THorse.Post('smaio/peca', AuthorizationClaim(), Append);
@@ -451,6 +492,7 @@ begin
   THorse.Post('smaio/peca/localizar', Authorization(), Get);
   THorse.Delete('smaio/peca/sgvano/:id', Authorization(), DeleteSGVano);
   THorse.Post('smaio/peca/sgvano', Authorization(), AppendSGVano);
+  THorse.Post('smaio/peca/sgvano/localizar', Authorization(), GetSGVano);
   THorse.Put('smaio/peca/subgrupo/:id', Authorization(), UpdateSubgrupo);
   THorse.Get('smaio/peca/subgrupo/:id', Authorization(), GetSubgrupo);
   THorse.Get('smaio/peca/sgvano/subgrupo/:id', Authorization(), GetSGVanoSG);

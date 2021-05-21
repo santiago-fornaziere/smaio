@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smaio/notifiers/notifier.veicano.dart';
+import 'package:smaio/pages/item/novo/form.item.novo.grupo.dart';
+import 'package:smaio/utils/funcoes.dart';
 import 'package:smaio/utils/widgets/circularProgress.dart';
 
 // ignore: must_be_immutable
@@ -40,6 +42,13 @@ class WidgetVeiculoVeiAnoLista extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              onTap: () {
+                                push(
+                                    context,
+                                    ItemNovoGrupoLocalizar(
+                                      veiano: itens,
+                                    ));
+                              },
                             ),
                           ],
                         ),

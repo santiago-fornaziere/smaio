@@ -1,8 +1,8 @@
 import 'package:smaio/controllers/controller.dashboard.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
+import 'package:smaio/utils/widget.form.titulo.dart';
 //import 'package:smaio/models/model.dashboard.dart';
 import 'package:smaio/utils/widget.menu.lateral.dart';
-import 'package:smaio/utils/widget.form.titulo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,7 +57,11 @@ class _Dashboard extends State<Dashboard> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("DASHBOARD", Icons.dashboard),
+          formTitulo(
+            "DASHBOARD",
+            Icons.dashboard,
+            MediaQuery.of(context).size.width,
+          ),
           formGrafico(),
         ],
       ),

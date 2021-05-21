@@ -7,7 +7,7 @@ Color menuCadastroLateral = Colors.grey[200]!;
 Color fundoBranco = Colors.grey[50]!;
 
 String hostapi = '147.135.87.217';
-String localhost = 'localhost';
+// String localhost = 'localhost';
 String tituloSistema = 'SMAIO - FERRO VELHO VIRTUAL';
 
 TextStyle styleTexto() {

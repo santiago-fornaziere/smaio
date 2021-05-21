@@ -64,7 +64,11 @@ class _LoginLojaPage extends State<VeiculoLocalizar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("VEÍCULOS", Icons.car_repair),
+          formTitulo(
+            "VEÍCULOS",
+            Icons.car_repair,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, _formKey, _tela())
         ],
       ),

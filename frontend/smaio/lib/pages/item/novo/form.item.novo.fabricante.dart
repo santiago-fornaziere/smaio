@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smaio/controllers/controller.dashboard.dart';
 import 'package:smaio/controllers/controller.veiano.dart';
 import 'package:smaio/models/model.ano.dart';
+import 'package:smaio/models/model.fabricante.dart';
 import 'package:smaio/models/model.veiano.dart';
 import 'package:smaio/notifiers/notifier.fabricante.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
@@ -11,7 +12,6 @@ import 'package:smaio/utils/funcoes.dart';
 import 'package:smaio/utils/widget.form.corpo.dart';
 import 'package:smaio/utils/widget.form.titulo.dart';
 import 'package:provider/provider.dart';
-import 'package:smaio/utils/widget.menu.lateral.dart';
 import 'package:smaio/utils/widgets/circularProgress.dart';
 
 // ignore: must_be_immutable
@@ -50,13 +50,6 @@ class _ItemNovoFabricanteLocalizar extends State<ItemNovoFabricanteLocalizar> {
         ],
       ),
       body: _body(),
-      drawer: Consumer<Sistema>(
-        builder: (context, sistema, child) {
-          return DrawerList(
-            usuNivel: sistema.usuario!.usuNivel!,
-          );
-        },
-      ),
     );
   }
 
@@ -65,7 +58,11 @@ class _ItemNovoFabricanteLocalizar extends State<ItemNovoFabricanteLocalizar> {
       color: Colors.white,
       child: Column(
         children: [
-          formTitulo("NOVO ITEM PARA VENDA", Icons.shopping_cart),
+          formTitulo(
+            "NOVO ITEM PARA VENDA - ${widget.ano.anoDescricao.toString()}",
+            Icons.shopping_cart,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, null, _lista())
         ],
       ),
@@ -117,7 +114,7 @@ class _ItemNovoFabricanteLocalizar extends State<ItemNovoFabricanteLocalizar> {
                                       return TextButton(
                                         onPressed: () async {
                                           lista.setShowProgress(true);
-                                          onPress();
+                                          onPress(itens);
                                           List<VeiAno> retorno =
                                               await VeiAnoApi.getByWhere(
                                                   'vano_vei_fab_id = ${itens.fabId} and vano_ano_id = ${widget.ano.anoId} ',
@@ -153,7 +150,12 @@ class _ItemNovoFabricanteLocalizar extends State<ItemNovoFabricanteLocalizar> {
     ];
   }
 
-  void onPress() {
-    push(context, ItemNovoVeiAnoLocalizar());
+  void onPress(Fabricante fabricante) {
+    push(
+        context,
+        ItemNovoVeiAnoLocalizar(
+          ano: widget.ano,
+          fabricante: fabricante,
+        ));
   }
 }

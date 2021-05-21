@@ -49,8 +49,10 @@ class _VeiculoVeiAno extends State<VeiculoVeiAno> {
       child: Column(
         children: [
           formTitulo(
-              "${widget.veiculo.fabNome} / ${widget.veiculo.veiDescricao.toString().toUpperCase()}",
-              Icons.ballot_outlined),
+            "${widget.veiculo.fabNome} / ${widget.veiculo.veiDescricao.toString().toUpperCase()}",
+            Icons.ballot_outlined,
+            MediaQuery.of(context).size.width,
+          ),
           formCorpoCadastro(context, null, _tela())
         ],
       ),
