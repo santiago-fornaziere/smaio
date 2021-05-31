@@ -22,12 +22,25 @@ Color? corTextoPadrao = Colors.grey[100];
 Color? corTextoPadraoEscura = Colors.black87;
 double fontSizePadrao = 18;
 double fontSizePequeno = 14;
+Color? corTemaDark = Color(0xFF1C1C1C);
 
 var formatFloat = new NumberFormat.currency(
   decimalDigits: 2,
   locale: 'pt',
   symbol: '',
 );
+
+var strToFloat = new NumberFormat.currency(
+  decimalDigits: 2,
+  locale: 'en',
+  symbol: '',
+);
+
+List<String> condicaoPecas = [
+  'Ótimas condições',
+  'Pouco arranhada',
+  'Amassada'
+];
 
 List<Grupo> dicGrupo = [
   Grupo(gruId: 1, gruDescricao: "Ar & Combustível"),

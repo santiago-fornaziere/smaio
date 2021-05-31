@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:smaio/models/model.item.dart';
+import 'package:smaio/models/model.foto.dart';
 
-class Itens extends ChangeNotifier {
-  List<Item> itens;
-  bool showProgress = false;
-  Itens({
-    required this.itens,
+class Fotos extends ChangeNotifier {
+  List<Foto> foto;
+  bool showProgress;
+  Fotos({
+    required this.foto,
     required this.showProgress,
   });
 
-  void setItens(List<Item> pValue) {
-    this.itens = pValue;
+  void setFotos(List<Foto> value) {
+    this.foto = value;
     this.setShowProgress(false);
     notifyListeners();
   }
 
-  void removeItens(Item pValue) {
-    this.itens.remove(pValue);
+  void addFotos(Foto value) {
+    this.foto.add(value);
     this.setShowProgress(false);
     notifyListeners();
   }
 
-  void addItens(Item pValue) {
-    this.itens.add(pValue);
+  void removeFoto(Foto value) {
+    this.foto.remove(value);
     this.setShowProgress(false);
     notifyListeners();
   }

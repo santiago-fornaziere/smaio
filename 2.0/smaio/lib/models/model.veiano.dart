@@ -4,6 +4,8 @@ class VeiAno {
   int? vanoId;
   int? vanoVeiId;
   String? vanoVeiDescricao;
+  int? vanoModId;
+  String? vanoModDescricao;
   int? vanoVeiFabId;
   String? vanoVeiFabNome;
   int? vanoAnoId;
@@ -13,6 +15,8 @@ class VeiAno {
       {this.vanoId,
       this.vanoVeiId,
       this.vanoVeiDescricao,
+      this.vanoModId,
+      this.vanoModDescricao,
       this.vanoVeiFabId,
       this.vanoVeiFabNome,
       this.vanoAnoId,
@@ -22,6 +26,8 @@ class VeiAno {
     vanoId = json['vano_id'];
     vanoVeiId = json['vano_vei_id'];
     vanoVeiDescricao = json['vano_vei_descricao'];
+    vanoModId = json['vano_mod_id'];
+    vanoModDescricao = json['vano_mod_descricao'];
     vanoVeiFabId = json['vano_vei_fab_id'];
     vanoVeiFabNome = json['vano_vei_fab_nome'];
     vanoAnoId = json['vano_ano_id'];
@@ -33,6 +39,8 @@ class VeiAno {
     data['vano_id'] = this.vanoId;
     data['vano_vei_id'] = this.vanoVeiId;
     data['vano_vei_descricao'] = this.vanoVeiDescricao;
+    data['vano_mod_id'] = this.vanoModId;
+    data['vano_mod_descricao'] = this.vanoModDescricao;
     data['vano_vei_fab_id'] = this.vanoVeiFabId;
     data['vano_vei_fab_nome'] = this.vanoVeiFabNome;
     data['vano_ano_id'] = this.vanoAnoId;

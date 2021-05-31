@@ -3,7 +3,10 @@ import 'package:smaio/forms/form.login.dart';
 import 'package:provider/provider.dart';
 import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/models/model.usuario.dart';
+import 'package:smaio/notifiers/notifier.foto.dart';
+import 'package:smaio/notifiers/notifier.peca.veiloja.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
+import 'package:smaio/notifiers/notifier.veiloja.dart';
 import 'package:smaio/prefs.dart';
 
 Future<void> main() async {
@@ -19,6 +22,21 @@ Future<void> main() async {
                     usuSenha: senha,
                   ),
                   loja: Loja(),
+                )),
+        ChangeNotifierProvider(
+            create: (context) => Fotos(
+                  foto: [],
+                  showProgress: false,
+                )),
+        ChangeNotifierProvider(
+            create: (context) => VeiLojas(
+                  veilojas: [],
+                  showProgress: false,
+                )),
+        ChangeNotifierProvider(
+            create: (context) => PecaVeiLojas(
+                  pecas: [],
+                  showProgress: false,
                 )),
       ],
       child: MyApp(login: login, senha: senha),

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/menu.inicial.dart';
 import 'package:smaio/utils/const.dart';
+import 'package:smaio/utils/funcoes.dart';
 
 // ignore: must_be_immutable
-class WidgetBottonNavigatorBar extends StatelessWidget {
-  VoidCallback? avancarFunction;
+class WidgetBottonNavigatorBarFinalizar extends StatelessWidget {
   BuildContext context;
-  bool mostraAvancar;
-  WidgetBottonNavigatorBar({
+  WidgetBottonNavigatorBarFinalizar({
     required this.context,
-    this.avancarFunction,
-    required this.mostraAvancar,
   });
   @override
   Widget build(BuildContext context) {
@@ -43,20 +41,20 @@ class WidgetBottonNavigatorBar extends StatelessWidget {
             child: Image.asset('assets/img/logo-amarelo.png'),
           ),
           InkWell(
-            onTap: avancarFunction,
+            onTap: () {
+              push(context, MenuInicial());
+            },
             child: Container(
               width: 100,
               alignment: Alignment.centerRight,
               margin: EdgeInsets.all(14),
-              child: mostraAvancar
-                  ? Text(
-                      'Avançar >>',
-                      style: TextStyle(
-                        color: corTextoPadrao,
-                        fontSize: fontSizePadrao,
-                      ),
-                    )
-                  : null,
+              child: Text(
+                'Finalizar >>',
+                style: TextStyle(
+                  color: corTextoPadrao,
+                  fontSize: fontSizePadrao,
+                ),
+              ),
             ),
           ),
         ],

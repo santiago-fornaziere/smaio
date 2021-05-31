@@ -9,6 +9,8 @@ class WidgetEditTexto extends StatelessWidget {
   String label;
   bool? enabled;
   bool? password;
+  Widget? icone;
+  VoidCallback? onExit;
   WidgetEditTexto(
       {required this.controller,
       required this.context,
@@ -16,13 +18,16 @@ class WidgetEditTexto extends StatelessWidget {
       this.autofocos,
       required this.label,
       this.enabled,
-      this.password});
+      this.password,
+      this.icone,
+      this.onExit});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(23),
       child: TextFormField(
+        onEditingComplete: onExit,
         controller: controller,
         enabled: enabled ?? true,
         autofocus: autofocos ?? false,
@@ -34,6 +39,7 @@ class WidgetEditTexto extends StatelessWidget {
         focusNode: focusNode,
         decoration: InputDecoration(
           filled: true,
+          prefixIcon: icone,
           fillColor: Colors.grey[50],
           labelText: label,
           /*

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/menu.inicial.dart';
+import 'package:smaio/forms/veiculo.loja/pecas/form.peca.grupo.dart';
+import 'package:smaio/models/model.veiculoloja.dart';
 import 'package:smaio/utils/const.dart';
+import 'package:smaio/utils/funcoes.dart';
 
 // ignore: must_be_immutable
-class WidgetBottonNavigatorBar extends StatelessWidget {
-  VoidCallback? avancarFunction;
+class WidgetBottonNavigatorBarAlterar extends StatelessWidget {
   BuildContext context;
-  bool mostraAvancar;
-  WidgetBottonNavigatorBar({
+  VeiculoLoja veiloja;
+  bool voltar;
+  WidgetBottonNavigatorBarAlterar({
     required this.context,
-    this.avancarFunction,
-    required this.mostraAvancar,
+    required this.veiloja,
+    required this.voltar,
   });
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,9 @@ class WidgetBottonNavigatorBar extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.pop(context);
+              !voltar
+                  ? push(context, MenuInicial())
+                  : Navigator.of(context).pop();
             },
             child: Container(
               width: 100,
@@ -39,24 +45,28 @@ class WidgetBottonNavigatorBar extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.all(5),
-            width: MediaQuery.of(context).size.width - 300,
+            width: MediaQuery.of(context).size.width - 350,
             child: Image.asset('assets/img/logo-amarelo.png'),
           ),
           InkWell(
-            onTap: avancarFunction,
+            onTap: () {
+              push(
+                  context,
+                  PecaGrupo(
+                    veiloja: veiloja,
+                  ));
+            },
             child: Container(
-              width: 100,
+              width: 150,
               alignment: Alignment.centerRight,
               margin: EdgeInsets.all(14),
-              child: mostraAvancar
-                  ? Text(
-                      'Avançar >>',
-                      style: TextStyle(
-                        color: corTextoPadrao,
-                        fontSize: fontSizePadrao,
-                      ),
-                    )
-                  : null,
+              child: Text(
+                'Alterar peças >>',
+                style: TextStyle(
+                  color: corTextoPadrao,
+                  fontSize: fontSizePadrao,
+                ),
+              ),
             ),
           ),
         ],

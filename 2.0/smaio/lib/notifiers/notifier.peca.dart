@@ -22,6 +22,7 @@ class Pecas extends ChangeNotifier {
 
   void removePecas(Peca pValue) {
     this.pecas.remove(pValue);
+    this.setShowProgress(false);
     notifyListeners();
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:smaio/controllers/controller.fotos.dart';
+import 'package:smaio/utils/const.dart';
 import 'package:smaio/widgets/geral/appBarTransparente.dart';
 import 'package:smaio/widgets/geral/bottonNavigationBar.dart';
 import 'package:smaio/widgets/geral/cardFoto.dart';
@@ -29,9 +31,11 @@ class _NovoVeiculoLojaFoto extends State<NovoVeiculoLojaFoto> {
         mostraIcone: false,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
-      backgroundColor: Colors.black87,
+      backgroundColor: corTemaDark,
       bottomNavigationBar: WidgetBottonNavigatorBar(
-        avancarFunction: null,
+        avancarFunction: () =>
+            onAvancar(context, [file1, file2, file3, file4, file5, file6]),
+        mostraAvancar: true,
         context: context,
       ),
       body: _body(),

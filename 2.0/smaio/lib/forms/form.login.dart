@@ -6,6 +6,7 @@ import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/models/model.usuario.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:smaio/prefs.dart';
+import 'package:smaio/utils/const.dart';
 import 'package:smaio/utils/funcoes.dart';
 import 'package:smaio/widgets/geral/appBarTransparente.dart';
 import 'package:smaio/widgets/geral/botaoPadrao.dart';
@@ -43,7 +44,7 @@ class _Login extends State<Login> {
         titulo: '',
       ),
       // backgroundColor: Theme.of(context).primaryColor,
-      backgroundColor: Colors.black87,
+      backgroundColor: corTemaDark,
       body: _body(),
     );
   }

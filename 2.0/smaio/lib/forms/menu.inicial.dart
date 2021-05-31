@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smaio/controllers/controller.menu.inicial.dart';
 import 'package:smaio/forms/form.login.dart';
+import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
+import 'package:smaio/utils/const.dart';
 import 'package:smaio/widgets/geral/appBarTransparente.dart';
 import 'package:smaio/widgets/geral/cardMenuInicial.dart';
 import 'package:provider/provider.dart';
@@ -24,13 +26,13 @@ class _MenuInicial extends State<MenuInicial> {
           mostraIcone: false,
         ),
 //      backgroundColor: Theme.of(context).primaryColor,
-        backgroundColor: Colors.black87,
-        body: _body(),
+        backgroundColor: corTemaDark,
+        body: _body(sistema.loja!),
       );
     });
   }
 
-  _body() {
+  _body(Loja loja) {
     return Center(
       child: Container(
         width: 500,
@@ -49,17 +51,22 @@ class _MenuInicial extends State<MenuInicial> {
                 icone: Icons.car_repair,
                 onPressed: () => onPressNovo(context),
               ),
-              WidgetCardMenuInicial(
-                cor: Colors.blueAccent,
-                titulo: 'Alterar dados',
-                subtitulo: 'Alteração de dados dos veículos',
-                icone: Icons.chrome_reader_mode_outlined,
-              ),
+              Consumer<Sistema>(builder: (context, sistema, child) {
+                return WidgetCardMenuInicial(
+                  cor: Colors.blueAccent,
+                  titulo: 'Alterar dados',
+                  subtitulo: 'Alteração de dados dos veículos',
+                  icone: Icons.chrome_reader_mode_outlined,
+                  onPressed: () =>
+                      onPressAlterar(context, sistema.loja!.lojId!),
+                );
+              }),
               WidgetCardMenuInicial(
                 cor: Colors.lime,
                 titulo: 'Meus dados',
                 subtitulo: 'Alteração de dados da empresa',
                 icone: Icons.home_work_sharp,
+                onPressed: () => onPressCadastroLoja(context, loja),
               ),
               WidgetCardMenuInicial(
                 cor: Colors.teal,
