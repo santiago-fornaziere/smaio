@@ -25,6 +25,7 @@ class _NovoVeiculoLojaFabricante extends State<NovoVeiculoLojaFabricante> {
       appBar: WidgetAppBarTransparente(
         titulo: 'Cadastramento de veículo / Fabricante',
         mostraIcone: false,
+        tema: 0,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
@@ -79,6 +80,8 @@ class _NovoVeiculoLojaFabricante extends State<NovoVeiculoLojaFabricante> {
                 context: context,
                 query: query,
                 files: widget.files,
+                tema: 0,
+                origem: 0,
               ),
             ],
           ),

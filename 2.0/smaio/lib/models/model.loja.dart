@@ -19,8 +19,8 @@ class Loja {
   String? cidUf;
   String? cidPais;
   String? lojStatus;
-  String? lojLatitude;
-  String? lojLongitude;
+  var lojLatitude;
+  var lojLongitude;
   bool? lojSitReg;
 
   Loja({
@@ -94,6 +94,48 @@ class Loja {
     data['loj_latitude'] = this.lojLatitude;
     data['loj_longitude'] = this.lojLongitude;
     data['loj_sit_reg'] = this.lojSitReg;
+    return data;
+  }
+
+  String toJson() {
+    String json = convert.json.encode(toMap());
+    return json;
+  }
+}
+
+class LojaUsuario {
+  Loja? loja;
+  String? senha;
+
+  LojaUsuario({
+    this.loja,
+    this.senha,
+  });
+
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['loj_id'] = this.loja!.lojId;
+    data['loj_nome'] = this.loja!.lojNome;
+    data['loj_razao'] = this.loja!.lojRazao;
+    data['loj_ativacao'] = this.loja!.lojAtivacao;
+    data['loj_dt_validade'] = this.loja!.lojDtValidade;
+    data['loj_cnpj'] = this.loja!.lojCnpj;
+    data['loj_email'] = this.loja!.lojEmail;
+    data['loj_telefone_1'] = this.loja!.lojTelefone1;
+    data['loj_telefone_2'] = this.loja!.lojTelefone2;
+    data['loj_cep'] = this.loja!.lojCep;
+    data['loj_logradouro'] = this.loja!.lojLogradouro;
+    data['loj_numero'] = this.loja!.lojNumero;
+    data['loj_cid_id'] = this.loja!.lojCidId;
+    data['loj_bairro'] = this.loja!.lojBairro;
+    data['cid_nome'] = this.loja!.cidNome;
+    data['cid_uf'] = this.loja!.cidUf;
+    data['cid_pais'] = this.loja!.cidPais;
+    data['loj_status'] = this.loja!.lojStatus;
+    data['loj_latitude'] = this.loja!.lojLatitude;
+    data['loj_longitude'] = this.loja!.lojLongitude;
+    data['loj_sit_reg'] = this.loja!.lojSitReg;
+    data['usu_senha'] = this.senha;
     return data;
   }
 

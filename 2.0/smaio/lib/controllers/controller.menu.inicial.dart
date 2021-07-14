@@ -3,7 +3,7 @@ import 'package:smaio/forms/veiculo.loja/alterar/form.alterar.lista.dart';
 import 'package:smaio/forms/veiculo.loja/novo/form.novo.veiculo.loja.fabricante.dart';
 import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/utils/funcoes.dart';
-import 'package:smaio/forms/form.loja.dart';
+import 'package:smaio/forms/loja/form.loja.alterar.dart';
 
 void onPressNovo(BuildContext context) {
   String file1 = '';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/controllers/controller.peca.dart';
+import 'package:smaio/models/model.grupo.dart';
 import 'package:smaio/models/model.peca.dart';
-import 'package:smaio/models/model.veiculoloja.dart';
+import 'package:smaio/models/model.veiano.dart';
 import 'package:smaio/utils/const.dart';
 
 // ignore: must_be_immutable
@@ -8,13 +10,15 @@ class WidgetPecaLista extends StatelessWidget {
   BuildContext context;
   List<Peca> query;
   String titulo;
-  VeiculoLoja veiloja;
+  VeiAno veiano;
+  Grupo grupo;
   VoidCallback? onPressed;
   WidgetPecaLista({
     required this.context,
     required this.query,
     required this.titulo,
-    required this.veiloja,
+    required this.veiano,
+    required this.grupo,
     this.onPressed,
   });
 
@@ -35,7 +39,7 @@ class WidgetPecaLista extends StatelessWidget {
                 overflow: TextOverflow.clip,
                 style: TextStyle(
                   fontSize: 25,
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -51,10 +55,17 @@ class WidgetPecaLista extends StatelessWidget {
                       child: Text(
                         itens.pecDescricao.toString(),
                         style: TextStyle(
-                            fontSize: fontSizePequeno, color: corTextoPadrao),
+                          fontSize: fontSizePequeno,
+                          color: corTextoPadrao[1],
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    onTap: onPressed,
+                    onTap: () => onAvancarPecaConsumidor(
+                      context,
+                      itens,
+                      veiano,
+                    ),
                   ),
                 ],
               ),

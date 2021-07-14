@@ -36,10 +36,10 @@ class _AlterarVeiculo extends State<AlterarVeiculo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetAppBarTransparente(
-        titulo: 'Gerir peças do veículo',
+        titulo: 'Gerenciar peças do veículo',
         mostraIcone: false,
+        tema: 0,
       ),
-//      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
       bottomNavigationBar: WidgetBottonNavigatorBarAlterar(
         context: context,
@@ -133,12 +133,27 @@ class _AlterarVeiculo extends State<AlterarVeiculo> {
                         defaultTargetPlatform == TargetPlatform.iOS) {
                       final image =
                           await _picker.getImage(source: ImageSource.camera);
-                      setState(() {
-                        if (image != null) {
-                          // api add foto
-
+                      if (image != null) {
+                        try {
+                          Uint8List bytes = await image.readAsBytes();
+                          int retorno =
+                              await FotoApi.post(bytes, widget.veiloja.vlojId!);
+                          if (retorno > 0) {
+                            var addfoto = new Foto(
+                              fotFoto: base64Encode(bytes),
+                              fotId: retorno,
+                            );
+                            lista.addFotos(addfoto);
+                          } else {
+                            showSnackMessage(context,
+                                'Erro ao gravar foto, o serviço pode estar indisponível no momento...');
+                            lista.setShowProgress(false);
+                          }
+                        } catch (e) {
+                          print(e);
+                          lista.setShowProgress(false);
                         }
-                      });
+                      }
                     } else {
                       final image =
                           await _picker.getImage(source: ImageSource.gallery);

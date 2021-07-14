@@ -8,8 +8,8 @@ class Ano {
   });
 
   Ano.fromJson(Map<String, dynamic> json) {
-    anoId = json['CONTAGEM'];
-    anoDescricao = json['DESCRICAO'];
+    anoId = json['ano_id'];
+    anoDescricao = json['ano_descricao'];
   }
 
   Map<String, dynamic> toJson() {

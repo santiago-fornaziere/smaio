@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/veiculo.loja/alterar/form.alterar.lista.dart';
 import 'package:smaio/models/model.veiculoloja.dart';
 import 'package:smaio/utils/const.dart';
+import 'package:smaio/utils/funcoes.dart';
 import 'package:smaio/widgets/geral/appBarTransparente.dart';
 import 'package:smaio/widgets/geral/bottonNavigationBar.dart';
 import 'package:smaio/widgets/geral/lista.grupo.dart';
@@ -16,21 +18,21 @@ class PecaGrupo extends StatefulWidget {
 }
 
 class _PecaGrupo extends State<PecaGrupo> {
-  // bool _showProgress = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetAppBarTransparente(
         titulo: 'Cadastramento de veículo / Peças',
         mostraIcone: false,
+        tema: 0,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
       bottomNavigationBar: WidgetBottonNavigatorBar(
-        avancarFunction: null,
+        avancarFunction: () =>
+            push(context, AlterarLista(loja: widget.veiloja.vlojLojId!)),
         context: context,
-        mostraAvancar: false,
+        mostraAvancar: true,
       ),
       body: _body(),
     );

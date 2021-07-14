@@ -16,7 +16,7 @@ class Item {
   String? iteVeiFabNome;
   int? iteVanoAnoId;
   String? iteVanoAnoDescricao;
-  double? iteValor;
+  var iteValor;
   String? iteSituacao;
   String? iteStatus;
   int? iteLojId;
@@ -31,38 +31,49 @@ class Item {
   int? iteTraSaida;
   String? iteTraDtSaida;
   bool? iteSitReg;
+  var iteFoto;
+  double? iteDistancia;
+  var iteLojLatitude;
+  var iteLojLongitude;
+  int? iteFotoQtde;
 
-  Item(
-      {this.iteId,
-      this.iteDescricao,
-      this.iteVlojId,
-      this.iteGruId,
-      this.iteGruDescricao,
-      this.itePecId,
-      this.itePecDescricao,
-      this.iteVeiId,
-      this.iteVeiDescricao,
-      this.iteModId,
-      this.iteModDescricao,
-      this.iteVeiFabId,
-      this.iteVeiFabNome,
-      this.iteVanoAnoId,
-      this.iteVanoAnoDescricao,
-      this.iteValor,
-      this.iteSituacao,
-      this.iteStatus,
-      this.iteLojId,
-      this.iteLojNome,
-      this.iteLojTelefone1,
-      this.iteLojTelefone2,
-      this.iteLojEmail,
-      this.iteLojCidId,
-      this.iteLojCidNome,
-      this.iteTraEntrada,
-      this.iteTraDtEntrada,
-      this.iteTraSaida,
-      this.iteTraDtSaida,
-      this.iteSitReg});
+  Item({
+    this.iteId,
+    this.iteDescricao,
+    this.iteVlojId,
+    this.iteGruId,
+    this.iteGruDescricao,
+    this.itePecId,
+    this.itePecDescricao,
+    this.iteVeiId,
+    this.iteVeiDescricao,
+    this.iteModId,
+    this.iteModDescricao,
+    this.iteVeiFabId,
+    this.iteVeiFabNome,
+    this.iteVanoAnoId,
+    this.iteVanoAnoDescricao,
+    this.iteValor,
+    this.iteSituacao,
+    this.iteStatus,
+    this.iteLojId,
+    this.iteLojNome,
+    this.iteLojTelefone1,
+    this.iteLojTelefone2,
+    this.iteLojEmail,
+    this.iteLojCidId,
+    this.iteLojCidNome,
+    this.iteTraEntrada,
+    this.iteTraDtEntrada,
+    this.iteTraSaida,
+    this.iteTraDtSaida,
+    this.iteSitReg,
+    this.iteFoto,
+    this.iteDistancia,
+    this.iteLojLatitude,
+    this.iteLojLongitude,
+    this.iteFotoQtde,
+  });
 
   Item.fromJson(Map<String, dynamic> json) {
     iteId = json['ite_id'];
@@ -95,6 +106,10 @@ class Item {
     iteTraSaida = json['ite_tra_saida'];
     iteTraDtSaida = json['ite_tra_dt_saida'];
     iteSitReg = json['ite_sit_reg'];
+    iteFoto = json['ite_foto'];
+    iteLojLatitude = json['ite_loj_latitude'];
+    iteLojLongitude = json['ite_loj_longitude'];
+    iteFotoQtde = json['ite_fot_qtde'] ?? 0;
   }
 
   Map<String, dynamic> toMap() {
@@ -129,6 +144,10 @@ class Item {
     data['ite_tra_saida'] = this.iteTraSaida;
     data['ite_tra_dt_saida'] = this.iteTraDtSaida;
     data['ite_sit_reg'] = this.iteSitReg;
+    data['ite_foto'] = this.iteFoto;
+    data['ite_loj_latitude'] = this.iteLojLatitude;
+    data['ite_loj_longitude'] = this.iteLojLongitude;
+    data['ite_fot_qtde'] = this.iteFotoQtde;
     return data;
   }
 

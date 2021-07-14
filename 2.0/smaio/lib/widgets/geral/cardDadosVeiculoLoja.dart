@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:smaio/controllers/controller.item.dart';
 import 'package:smaio/controllers/controller.veiculoloja.dart';
 import 'package:smaio/forms/veiculo.loja/alterar/form.alterar.lista.dart';
 import 'package:smaio/models/model.veiculoloja.dart';
@@ -50,20 +51,61 @@ class WidgetCardDadosVeiculoLoja extends StatelessWidget {
                   size: 50,
                 ),
           trailing: !showProgress
-              ? TextButton(
-                  onPressed: () => baixarcarro(context, veiloja),
-                  child: Column(
+              ? Container(
+                  height: 50,
+                  width: 210,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.done_sharp,
-                        color: Colors.black,
-                        size: 20,
+                      ElevatedButton(
+                        onPressed: () => baixarcarro(context, veiloja),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.close,
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                            Text(
+                              'Baixar carro',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: fontSizePequeno,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        'Baixar carro',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: fontSizePequeno,
+                      ElevatedButton(
+                        onPressed: () async {
+                          showProgress = true;
+                          bool retorno =
+                              await ItemApi.insertAll(veiloja.vlojId!);
+                          if (retorno) {
+                            showProgress = false;
+                            showSnackMessage(
+                                context, 'Peças cadastradas com sucesso!');
+                          } else {
+                            showProgress = false;
+                            showSnackMessage(
+                                context, 'Erro ao cadastrar as peças...');
+                          }
+                        },
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.add,
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                            Text(
+                              'Todas as peças',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: fontSizePequeno,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

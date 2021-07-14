@@ -4,6 +4,7 @@ import 'package:smaio/prefs.dart';
 import 'package:smaio/utils/const.dart';
 import 'dart:convert' as converte;
 import 'package:http/http.dart' as http;
+import 'package:smaio/utils/funcoes.dart';
 
 class ItemApi {
   static Future<List<Item>> getWhere(String pWhere, String pOrderBy) async {
@@ -25,11 +26,23 @@ class ItemApi {
         List lista = converte.json.decode(json);
         List<Item> tabela =
             lista.map<Item>((map) => Item.fromJson(map)).toList();
+
+        for (int i = 0; i < tabela.length; i++) {
+          try {
+            tabela[i].iteDistancia =
+                await calcDistancia(-11.8208977, -55.581521);
+          } catch (e) {
+            print(e);
+            tabela[i].iteDistancia = 0;
+          }
+        }
+
         return tabela;
       } else {
         return [];
       }
     } catch (e) {
+      print('erro $e');
       List<Item> tabela = [];
       return tabela;
     }
@@ -84,6 +97,28 @@ class ItemApi {
     } catch (e) {
       print(e);
       return Item();
+    }
+  }
+
+  static Future<bool> insertAll(int pVlojId) async {
+    String token = await Prefs.getString("token");
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer $token",
+      "Content-Type": "application/json; charset=utf-8",
+    };
+
+    try {
+      var url = Uri.http('$hostapi:9101', '/smaio/itemAll/$pVlojId');
+      var response = await http.put(url, headers: headers);
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 

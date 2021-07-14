@@ -29,6 +29,7 @@ class _FormPeca extends State<FormPeca> {
       appBar: WidgetAppBarTransparente(
         titulo: widget.grupo.gruDescricao.toString(),
         mostraIcone: false,
+        tema: 0,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,

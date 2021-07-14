@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/menu.inicial.dart';
 import 'package:smaio/utils/const.dart';
+import 'package:smaio/utils/funcoes.dart';
 
 // ignore: must_be_immutable
 class WidgetBottonNavigatorBar extends StatelessWidget {
@@ -31,7 +33,7 @@ class WidgetBottonNavigatorBar extends StatelessWidget {
               child: Text(
                 '<< Voltar',
                 style: TextStyle(
-                  color: corTextoPadrao,
+                  color: corTextoPadrao[0],
                   fontSize: fontSizePadrao,
                 ),
               ),
@@ -40,7 +42,10 @@ class WidgetBottonNavigatorBar extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(5),
             width: MediaQuery.of(context).size.width - 300,
-            child: Image.asset('assets/img/logo-amarelo.png'),
+            child: InkWell(
+              onTap: () => push(context, MenuInicial()),
+              child: Image.asset('assets/img/logo-amarelo.png'),
+            ),
           ),
           InkWell(
             onTap: avancarFunction,
@@ -52,7 +57,7 @@ class WidgetBottonNavigatorBar extends StatelessWidget {
                   ? Text(
                       'Avançar >>',
                       style: TextStyle(
-                        color: corTextoPadrao,
+                        color: corTextoPadrao[0],
                         fontSize: fontSizePadrao,
                       ),
                     )

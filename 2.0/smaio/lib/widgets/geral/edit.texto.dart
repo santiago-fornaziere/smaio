@@ -11,21 +11,24 @@ class WidgetEditTexto extends StatelessWidget {
   bool? password;
   Widget? icone;
   VoidCallback? onExit;
-  WidgetEditTexto(
-      {required this.controller,
-      required this.context,
-      this.focusNode,
-      this.autofocos,
-      required this.label,
-      this.enabled,
-      this.password,
-      this.icone,
-      this.onExit});
+  int? qtdeLinhas;
+  WidgetEditTexto({
+    required this.controller,
+    required this.context,
+    this.focusNode,
+    this.autofocos,
+    required this.label,
+    this.enabled,
+    this.password,
+    this.icone,
+    this.onExit,
+    this.qtdeLinhas,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(23),
+      padding: EdgeInsets.all(8),
       child: TextFormField(
         onEditingComplete: onExit,
         controller: controller,
@@ -37,6 +40,7 @@ class WidgetEditTexto extends StatelessWidget {
           return (text!.isEmpty) ? 'Preenchimento obrigatório' : null;
         },
         focusNode: focusNode,
+        maxLines: qtdeLinhas ?? 1,
         decoration: InputDecoration(
           filled: true,
           prefixIcon: icone,

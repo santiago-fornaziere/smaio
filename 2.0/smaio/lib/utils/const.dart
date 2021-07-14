@@ -9,6 +9,7 @@ Color fundoBranco = Colors.grey[50]!;
 String hostapi = '147.135.87.217';
 // String localhost = 'localhost';
 String tituloSistema = 'SMAIO - FERRO VELHO VIRTUAL';
+String phone = '556699990000';
 
 TextStyle styleTexto() {
   return TextStyle(
@@ -18,7 +19,7 @@ TextStyle styleTexto() {
   );
 }
 
-Color? corTextoPadrao = Colors.grey[100];
+List<Color> corTextoPadrao = [Colors.white70, Colors.black];
 Color? corTextoPadraoEscura = Colors.black87;
 double fontSizePadrao = 18;
 double fontSizePequeno = 14;

@@ -31,6 +31,7 @@ class _AlterarVeiculoVisualizarFoto
           titulo:
               '${sistema.loja!.lojNome.toString()} \n${sistema.usuario!.usuEmail.toString()}',
           mostraIcone: false,
+          tema: 0,
         ),
 //      backgroundColor: Theme.of(context).primaryColor,
         backgroundColor: corTemaDark,

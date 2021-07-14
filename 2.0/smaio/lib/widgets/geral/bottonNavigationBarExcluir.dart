@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smaio/controllers/controller.fotos.dart';
+import 'package:smaio/forms/menu.inicial.dart';
 import 'package:smaio/models/model.foto.dart';
 import 'package:smaio/notifiers/notifier.foto.dart';
 import 'package:smaio/utils/const.dart';
 import 'package:provider/provider.dart';
+import 'package:smaio/utils/funcoes.dart';
 import 'package:smaio/widgets/geral/circularProgressMini.dart';
 
 // ignore: must_be_immutable
@@ -34,7 +36,7 @@ class WidgetBottonNavigatorBarExcluir extends StatelessWidget {
               child: Text(
                 '<< Voltar',
                 style: TextStyle(
-                  color: corTextoPadrao,
+                  color: corTextoPadrao[0],
                   fontSize: fontSizePadrao,
                 ),
               ),
@@ -43,7 +45,10 @@ class WidgetBottonNavigatorBarExcluir extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(5),
             width: MediaQuery.of(context).size.width - 350,
-            child: Image.asset('assets/img/logo-amarelo.png'),
+            child: InkWell(
+              onTap: () => push(context, MenuInicial()),
+              child: Image.asset('assets/img/logo-amarelo.png'),
+            ),
           ),
           Consumer<Fotos>(builder: (context, lista, child) {
             return !lista.showProgress
@@ -68,14 +73,14 @@ class WidgetBottonNavigatorBarExcluir extends StatelessWidget {
                             child: Text(
                               'Excluir foto',
                               style: TextStyle(
-                                color: corTextoPadrao,
+                                color: corTextoPadrao[0],
                                 fontSize: fontSizePadrao,
                               ),
                             ),
                           ),
                           Icon(
                             Icons.delete_forever,
-                            color: corTextoPadrao,
+                            color: corTextoPadrao[0],
                             size: 25,
                           ),
                         ],

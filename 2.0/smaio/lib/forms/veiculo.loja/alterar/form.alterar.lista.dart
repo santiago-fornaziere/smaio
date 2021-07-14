@@ -31,6 +31,7 @@ class _AlterarLista extends State<AlterarLista> {
       appBar: WidgetAppBarTransparente(
         titulo: 'Alteração de dados dos veículos',
         mostraIcone: false,
+        tema: 0,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
@@ -94,8 +95,8 @@ class _AlterarLista extends State<AlterarLista> {
                             child: (itens.foto != null)
                                 ? Image.memory(
                                     base64Decode(itens.foto),
-                                    fit: BoxFit.contain,
-                                    height: 100,
+                                    fit: BoxFit.scaleDown,
+                                    height: 95,
                                   )
                                 : Icon(
                                     Icons.camera_alt_outlined,
@@ -120,6 +121,7 @@ class _AlterarLista extends State<AlterarLista> {
                       ),
                     ),
                     onTap: () async {
+                      lista.setFotos([]);
                       lista.setShowProgress(true);
                       push(
                           context,

@@ -51,7 +51,7 @@ class WidgetGrupoLista extends StatelessWidget {
                                   itens.gruDescricao.toString(),
                                   style: TextStyle(
                                       fontSize: fontSizePequeno,
-                                      color: corTextoPadrao),
+                                      color: corTextoPadrao[0]),
                                 ),
                               ), onTap: () async {
                             lista.setShowProgress(true);

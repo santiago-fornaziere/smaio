@@ -48,4 +48,23 @@ class LojaApi {
       return 400;
     }
   }
+
+  static Future<int> post(LojaUsuario pRegistro) async {
+    String token = await Prefs.getString("token");
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer $token",
+      "Content-Type": "application/json; charset=utf-8",
+    };
+
+    try {
+      String c = pRegistro.toJson();
+      var url = Uri.http('$hostapi:9101', '/smaio/loja');
+      var response = await http.post(url, headers: headers, body: c);
+      return response.statusCode;
+    } catch (e) {
+      print(e);
+      return 400;
+    }
+  }
 }

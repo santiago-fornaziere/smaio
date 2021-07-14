@@ -47,6 +47,7 @@ class _FormPecaEdit extends State<FormPecaEdit> {
       appBar: WidgetAppBarTransparente(
         titulo: widget.peca.pecDescricao.toString(),
         mostraIcone: false,
+        tema: 0,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
@@ -124,7 +125,7 @@ class _FormPecaEdit extends State<FormPecaEdit> {
                 child: Text(
                   'Valor atual \nR\$ ${formatFloat.format(widget.peca.pecIteValor ?? 0)}',
                   style: TextStyle(
-                    color: corTextoPadrao,
+                    color: corTextoPadrao[0],
                   ),
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.foto.visualizar.dart';
 import 'package:smaio/forms/veiculo.loja/alterar/form.alterar.visualizar.foto.dart';
 import 'package:smaio/forms/veiculo.loja/novo/form.novo.veiculo.loja.fabricante.dart';
 import 'package:smaio/models/model.foto.dart';
@@ -32,6 +33,7 @@ class FotoApi {
       }
     } catch (e) {
       List<Foto> tabela = [];
+      print(e);
       return tabela;
     }
   }
@@ -87,5 +89,14 @@ onVisualizarFoto(BuildContext context, Foto foto) {
       context,
       AlterarVeiculoVisualizarFoto(
         foto: foto,
+      ));
+}
+
+onVisualizarFotoConsumidor(BuildContext context, Foto foto, String titulo) {
+  push(
+      context,
+      ConsumidorFotoVisualizar(
+        foto: foto,
+        titulo: titulo,
       ));
 }

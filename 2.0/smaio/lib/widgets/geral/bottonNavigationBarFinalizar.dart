@@ -29,7 +29,7 @@ class WidgetBottonNavigatorBarFinalizar extends StatelessWidget {
               child: Text(
                 '<< Voltar',
                 style: TextStyle(
-                  color: corTextoPadrao,
+                  color: corTextoPadrao[0],
                   fontSize: fontSizePadrao,
                 ),
               ),
@@ -38,7 +38,10 @@ class WidgetBottonNavigatorBarFinalizar extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(5),
             width: MediaQuery.of(context).size.width - 300,
-            child: Image.asset('assets/img/logo-amarelo.png'),
+            child: InkWell(
+              onTap: () => push(context, MenuInicial()),
+              child: Image.asset('assets/img/logo-amarelo.png'),
+            ),
           ),
           InkWell(
             onTap: () {
@@ -51,7 +54,7 @@ class WidgetBottonNavigatorBarFinalizar extends StatelessWidget {
               child: Text(
                 'Finalizar >>',
                 style: TextStyle(
-                  color: corTextoPadrao,
+                  color: corTextoPadrao[0],
                   fontSize: fontSizePadrao,
                 ),
               ),

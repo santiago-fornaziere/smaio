@@ -37,7 +37,7 @@ class WidgetBottonNavigatorBarAlterar extends StatelessWidget {
               child: Text(
                 '<< Voltar',
                 style: TextStyle(
-                  color: corTextoPadrao,
+                  color: corTextoPadrao[0],
                   fontSize: fontSizePadrao,
                 ),
               ),
@@ -46,7 +46,10 @@ class WidgetBottonNavigatorBarAlterar extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(5),
             width: MediaQuery.of(context).size.width - 350,
-            child: Image.asset('assets/img/logo-amarelo.png'),
+            child: InkWell(
+              onTap: () => push(context, MenuInicial()),
+              child: Image.asset('assets/img/logo-amarelo.png'),
+            ),
           ),
           InkWell(
             onTap: () {
@@ -63,7 +66,7 @@ class WidgetBottonNavigatorBarAlterar extends StatelessWidget {
               child: Text(
                 'Alterar peças >>',
                 style: TextStyle(
-                  color: corTextoPadrao,
+                  color: corTextoPadrao[0],
                   fontSize: fontSizePadrao,
                 ),
               ),

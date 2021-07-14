@@ -11,6 +11,10 @@ import 'package:smaio/widgets/geral/bottonNavigationBarSalvar.dart';
 import 'package:smaio/widgets/geral/edit.texto.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:search_cep/search_cep.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
+import 'package:smaio/utils/location/utilities/loc.dart';
+import 'package:js/js.dart';
 
 // ignore: must_be_immutable
 class CadastroLoja extends StatefulWidget {
@@ -50,6 +54,7 @@ class _CadastroLoja extends State<CadastroLoja> {
         titulo:
             '${widget.loja.lojNome.toString()} \n${widget.loja.lojEmail.toString()}',
         mostraIcone: false,
+        tema: 0,
       ),
       bottomNavigationBar:
           Consumer<Sistema>(builder: (context, sistema, child) {
@@ -168,7 +173,7 @@ class _CadastroLoja extends State<CadastroLoja> {
                           'Atualizar localização',
                           style: TextStyle(
                             fontSize: fontSizePadrao,
-                            color: corTextoPadrao,
+                            color: corTextoPadrao[0],
                           ),
                         ),
                       ),
@@ -198,25 +203,44 @@ class _CadastroLoja extends State<CadastroLoja> {
   }
 
   _buscarLocalizacao() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    if (permission != LocationPermission.denied ||
-        permission != LocationPermission.deniedForever) {
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
+    if (defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform == TargetPlatform.iOS) {
+      LocationPermission permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.denied ||
+          permission != LocationPermission.deniedForever) {
+        Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high,
+        );
 
-      setState(() {
-        _latitudeController.text = position.latitude.toString();
-        _longitudeController.text = position.longitude.toString();
-        _fromController();
-      });
+        setState(() {
+          _latitudeController.text = position.latitude.toString();
+          _longitudeController.text = position.longitude.toString();
+          _fromController();
+        });
+      }
+    } else {
+      getCurrentPosition(
+        allowInterop(
+          (pos) {
+            setState(() {
+              _latitudeController.text = pos.coords.latitude.toString();
+              _longitudeController.text = pos.coords.longitude.toString();
+              _fromController();
+            });
+          },
+        ),
+      );
     }
   }
 
   _editCep() {
     return Container(
-      padding: EdgeInsets.all(23),
+      padding: EdgeInsets.all(8),
       child: TextFormField(
+        inputFormatters: <TextInputFormatter>[
+          LengthLimitingTextInputFormatter(8),
+          FilteringTextInputFormatter.digitsOnly,
+        ],
         controller: _cepController,
         keyboardType: TextInputType.number,
         validator: (String? text) {
@@ -278,7 +302,15 @@ class _CadastroLoja extends State<CadastroLoja> {
     _ibgeController.text = widget.loja.lojCidId.toString();
     _fone1Controller.text = widget.loja.lojTelefone1.toString();
     _fone2Controller.text = widget.loja.lojTelefone2.toString();
-    _latitudeController.text = widget.loja.lojLatitude.toString();
-    _longitudeController.text = widget.loja.lojLongitude.toString();
+    if (widget.loja.lojLatitude != null) {
+      _latitudeController.text = widget.loja.lojLatitude.toString();
+    } else {
+      _latitudeController.clear();
+    }
+    if (widget.loja.lojLongitude != null) {
+      _longitudeController.text = widget.loja.lojLongitude.toString();
+    } else {
+      _longitudeController.clear();
+    }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/menu.inicial.dart';
 import 'package:smaio/utils/const.dart';
+import 'package:smaio/utils/funcoes.dart';
 import 'package:smaio/widgets/geral/circularProgressMini.dart';
 
 // ignore: must_be_immutable
@@ -16,7 +18,7 @@ class WidgetBottonNavigatorBarSalvar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      color: Colors.black54,
+      color: Colors.black,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,7 +34,7 @@ class WidgetBottonNavigatorBarSalvar extends StatelessWidget {
               child: Text(
                 '<< Voltar',
                 style: TextStyle(
-                  color: corTextoPadrao,
+                  color: corTextoPadrao[0],
                   fontSize: fontSizePadrao,
                 ),
               ),
@@ -41,7 +43,10 @@ class WidgetBottonNavigatorBarSalvar extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(5),
             width: MediaQuery.of(context).size.width - 350,
-            child: Image.asset('assets/img/logo-amarelo.png'),
+            child: InkWell(
+              onTap: () => push(context, MenuInicial()),
+              child: Image.asset('assets/img/logo-amarelo.png'),
+            ),
           ),
           !showProgress
               ? InkWell(
@@ -53,7 +58,7 @@ class WidgetBottonNavigatorBarSalvar extends StatelessWidget {
                     child: Text(
                       'Concluir >>',
                       style: TextStyle(
-                        color: corTextoPadrao,
+                        color: corTextoPadrao[0],
                         fontSize: fontSizePadrao,
                       ),
                     ),

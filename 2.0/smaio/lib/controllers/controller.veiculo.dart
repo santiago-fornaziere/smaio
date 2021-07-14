@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smaio/forms/veiculo.loja/form.novo.veiculoano.loja.ano.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.ano.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.veiano.dart';
+import 'package:smaio/forms/veiculo.loja/novo/form.novo.veiculoano.loja.ano.dart';
+import 'package:smaio/models/model.modelo.dart';
 import 'package:smaio/models/model.veiculo.dart';
 import 'package:smaio/prefs.dart';
 import 'package:smaio/utils/const.dart';
@@ -74,4 +77,12 @@ class VeiculoApi {
 
 onAvancar(BuildContext context, List<String> files, Veiculo veiculo) {
   push(context, NovoVeiculoLojaAno(files: files, veiculo: veiculo));
+}
+
+onAvancarConsumidor(BuildContext context, Veiculo veiculo) {
+  push(context, ConsumidorVeiAno(veiculo: veiculo));
+}
+
+onAvancarTodos(BuildContext context, Modelo modelo) {
+  push(context, ConsumidorAno(modelo: modelo));
 }

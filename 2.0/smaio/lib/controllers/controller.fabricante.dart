@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.modelo.dart';
 import 'package:smaio/forms/veiculo.loja/novo/form.novo.veiculo.loja.modelo.dart';
 import 'package:smaio/models/model.fabricante.dart';
-import 'package:smaio/prefs.dart';
 import 'package:smaio/utils/const.dart';
 import 'dart:convert' as converte;
 import 'package:http/http.dart' as http;
@@ -9,10 +9,7 @@ import 'package:smaio/utils/funcoes.dart';
 
 class FabricanteApi {
   static Future<List<Fabricante>> getAll() async {
-    String token = await Prefs.getString("token");
-
     Map<String, String> headers = {
-      "Authorization": "Bearer $token",
       "Content-Type": "application/json; charset=utf-8",
     };
     try {
@@ -39,6 +36,14 @@ onAvancar(BuildContext context, List<String> files, Fabricante fabricante) {
       context,
       NovoVeiculoLojaModelo(
         files: files,
+        fabricante: fabricante,
+      ));
+}
+
+onAvancarConsumidor(BuildContext context, Fabricante fabricante) {
+  push(
+      context,
+      ConsumidorModelo(
         fabricante: fabricante,
       ));
 }

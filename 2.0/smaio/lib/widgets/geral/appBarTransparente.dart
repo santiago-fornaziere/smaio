@@ -6,9 +6,13 @@ class WidgetAppBarTransparente extends StatelessWidget
     with PreferredSizeWidget {
   String titulo;
   bool? mostraIcone;
+  VoidCallback? onPressed;
+  int tema;
   WidgetAppBarTransparente({
     required this.titulo,
     this.mostraIcone,
+    this.onPressed,
+    required this.tema,
   });
 
   @override
@@ -17,8 +21,13 @@ class WidgetAppBarTransparente extends StatelessWidget
       leading: (mostraIcone ?? false)
           ? Padding(
               padding: const EdgeInsets.all(4),
-              child: Image.asset(
-                'assets/img/logo-amarelo.png',
+              child: InkWell(
+                onTap: onPressed,
+                child: Icon(
+                  Icons.settings,
+                  color:
+                      tema == 1 ? Colors.black : Theme.of(context).primaryColor,
+                ),
               ),
             )
           : null,
@@ -28,7 +37,7 @@ class WidgetAppBarTransparente extends StatelessWidget
         maxLines: 2,
         overflow: TextOverflow.clip,
         style: TextStyle(
-          color: corTextoPadrao,
+          color: corTextoPadrao[0],
         ),
       ),
       elevation: 0,

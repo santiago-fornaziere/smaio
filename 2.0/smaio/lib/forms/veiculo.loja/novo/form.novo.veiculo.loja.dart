@@ -29,6 +29,7 @@ class _NovoVeiculoLojaFoto extends State<NovoVeiculoLojaFoto> {
       appBar: WidgetAppBarTransparente(
         titulo: 'Cadastramento de veículo / Fotos',
         mostraIcone: false,
+        tema: 0,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,

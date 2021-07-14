@@ -30,6 +30,7 @@ class _NovoVeiculoLojaAno extends State<NovoVeiculoLojaAno> {
       appBar: WidgetAppBarTransparente(
         titulo: 'Cadastramento de veículo / Ano',
         mostraIcone: false,
+        tema: 0,
       ),
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,

@@ -64,7 +64,7 @@ class WidgetAnoListaVeiloja extends StatelessWidget {
                                       itens.vanoAnoDescricao.toString(),
                                       style: TextStyle(
                                           fontSize: fontSizePequeno,
-                                          color: corTextoPadrao),
+                                          color: corTextoPadrao[0]),
                                     ),
                                   ),
                                   onTap: () async {

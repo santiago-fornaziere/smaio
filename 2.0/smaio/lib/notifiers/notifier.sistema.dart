@@ -12,7 +12,6 @@ class Sistema extends ChangeNotifier {
 
   void setUsuario(Usuario usuario) {
     this.usuario = usuario;
-
     notifyListeners();
   }
 

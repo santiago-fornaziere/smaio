@@ -8,12 +8,16 @@ class WidgetModeloLista extends StatelessWidget {
   BuildContext context;
   List<Modelo> query;
   String fabricante;
+  int tema;
+  int origem;
   List<String> files;
   WidgetModeloLista({
     required this.context,
     required this.query,
     required this.fabricante,
     required this.files,
+    required this.tema,
+    required this.origem,
   });
 
   @override
@@ -31,7 +35,9 @@ class WidgetModeloLista extends StatelessWidget {
                 fabricante,
                 style: TextStyle(
                   fontSize: 25,
-                  color: Theme.of(context).primaryColor,
+                  color: (tema == 0)
+                      ? Theme.of(context).primaryColor
+                      : Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -47,14 +53,21 @@ class WidgetModeloLista extends StatelessWidget {
                       child: Text(
                         itens.modDescricao.toString(),
                         style: TextStyle(
-                            fontSize: fontSizePequeno, color: corTextoPadrao),
+                            fontSize: fontSizePequeno,
+                            fontWeight: FontWeight.bold,
+                            color: corTextoPadrao[tema]),
                       ),
                     ),
-                    onTap: () => onAvancar(
-                      context,
-                      files,
-                      itens,
-                    ),
+                    onTap: () => (origem == 0)
+                        ? onAvancar(
+                            context,
+                            files,
+                            itens,
+                          )
+                        : onAvancarConsumidor(
+                            context,
+                            itens,
+                          ),
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.veiculo.dart';
 import 'package:smaio/forms/veiculo.loja/novo/form.novo.veiculo.loja.veiculo.dart';
 import 'package:smaio/models/model.modelo.dart';
 import 'package:smaio/prefs.dart';
@@ -39,6 +40,14 @@ onAvancar(BuildContext context, List<String> files, Modelo modelo) {
       context,
       NovoVeiculoLojaVeiculo(
         files: files,
+        modelo: modelo,
+      ));
+}
+
+onAvancarConsumidor(BuildContext context, Modelo modelo) {
+  push(
+      context,
+      ConsumidorVeiculo(
         modelo: modelo,
       ));
 }

@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.grupo.dart';
 import 'package:smaio/models/model.veiano.dart';
 import 'package:smaio/models/model.where.dart';
 import 'package:smaio/prefs.dart';
 import 'package:smaio/utils/const.dart';
 import 'dart:convert' as converte;
 import 'package:http/http.dart' as http;
+import 'package:smaio/utils/funcoes.dart';
 
 class VeiAnoApi {
   static Future<List<VeiAno>> getByWhere(String pWhere, String pOrderBy) async {
@@ -71,4 +74,12 @@ class VeiAnoApi {
       return 400;
     }
   }
+}
+
+onAvancarConsumidor(BuildContext context, VeiAno veiano) {
+  push(
+      context,
+      ConsumidorGrupo(
+        veiano: veiano,
+      ));
 }

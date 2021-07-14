@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.item.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.peca.dart';
 import 'package:smaio/forms/veiculo.loja/pecas/form.peca.peca.dart';
 import 'package:smaio/models/model.grupo.dart';
 import 'package:smaio/models/model.peca.dart';
 import 'package:smaio/models/model.peca.veiloja.dart';
+import 'package:smaio/models/model.veiano.dart';
 import 'package:smaio/models/model.veiculoloja.dart';
 import 'package:smaio/models/model.where.dart';
 import 'package:smaio/prefs.dart';
@@ -118,4 +121,18 @@ void onAvancarGrupo(BuildContext context, VeiculoLoja veiloja, Grupo grupo) {
         grupo: grupo,
         veiloja: veiloja,
       ));
+}
+
+onAvancarGrupoConsumidor(BuildContext context, Grupo grupo, VeiAno veiano) {
+  push(
+    context,
+    ConsumidorPeca(veiano: veiano, grupo: grupo),
+  );
+}
+
+onAvancarPecaConsumidor(BuildContext context, Peca peca, VeiAno veiano) {
+  push(
+    context,
+    ConsumidorItem(veiano: veiano, peca: peca),
+  );
 }

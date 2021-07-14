@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smaio/controllers/controller.loja.dart';
 import 'package:smaio/controllers/controller.token.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.fabricante.dart';
 import 'package:smaio/forms/menu.inicial.dart';
 import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/models/model.usuario.dart';
@@ -42,6 +43,9 @@ class _Login extends State<Login> {
     return Scaffold(
       appBar: WidgetAppBarTransparente(
         titulo: '',
+        tema: 0,
+        mostraIcone: true,
+        onPressed: () => push(context, ConsumidorFabricante()),
       ),
       // backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
@@ -58,7 +62,7 @@ class _Login extends State<Login> {
           child: ListView(
             children: [
               Image.asset(
-                '/img/logo-amarelo.png',
+                'assets/img/logo-amarelo.png',
                 height: 98,
               ),
               WidgetEditTexto(

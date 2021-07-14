@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:smaio/forms/form.login.dart';
 import 'package:provider/provider.dart';
+import 'package:smaio/forms/splash.dart';
 import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/models/model.usuario.dart';
+import 'package:smaio/notifiers/notifier.fabricante.dart';
 import 'package:smaio/notifiers/notifier.foto.dart';
 import 'package:smaio/notifiers/notifier.peca.veiloja.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:smaio/notifiers/notifier.veiloja.dart';
-import 'package:smaio/prefs.dart';
 
 Future<void> main() async {
-  String login = await Prefs.getString('usu_email');
-  String senha = await Prefs.getString('senha');
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
             create: (context) => Sistema(
-                  usuario: Usuario(
-                    usuEmail: login,
-                    usuSenha: senha,
-                  ),
+                  usuario: Usuario(),
                   loja: Loja(),
                 )),
         ChangeNotifierProvider(
@@ -38,20 +33,19 @@ Future<void> main() async {
                   pecas: [],
                   showProgress: false,
                 )),
+        ChangeNotifierProvider(
+            create: (context) => Fabricantes(
+                  fabricantes: [],
+                  showProgress: false,
+                )),
       ],
-      child: MyApp(login: login, senha: senha),
+      child: MyApp(),
     ),
   );
 }
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  String login;
-  String senha;
-  MyApp({
-    required this.login,
-    required this.senha,
-  });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,10 +64,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Login(
-        login: login,
-        senha: senha,
-      ),
+      home: SplashPage(),
     );
   }
 }
