@@ -4,6 +4,15 @@ import 'package:smaio/utils/const.dart';
 import 'dart:convert' as converte;
 import 'package:http/http.dart' as http;
 
+class RetornoLoja {
+  int statusCode;
+  String mensagem;
+  RetornoLoja({
+    required this.statusCode,
+    required this.mensagem,
+  });
+}
+
 class LojaApi {
   static Future<List<Loja>> getByUsuario(String pID) async {
     String token = await Prefs.getString("token");
@@ -30,7 +39,7 @@ class LojaApi {
     }
   }
 
-  static Future<int> put(Loja pRegistro) async {
+  static Future<RetornoLoja> put(Loja pRegistro) async {
     String token = await Prefs.getString("token");
 
     Map<String, String> headers = {
@@ -42,14 +51,15 @@ class LojaApi {
       String c = pRegistro.toJson();
       var url = Uri.http('$hostapi:9101', '/smaio/loja/${pRegistro.lojId}');
       var response = await http.put(url, headers: headers, body: c);
-      return response.statusCode;
+      return RetornoLoja(
+          mensagem: response.body, statusCode: response.statusCode);
     } catch (e) {
       print(e);
-      return 400;
+      return RetornoLoja(mensagem: e.toString(), statusCode: 400);
     }
   }
 
-  static Future<int> post(LojaUsuario pRegistro) async {
+  static Future<RetornoLoja> post(LojaUsuario pRegistro) async {
     String token = await Prefs.getString("token");
 
     Map<String, String> headers = {
@@ -59,12 +69,14 @@ class LojaApi {
 
     try {
       String c = pRegistro.toJson();
+      print(c);
       var url = Uri.http('$hostapi:9101', '/smaio/loja');
       var response = await http.post(url, headers: headers, body: c);
-      return response.statusCode;
+      return new RetornoLoja(
+          mensagem: response.body, statusCode: response.statusCode);
     } catch (e) {
       print(e);
-      return 400;
+      return RetornoLoja(mensagem: e.toString(), statusCode: 400);
     }
   }
 }

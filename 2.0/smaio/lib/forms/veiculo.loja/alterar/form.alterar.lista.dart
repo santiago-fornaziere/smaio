@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:smaio/controllers/controller.fotos.dart';
 import 'package:smaio/controllers/controller.veiculoloja.dart';
@@ -37,7 +35,7 @@ class _AlterarLista extends State<AlterarLista> {
       backgroundColor: corTemaDark,
       bottomNavigationBar: WidgetBottonNavigatorBar(
         context: context,
-        mostraAvancar: false,
+        mostraInicio: true,
       ),
       body: _futureBuilder(),
     );
@@ -76,7 +74,7 @@ class _AlterarLista extends State<AlterarLista> {
   _body(List<VeiculoLoja> query) {
     query.removeWhere((veiloja) => veiloja.vlojAtivo == false);
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(10),
       child: GridView.builder(
         itemCount: query.length,
         itemBuilder: (context, index) {
@@ -86,25 +84,20 @@ class _AlterarLista extends State<AlterarLista> {
                 ? InkWell(
                     child: Container(
                       color: Colors.black38,
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(3),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Center(
-                            child: (itens.foto != null)
-                                ? Image.memory(
-                                    base64Decode(itens.foto),
-                                    fit: BoxFit.scaleDown,
-                                    height: 95,
-                                  )
-                                : Icon(
-                                    Icons.camera_alt_outlined,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                          ),
+                              child: Icon(
+                            Icons.car_repair_outlined,
+                            size: 50,
+                            color: Colors.grey,
+                          )),
                           Text(
                             itens.vlojVeiDescricao.toString(),
+                            overflow: TextOverflow.clip,
                             style: TextStyle(
                               fontSize: 10,
                               color: Theme.of(context).primaryColor,
@@ -112,6 +105,7 @@ class _AlterarLista extends State<AlterarLista> {
                           ),
                           Text(
                             itens.vlojAnoDescricao.toString(),
+                            overflow: TextOverflow.clip,
                             style: TextStyle(
                               fontSize: 10,
                               color: Theme.of(context).primaryColor,
@@ -140,8 +134,8 @@ class _AlterarLista extends State<AlterarLista> {
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 300,
             childAspectRatio: 3 / 2,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20),
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8),
       ),
     );
   }

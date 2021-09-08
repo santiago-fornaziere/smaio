@@ -58,32 +58,27 @@ class WidgetPecaVeiLojaLista extends StatelessWidget {
                           )
                         : null,
                     leading: (itens.pecIteId != null)
-                        ? !lista.showProgress
-                            ? InkWell(
-                                onTap: () async {
-                                  lista.setShowProgress(true);
-                                  int retorno =
-                                      await ItemApi.patchBaixa(itens.pecIteId!);
-                                  if (retorno == 201) {
-                                    lista.udpateBaixaPecas(
-                                        itens, lista.getIndice(itens.pecId!));
-                                  } else {
-                                    lista.setShowProgress(false);
-                                    showSnackMessage(
-                                        context, 'Erro ao gravar dados...');
-                                  }
-                                },
-                                child: Icon(
-                                  Icons.check_box_outlined,
-                                  color: Colors.green[800],
-                                  size: 50,
-                                ),
-                              )
-                            : Container(
-                                height: 50,
-                                width: 50,
-                                child: WidgetCircularProgressMini(),
-                              )
+                        ? InkWell(
+                            onTap: () async {
+                              lista.setShowProgress(true);
+                              showLoadCheck(context);
+                              int retorno =
+                                  await ItemApi.patchBaixa(itens.pecIteId!);
+                              if (retorno == 201) {
+                                lista.udpateBaixaPecas(
+                                    itens, lista.getIndice(itens.pecId!));
+                              } else {
+                                lista.setShowProgress(false);
+                                showSnackMessage(
+                                    context, 'Erro ao gravar dados...');
+                              }
+                            },
+                            child: Icon(
+                              Icons.check_box_outlined,
+                              color: Colors.green[800],
+                              size: 50,
+                            ),
+                          )
                         : Icon(
                             Icons.check_box_outline_blank,
                             color: Colors.grey,
@@ -100,40 +95,36 @@ class WidgetPecaVeiLojaLista extends StatelessWidget {
                                   color: Colors.greenAccent,
                                 ),
                               ),
-                              !lista.showProgress
-                                  ? Container(
-                                      height: 25,
-                                      width: 80,
-                                      padding: EdgeInsets.all(0),
-                                      child: TextButton(
-                                        onPressed: () async {
-                                          lista.setShowProgress(true);
-                                          int retorno =
-                                              await ItemApi.patchVendido(
-                                                  itens.pecIteId!);
-                                          if (retorno == 201) {
-                                            lista.udpateBaixaPecas(itens,
-                                                lista.getIndice(itens.pecId!));
-                                          } else {
-                                            lista.setShowProgress(false);
-                                            showSnackMessage(context,
-                                                'Erro ao gravar dados...');
-                                          }
-                                        },
-                                        child: Text(
-                                          'Marcar vendido',
-                                          style: TextStyle(
-                                            fontSize: 11,
-                                            color: Colors.greenAccent,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Container(
-                                      height: 20,
-                                      width: 20,
-                                      child: WidgetCircularProgressMini(),
+                              Container(
+                                height: 25,
+                                width: 80,
+                                padding: EdgeInsets.all(0),
+                                child: TextButton(
+                                  onPressed: () async {
+                                    lista.setShowProgress(true);
+                                    showLoadCheck(context);
+
+                                    int retorno = await ItemApi.patchVendido(
+                                        itens.pecIteId!);
+                                    if (retorno == 201) {
+                                      lista.udpateBaixaPecas(
+                                          itens, lista.getIndice(itens.pecId!));
+                                    } else {
+                                      lista.setShowProgress(false);
+                                      showSnackMessage(
+                                          context, 'Erro ao gravar dados...');
+                                    }
+                                  },
+                                  child: Text(
+                                    'Vendido',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 9,
+                                      color: Colors.greenAccent,
                                     ),
+                                  ),
+                                ),
+                              )
                             ],
                           )
                         : null,
@@ -166,4 +157,58 @@ class WidgetPecaVeiLojaLista extends StatelessWidget {
           veiloja: veiloja, peca: peca, indice: indice, isSelectedTipo: select),
     );
   }
+}
+
+showLoadCheck(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 10,
+          content: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Container(
+              alignment: Alignment.center,
+              height: 120,
+              width: 150,
+              child: Consumer<PecaVeiLojas>(builder: (context, lista, child) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: lista.showProgress
+                          ? Text(
+                              'Enviando dados...',
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              'Item alterado.',
+                              textAlign: TextAlign.center,
+                            ),
+                    ),
+                    !lista.showProgress
+                        ? ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Container(
+                              height: 60,
+                              width: 100,
+                              child: Center(
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : WidgetCircularProgressMiniDark(),
+                  ],
+                );
+              }),
+            ),
+          ),
+        );
+      });
 }

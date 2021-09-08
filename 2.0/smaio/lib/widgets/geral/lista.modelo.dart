@@ -34,7 +34,7 @@ class WidgetModeloLista extends StatelessWidget {
               child: Text(
                 fabricante,
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 15,
                   color: (tema == 0)
                       ? Theme.of(context).primaryColor
                       : Colors.white,

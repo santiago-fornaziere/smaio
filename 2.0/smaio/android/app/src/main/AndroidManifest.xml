@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smaio">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />    
+    <uses-permission android:name="android.permission.INTERNET" />        
    <application
-        android:label="smaio"
+        android:label="Smaio"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

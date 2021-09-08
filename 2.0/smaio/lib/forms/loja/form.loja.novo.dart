@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smaio/controllers/controller.loja.dart';
-import 'package:smaio/forms/form.config.dart';
+import 'package:smaio/controllers/controller.texto.dart';
+import 'package:smaio/forms/loja/form.loja.contrato.dart';
 import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/utils/funcoes.dart';
 import 'package:smaio/widgets/geral/circularProgressMini.dart';
@@ -12,8 +12,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:search_cep/search_cep.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
-import 'package:smaio/utils/location/utilities/loc.dart';
-import 'package:js/js.dart';
+// import 'package:smaio/utils/location/utilities/loc.dart';
+// import 'package:js/js.dart';
 
 // ignore: must_be_immutable
 class CadastroLojaNovo extends StatefulWidget {
@@ -45,6 +45,8 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
   var _loja = LojaUsuario(loja: Loja());
 
   final _focusRazao = FocusNode();
+  final _focusCep = FocusNode();
+  final _focusNumero = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +126,7 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
                 WidgetEditTexto(
                   context: context,
                   controller: _numeroController,
+                  focusNode: _focusNumero,
                   label: 'Número/Complemento',
                 ),
                 WidgetEditTexto(
@@ -159,19 +162,19 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
                                 _showProgress = true;
                               });
                               _fromController();
-                              int retorno = await LojaApi.post(_loja);
-                              if (retorno == 201) {
-                                setState(() {
-                                  _showProgress = false;
-                                });
-                                push(context, Config(), replace: true);
-                              } else {
-                                setState(() {
-                                  _showProgress = false;
-                                });
-                                showSnackMessage(
-                                    context, 'Erro ao gravar os dados...');
-                              }
+
+                              String _contrato = await TextoApi.getContrato();
+
+                              push(
+                                  context,
+                                  CadastroLojaContrato(
+                                    loja: _loja,
+                                    contrato: _contrato,
+                                  ),
+                                  replace: false);
+                              setState(() {
+                                _showProgress = false;
+                              });
                             } else {
                               setState(() {
                                 _showProgress = false;
@@ -182,7 +185,7 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
                             height: 40,
                             child: Center(
                               child: Text(
-                                'Salvar',
+                                'Continuar',
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -210,7 +213,6 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
           Position position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high,
           );
-
           _latitudeController.text = position.latitude.toString();
           _longitudeController.text = position.longitude.toString();
           return true;
@@ -218,6 +220,7 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
           return false;
         }
       } else {
+        /*
         getCurrentPosition(
           allowInterop(
             (pos) {
@@ -226,6 +229,9 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
             },
           ),
         );
+        */
+        _latitudeController.text = '0';
+        _longitudeController.text = '0';
         return true;
       }
     } catch (e) {
@@ -242,6 +248,7 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
           FilteringTextInputFormatter.digitsOnly,
         ],
         controller: _cepController,
+        focusNode: _focusCep,
         keyboardType: TextInputType.number,
         validator: (String? text) {
           return (text!.isEmpty) ? 'Preenchimento obrigatório' : null;
@@ -265,8 +272,12 @@ class _CadastroLojaNovo extends State<CadastroLojaNovo> {
                 _ibgeController.text = dados.ibge.toString();
                 _fromController();
               });
+              _focusNumero.requestFocus();
             } else {
-              showSnackMessage(context, 'Cep não encontrado...');
+              showMessage(
+                  context, 'Cep não encontrado, por favor, tente novamente.');
+              _cepController.clear();
+              _focusCep.requestFocus();
             }
           }
         },

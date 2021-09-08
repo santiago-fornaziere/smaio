@@ -38,7 +38,7 @@ class WidgetPecaLista extends StatelessWidget {
                 titulo,
                 overflow: TextOverflow.clip,
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 15,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),

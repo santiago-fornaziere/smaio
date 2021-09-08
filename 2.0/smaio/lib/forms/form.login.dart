@@ -17,10 +17,10 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class Login extends StatefulWidget {
   String login;
-  String senha;
+  //String senha;
   Login({
     required this.login,
-    required this.senha,
+    //required this.senha,
   });
   @override
   _Login createState() => _Login();
@@ -35,11 +35,14 @@ class _Login extends State<Login> {
   final _focusLogin = FocusNode();
 
   bool _showProgress = false;
+  bool _obscureSenha = true;
 
   @override
   Widget build(BuildContext context) {
-    _loginController.text = widget.login;
-    _senhaController.text = widget.senha;
+    if (widget.login.isNotEmpty) {
+      _loginController.text = widget.login;
+    }
+    // _senhaController.text = widget.senha;
     return Scaffold(
       appBar: WidgetAppBarTransparente(
         titulo: '',
@@ -72,47 +75,74 @@ class _Login extends State<Login> {
                 autofocos: true,
                 focusNode: _focusLogin,
               ),
-              WidgetEditTexto(
-                context: context,
-                controller: _senhaController,
-                label: 'Senha',
-                password: true,
+              Container(
+                padding: EdgeInsets.all(8),
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  controller: _senhaController,
+                  obscureText: _obscureSenha,
+                  validator: (String? text) {
+                    return (text!.isEmpty) ? 'Preenchimento obrigatório' : null;
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Senha',
+                    hintText: 'Digite sua senha',
+                    filled: true,
+                    fillColor: Colors.grey[50],
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        !_obscureSenha
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureSenha = !_obscureSenha;
+                        });
+                      },
+                    ),
+                  ),
+                ),
               ),
               Consumer<Sistema>(builder: (context, sistema, child) {
-                return WidgetBotaoPadrao(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _showProgress = true;
-                      });
-                      String token = await TokenApi.post(
-                          _loginController.text.toLowerCase().trim(),
-                          _senhaController.text);
-                      if (token.length > 0) {
-                        await Prefs.setString('senha', _senhaController.text);
-                        Usuario usuario = await TokenApi.getClaims(token);
-                        sistema.setUsuario(usuario);
-                        List<Loja> loja = await LojaApi.getByUsuario(
-                            usuario.usuId.toString());
-                        sistema.setLoja(loja[0]);
-                        push(context, MenuInicial());
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: WidgetBotaoPadrao(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
                         setState(() {
-                          _showProgress = false;
+                          _showProgress = true;
                         });
+                        String token = await TokenApi.post(
+                            _loginController.text.toLowerCase().trim(),
+                            _senhaController.text);
+                        if (token.length > 0) {
+                          await Prefs.setString('senha', _senhaController.text);
+                          Usuario usuario = await TokenApi.getClaims(token);
+                          sistema.setUsuario(usuario);
+                          List<Loja> loja = await LojaApi.getByUsuario(
+                              usuario.usuId.toString());
+                          sistema.setLoja(loja[0]);
+                          push(context, MenuInicial());
+                          setState(() {
+                            _showProgress = false;
+                          });
+                        } else {
+                          setState(() {
+                            _showProgress = false;
+                          });
+                          showMessage(context, 'Erro na validação do usuário.');
+                        }
                       } else {
                         setState(() {
                           _showProgress = false;
                         });
-                        showMessage(context, 'Erro na validação do usuário.');
                       }
-                    } else {
-                      setState(() {
-                        _showProgress = false;
-                      });
-                    }
-                  },
-                  texto: 'Entrar',
-                  showProgress: _showProgress,
+                    },
+                    texto: 'Entrar',
+                    showProgress: _showProgress,
+                  ),
                 );
               }),
             ],

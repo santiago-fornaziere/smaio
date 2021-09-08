@@ -24,7 +24,7 @@ class _ConsumidorModelo extends State<ConsumidorModelo> {
           'Modelo',
           overflow: TextOverflow.clip,
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
             color: corTextoPadrao[1],
           ),

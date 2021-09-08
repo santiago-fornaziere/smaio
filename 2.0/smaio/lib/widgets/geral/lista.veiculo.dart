@@ -34,7 +34,7 @@ class WidgetVeiculoLista extends StatelessWidget {
               child: Text(
                 titulo,
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 15,
                   color: (tema == 0)
                       ? Theme.of(context).primaryColor
                       : Colors.white,

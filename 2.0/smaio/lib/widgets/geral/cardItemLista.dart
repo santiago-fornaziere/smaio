@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smaio/models/model.item.dart';
 import 'package:smaio/utils/const.dart';
@@ -13,7 +12,8 @@ class WidgetCardItemLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey[100],
+      // color: Colors.grey[100],
+      color: Color.fromRGBO(247, 221, 145, 1),
       child: Container(
         padding: EdgeInsets.all(8),
         child: Row(
@@ -30,8 +30,8 @@ class WidgetCardItemLista extends StatelessWidget {
                 children: [
                   Container(
                     child: (item.iteFoto != null)
-                        ? Image.memory(
-                            base64Decode(item.iteFoto),
+                        ? Image.network(
+                            item.iteFoto.toString(),
                             width: (MediaQuery.of(context).size.width / 8) * 1,
                             height: 100,
                             fit: BoxFit.contain,
@@ -70,30 +70,35 @@ class WidgetCardItemLista extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '${item.iteDescricao.toString()}',
-                    style: TextStyle(
-                      fontSize: fontSizePequeno,
-                      color: Colors.black,
-                    ),
-                  ),
+                  (item.iteDescricao.toString().length > 0)
+                      ? Text(
+                          '${item.iteDescricao.toString()}',
+                          style: TextStyle(
+                            fontSize: fontSizePequeno,
+                            color: Colors.black,
+                          ),
+                        )
+                      : Container(),
                   Text(
                     (item.iteValor ?? 0) > 0
                         ? 'R\$ ${formatFloat.format(item.iteValor ?? 0)}'
-                        : 'Valor não informado',
+                        : 'Consultar loja',
                     style: TextStyle(
-                      fontSize: fontSizePadrao,
+                      fontSize: 11,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'Distância: ${formatFloat.format(item.iteDistancia)} Km',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black,
-                    ),
-                  ),
+                  (defaultTargetPlatform == TargetPlatform.android ||
+                          defaultTargetPlatform == TargetPlatform.iOS)
+                      ? Text(
+                          'Dist.: ${formatFloat.format(item.iteDistancia)} Km',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
+                        )
+                      : Container(),
                   Text(
                     '${item.iteVeiDescricao.toString()}-${item.iteVanoAnoDescricao.toString()}',
                     style: TextStyle(
@@ -117,7 +122,7 @@ class WidgetCardItemLista extends StatelessWidget {
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: fontSizePequeno,
+                      fontSize: 13,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -125,8 +130,9 @@ class WidgetCardItemLista extends StatelessWidget {
                   Text(
                     'Tel.: ${item.iteLojTelefone1.toString()} / ${item.iteLojTelefone2.toString()}',
                     overflow: TextOverflow.clip,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -134,16 +140,18 @@ class WidgetCardItemLista extends StatelessWidget {
                   Text(
                     '${item.iteLojEmail.toString()}',
                     overflow: TextOverflow.clip,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 10,
                       color: Colors.black,
                     ),
                   ),
                   Text(
                     '${item.iteLojCidNome.toString()}',
                     overflow: TextOverflow.clip,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 14,
                       color: Colors.black,
                     ),
                   ),

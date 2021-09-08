@@ -29,8 +29,8 @@ class ItemApi {
 
         for (int i = 0; i < tabela.length; i++) {
           try {
-            tabela[i].iteDistancia =
-                await calcDistancia(-11.8208977, -55.581521);
+            tabela[i].iteDistancia = await calcDistancia(
+                tabela[i].iteLojLatitude, tabela[i].iteLojLongitude);
           } catch (e) {
             print(e);
             tabela[i].iteDistancia = 0;

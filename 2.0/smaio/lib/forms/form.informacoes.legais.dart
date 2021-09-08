@@ -61,6 +61,7 @@ class _FormInformacoesLegais extends State<FormInformacoesLegais> {
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
                   widget.texto,
+                  textAlign: TextAlign.center,
                   style:
                       TextStyle(fontSize: fontSizePequeno, color: Colors.white),
                 ),

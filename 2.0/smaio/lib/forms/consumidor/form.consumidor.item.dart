@@ -38,7 +38,7 @@ class _ConsumidorItem extends State<ConsumidorItem> {
       appBar: AppBar(
         title: Image.asset(
           'assets/img/logo-top.png',
-          height: 25,
+          height: 22,
         ),
         centerTitle: true,
         actions: [
@@ -91,7 +91,6 @@ class _ConsumidorItem extends State<ConsumidorItem> {
           );
         }
         List<Item> query = snapshot.data!;
-
         return query.isNotEmpty ? _body(query) : _bodySemRegistro();
       },
     );
@@ -117,9 +116,11 @@ class _ConsumidorItem extends State<ConsumidorItem> {
                 ),
               ),
             ),
-            WidgetItemLista(
-              context: context,
-              query: query,
+            Expanded(
+              child: WidgetItemLista(
+                context: context,
+                query: query,
+              ),
             ),
           ],
         ),
@@ -129,80 +130,87 @@ class _ConsumidorItem extends State<ConsumidorItem> {
 
   _bodySemRegistro() {
     return Form(
-      key: _formKey,
-      child: Container(
-        color: Colors.red,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
+        key: _formKey,
+        child: ListView(
+          shrinkWrap: true,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Desculpe!!!!!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Text(
-                'Nenhuma peça cadastrada com as características solicitadas. Deixe seu contato que todos os Ferro velhos serão notificados.',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: fontSizePadrao,
-                ),
-              ),
-            ),
             Container(
-              width: 600,
-              child: WidgetEditTexto(
-                controller: _emailController,
-                context: context,
-                label: 'e-mail',
-                focusNode: _focus,
-                autofocos: true,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Desculpe!!!!!',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Text(
+                      'Nenhuma peça cadastrada com as características solicitadas. Deixe seu contato que todos os Ferro velhos serão notificados.',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: fontSizePadrao,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 600,
+                    child: WidgetEditTexto(
+                      controller: _emailController,
+                      context: context,
+                      label: 'e-mail',
+                      focusNode: _focus,
+                      // autofocos: true,
+                    ),
+                  ),
+                  Container(
+                    width: 600,
+                    child: WidgetEditTexto(
+                      controller: _foneController,
+                      context: context,
+                      label: 'Fone (Whatsapp)',
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            _showProgress = true;
+                          });
+                          onEnviarSemResultado(
+                              context,
+                              widget.peca,
+                              widget.veiano,
+                              _emailController.text,
+                              _foneController.text);
+                          _emailController.clear();
+                          _foneController.clear();
+                          setState(() {
+                            _showProgress = false;
+                          });
+                        } else {
+                          setState(() {
+                            _showProgress = false;
+                          });
+                        }
+                      },
+                      child: !_showProgress
+                          ? Text('Enviar')
+                          : WidgetCircularProgressMini(),
+                    ),
+                  )
+                ],
               ),
             ),
-            Container(
-              width: 600,
-              child: WidgetEditTexto(
-                controller: _foneController,
-                context: context,
-                label: 'Fone (Whatsapp)',
-              ),
-            ),
-            Container(
-              width: 300,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    setState(() {
-                      _showProgress = true;
-                    });
-                    onEnviarSemResultado(context, widget.peca, widget.veiano,
-                        _emailController.text, _foneController.text);
-                    _emailController.clear();
-                    _foneController.clear();
-                    setState(() {
-                      _showProgress = false;
-                    });
-                  } else {
-                    setState(() {
-                      _showProgress = false;
-                    });
-                  }
-                },
-                child: !_showProgress
-                    ? Text('Enviar')
-                    : WidgetCircularProgressMini(),
-              ),
-            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

@@ -22,8 +22,6 @@ class WidgetItemLista extends StatelessWidget {
     return Center(
       child: Container(
         margin: EdgeInsets.all(16),
-        height: MediaQuery.of(context).size.height - 150,
-        width: MediaQuery.of(context).size.width,
         child: Consumer<Fotos>(builder: (context, fotos, child) {
           return ListView.builder(
               itemCount: query.length,

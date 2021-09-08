@@ -30,9 +30,8 @@ class _NovoVeiculoLojaFabricante extends State<NovoVeiculoLojaFabricante> {
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
       bottomNavigationBar: WidgetBottonNavigatorBar(
-        avancarFunction: null,
         context: context,
-        mostraAvancar: false,
+        mostraInicio: false,
       ),
       body: _futureBuilder(),
     );

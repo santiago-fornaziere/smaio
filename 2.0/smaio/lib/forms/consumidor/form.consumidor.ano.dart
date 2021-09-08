@@ -24,7 +24,7 @@ class _ConsumidorAno extends State<ConsumidorAno> {
           'Ano',
           overflow: TextOverflow.clip,
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
             color: corTextoPadrao[1],
           ),

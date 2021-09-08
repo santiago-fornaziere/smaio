@@ -31,11 +31,15 @@ class Item {
   int? iteTraSaida;
   String? iteTraDtSaida;
   bool? iteSitReg;
-  var iteFoto;
+  String? iteFoto;
   double? iteDistancia;
   var iteLojLatitude;
   var iteLojLongitude;
   int? iteFotoQtde;
+  String? iteLojLogradouro;
+  String? iteLojNumero;
+  String? iteLojComplemento;
+  String? iteLojBairro;
 
   Item({
     this.iteId,
@@ -73,6 +77,9 @@ class Item {
     this.iteLojLatitude,
     this.iteLojLongitude,
     this.iteFotoQtde,
+    this.iteLojLogradouro,
+    this.iteLojNumero,
+    this.iteLojBairro,
   });
 
   Item.fromJson(Map<String, dynamic> json) {
@@ -110,6 +117,9 @@ class Item {
     iteLojLatitude = json['ite_loj_latitude'];
     iteLojLongitude = json['ite_loj_longitude'];
     iteFotoQtde = json['ite_fot_qtde'] ?? 0;
+    iteLojLogradouro = json['ite_loj_logradouro'];
+    iteLojNumero = json['ite_loj_numero'];
+    iteLojBairro = json['ite_loj_bairro'];
   }
 
   Map<String, dynamic> toMap() {
@@ -148,6 +158,9 @@ class Item {
     data['ite_loj_latitude'] = this.iteLojLatitude;
     data['ite_loj_longitude'] = this.iteLojLongitude;
     data['ite_fot_qtde'] = this.iteFotoQtde;
+    data['ite_loj_logradouro'] = this.iteLojLogradouro;
+    data['ite_loj_numero'] = this.iteLojNumero;
+    data['ite_loj_bairro'] = this.iteLojBairro;
     return data;
   }
 

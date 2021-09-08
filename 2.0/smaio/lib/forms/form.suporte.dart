@@ -103,7 +103,7 @@ class _FormSuporte extends State<FormSuporte> {
   onEmail() async {
     final Uri _emailLaunchUri = Uri(
         scheme: 'mailto',
-        path: 'atendimento@smaio.com.br',
+        path: 'smaiopecas@gmail.com',
         queryParameters: {'subject': 'Atendimento'});
     launch(_emailLaunchUri.toString());
   }

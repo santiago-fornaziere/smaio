@@ -17,7 +17,7 @@ class WidgetBotaoPadrao extends StatelessWidget {
       onPressed: onPressed,
       child: Container(
         alignment: Alignment.center,
-        height: 40,
+        height: 60,
         child: !showProgress
             ? Text(
                 texto,

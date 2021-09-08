@@ -138,8 +138,8 @@ class _FormFaleConosco extends State<FormFaleConosco> {
 
   onJaSouCadastrado() async {
     String login = await Prefs.getString('usu_email');
-    String senha = await Prefs.getString('senha');
-    push(context, Login(login: login, senha: senha));
+    //String senha = await Prefs.getString('senha');
+    push(context, Login(login: login));
   }
 
   Future<void> onEnviarFaleConosco(BuildContext context, String nome,

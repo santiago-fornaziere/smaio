@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:smaio/models/model.foto.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
@@ -49,9 +47,9 @@ class _AlterarVeiculoVisualizarFoto
         child: Container(
       child: ListView(
         children: [
-          Image.memory(
-            base64Decode(widget.foto.fotFoto),
-            fit: BoxFit.fill,
+          Image.network(
+            widget.foto.fotFoto.toString(),
+            fit: BoxFit.contain,
           )
         ],
       ),

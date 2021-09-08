@@ -7,12 +7,14 @@ class WidgetAppBarTransparente extends StatelessWidget
   String titulo;
   bool? mostraIcone;
   VoidCallback? onPressed;
+  double? height;
   int tema;
   WidgetAppBarTransparente({
     required this.titulo,
     this.mostraIcone,
     this.onPressed,
     required this.tema,
+    this.height,
   });
 
   @override
@@ -38,6 +40,7 @@ class WidgetAppBarTransparente extends StatelessWidget
         overflow: TextOverflow.clip,
         style: TextStyle(
           color: corTextoPadrao[0],
+          fontSize: 18,
         ),
       ),
       elevation: 0,
@@ -48,5 +51,5 @@ class WidgetAppBarTransparente extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(height ?? kToolbarHeight);
 }

@@ -25,6 +25,7 @@ class WidgetEditCNPJ extends StatelessWidget {
         controller: controller,
         keyboardType: TextInputType.text,
         validator: (String? text) {
+          print('teste ' + text.toString());
           return !(CNPJ.isValid(text!)) ? 'Este CNPJ é inválido' : null;
         },
         decoration: InputDecoration(

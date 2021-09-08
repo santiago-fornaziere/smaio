@@ -23,13 +23,15 @@ class WidgetGrupoConsumidorLista extends StatelessWidget {
         columns: [
           DataColumn(
             label: Container(
-              child: Text(
-                '${veiano.vanoVeiFabNome} > ${veiano.vanoVeiDescricao} > ${veiano.vanoAnoDescricao}',
-                overflow: TextOverflow.clip,
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              child: Expanded(
+                child: Text(
+                  '${veiano.vanoVeiFabNome} > ${veiano.vanoVeiDescricao} > ${veiano.vanoAnoDescricao}',
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

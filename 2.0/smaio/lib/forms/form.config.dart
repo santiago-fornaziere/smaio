@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smaio/controllers/controller.texto.dart';
 import 'package:smaio/forms/consumidor/form.consumidor.fabricante.dart';
 import 'package:smaio/forms/form.faleconosco.dart';
 import 'package:smaio/forms/form.informacoes.legais.dart';
@@ -165,8 +166,8 @@ class _Config extends State<Config> {
 
   onJaSouCadastrado() async {
     String login = await Prefs.getString('usu_email');
-    String senha = await Prefs.getString('senha');
-    push(context, Login(login: login, senha: senha));
+    //String senha = await Prefs.getString('senha');
+    push(context, Login(login: login));
   }
 
   onFaleConosco() {
@@ -178,7 +179,7 @@ class _Config extends State<Config> {
   }
 
   onInformacoesLegais() async {
-    String texto = await getFileData('arq/informacoeslegais.txt');
+    String texto = await TextoApi.getInfLegais();
     push(context, FormInformacoesLegais(texto: texto));
   }
 
@@ -192,7 +193,7 @@ class _Config extends State<Config> {
   }
 
   onInstragram() async {
-    const url = 'https://www.instagram.com/smaio/';
+    const url = 'https://www.instagram.com/smaio.pecas/';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -210,6 +211,6 @@ class _Config extends State<Config> {
   }
 
   onCadastrar() async {
-    push(context, CadastroLojaNovo());
+    push(context, CadastroLojaNovo(), replace: true);
   }
 }

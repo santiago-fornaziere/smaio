@@ -29,13 +29,15 @@ class WidgetGrupoLista extends StatelessWidget {
                 columns: [
                   DataColumn(
                     label: Container(
-                      child: Text(
-                        '\ ${veiloja.vlojVeiFabNome} \ ${veiloja.vlojVeiDescricao} - ${veiloja.vlojAnoDescricao}',
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
+                      child: Expanded(
+                        child: Text(
+                          '\ ${veiloja.vlojVeiFabNome} \ ${veiloja.vlojVeiDescricao} - ${veiloja.vlojAnoDescricao}',
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -57,9 +59,10 @@ class WidgetGrupoLista extends StatelessWidget {
                             lista.setShowProgress(true);
                             List<PecaVeiLoja> retorno =
                                 await PecaVeiLojaApi.getWhere(
-                                    'pec_gru_id = ${itens.gruId}',
+                                    'pec_gru_id = ${itens.gruId}  and pec_sit_reg = true',
                                     'pec_descricao',
                                     veiloja.vlojId!);
+
                             lista.setPecas(retorno);
                             onAvancarGrupo(
                               context,

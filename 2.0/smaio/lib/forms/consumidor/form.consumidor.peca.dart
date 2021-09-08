@@ -27,7 +27,7 @@ class _ConsumidorPeca extends State<ConsumidorPeca> {
           'Selecione a Peça desejada',
           overflow: TextOverflow.clip,
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
             color: corTextoPadrao[1],
           ),

@@ -6,13 +6,11 @@ class Prefs {
   static Future<double> getDouble(String key) async {
     var prefs = await SharedPreferences.getInstance();
 
-    print(prefs.getDouble(key));
     return prefs.getDouble(key) ?? 0;
   }
 
   static Future<double> setDouble(String key, double b) async {
     var prefs = await SharedPreferences.getInstance();
-    print(b);
 
     prefs.setDouble(key, b);
     return b;

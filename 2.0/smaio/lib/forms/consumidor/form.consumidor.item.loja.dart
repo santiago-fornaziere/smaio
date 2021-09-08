@@ -1,14 +1,15 @@
-import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:smaio/controllers/controller.fotos.dart';
 import 'package:smaio/forms/consumidor/form.consumidor.fabricante.dart';
+import 'package:smaio/forms/consumidor/form.consumidor.foto.visualizar.dart';
+import 'package:smaio/models/model.foto.dart';
 import 'package:smaio/models/model.item.dart';
 import 'package:smaio/notifiers/notifier.foto.dart';
 import 'package:smaio/utils/const.dart';
 import 'package:smaio/utils/funcoes.dart';
-import 'package:smaio/widgets/geral/cardFotoFile.dart';
 import 'package:provider/provider.dart';
 import 'package:smaio/widgets/geral/circularProgress.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 // ignore: must_be_immutable
 class ConsumidorItemLoja extends StatefulWidget {
@@ -29,7 +30,7 @@ class _ConsumidorItemLoja extends State<ConsumidorItemLoja> {
           '${widget.item.iteVeiDescricao.toString()} - ${widget.item.iteVanoAnoDescricao.toString()}',
           overflow: TextOverflow.clip,
           style: TextStyle(
-            fontSize: 25,
+            fontSize: fontSizePadrao,
             fontWeight: FontWeight.bold,
             color: corTextoPadrao[1],
           ),
@@ -47,27 +48,51 @@ class _ConsumidorItemLoja extends State<ConsumidorItemLoja> {
           )
         ],
       ),
+      bottomNavigationBar: Material(
+        elevation: 20,
+        child: Container(
+          color: Colors.amber,
+          height: 60,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '${widget.item.iteLojLogradouro.toString()} ${widget.item.iteLojNumero.toString()}',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                '${widget.item.iteLojBairro.toString()} -  ${widget.item.iteLojCidNome.toString()}',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).primaryColor,
       body: _body(),
     );
   }
 
   _body() {
-    return Center(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.all(16),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Center(
         child: Column(
           children: [
             Card(
               child: Container(
                 margin: EdgeInsets.all(10),
-                height: 80,
+                height: 60,
                 child: ListTile(
                   title: Text(
                     widget.item.iteLojNome.toString(),
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: fontSizePadrao),
+                    style: TextStyle(fontSize: 18),
                   ),
                   subtitle: Text(
                     'Tel.: ${widget.item.iteLojTelefone1} / ${widget.item.iteLojTelefone2} \ne-mail: ${widget.item.iteLojEmail}',
@@ -75,18 +100,17 @@ class _ConsumidorItemLoja extends State<ConsumidorItemLoja> {
                     maxLines: 2,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 15,
                     ),
                   ),
-                  leading: Text(
-                    'Distância \n${formatFloat.format(widget.item.iteDistancia)} Km',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: fontSizePadrao),
-                  ),
-                  trailing: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(widget.item.iteLojCidNome.toString()),
-                  ),
+                  leading: (defaultTargetPlatform == TargetPlatform.android ||
+                          defaultTargetPlatform == TargetPlatform.iOS)
+                      ? Text(
+                          'Distância \n${formatFloat.format(widget.item.iteDistancia)} Km',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 10),
+                        )
+                      : null,
                 ),
               ),
             ),
@@ -95,40 +119,38 @@ class _ConsumidorItemLoja extends State<ConsumidorItemLoja> {
               width: MediaQuery.of(context).size.width - 50,
               height: 100,
               color: Colors.black,
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.item.itePecDescricao.toString(),
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.item.itePecDescricao.toString(),
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
                     ),
-                    Text(
-                      widget.item.iteGruDescricao.toString(),
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                      ),
+                  ),
+                  Text(
+                    widget.item.iteGruDescricao.toString(),
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
                     ),
-                    Text(
-                      widget.item.iteStatus.toString(),
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: fontSizePadrao,
-                      ),
+                  ),
+                  Text(
+                    widget.item.iteStatus.toString(),
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: fontSizePadrao,
                     ),
-                    Text(
-                      formatFloat.format(widget.item.iteValor ?? 0),
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: fontSizePadrao,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  Text(
+                    formatFloat.format(widget.item.iteValor ?? 0),
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: fontSizePadrao,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             _fotos(),
@@ -143,30 +165,74 @@ class _ConsumidorItemLoja extends State<ConsumidorItemLoja> {
       return !fotos.showProgress
           ? Container(
               child: fotos.foto.isNotEmpty
-                  ? Container(
-                      width: MediaQuery.of(context).size.width - 100,
-                      height: MediaQuery.of(context).size.height - 320,
-                      child: GridView.builder(
-                        itemCount: fotos.foto.length,
-                        scrollDirection: Axis.vertical,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 300,
-                            childAspectRatio: 3 / 2,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20),
-                        itemBuilder: (context, index) {
-                          var itens = fotos.foto[index];
-                          return WidgetCardFotoFile(
-                            image: base64Decode(itens.fotFoto),
-                            onPressed: () => onVisualizarFotoConsumidor(context,
-                                itens, widget.item.iteLojNome.toString()),
-                          );
-                        },
+                  ? Expanded(
+                      child: Container(
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            autoPlay: false,
+                            aspectRatio: 2.0,
+                            enlargeCenterPage: true,
+                          ),
+                          items: listaImagem(fotos.foto),
+                        ),
                       ),
                     )
                   : Container(),
             )
           : WidgetCircularProgress();
     });
+  }
+
+  List<Widget> listaImagem(List<Foto> fotos) {
+    return fotos
+        .map((item) => Container(
+              child: Container(
+                margin: EdgeInsets.all(5.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    child: Stack(
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () => push(
+                              context,
+                              ConsumidorFotoVisualizar(
+                                foto: item,
+                                titulo: widget.item.iteDescricao.toString(),
+                              )),
+                          child: Image.network(item.fotFoto.toString(),
+                              fit: BoxFit.cover, width: 1000.0),
+                        ),
+                        Positioned(
+                          bottom: 0.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(200, 0, 0, 0),
+                                  Color.fromARGB(0, 0, 0, 0)
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
+                            child: Text(
+                              'No. ${fotos.indexOf(item) + 1}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+            ))
+        .toList();
   }
 }

@@ -31,8 +31,9 @@ class WidgetVeiAnoLista extends StatelessWidget {
             label: Container(
               child: Text(
                 titulo,
+                overflow: TextOverflow.clip,
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 15,
                   color: (tema == 0)
                       ? Theme.of(context).primaryColor
                       : Colors.white,

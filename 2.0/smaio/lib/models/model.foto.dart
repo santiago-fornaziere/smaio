@@ -2,7 +2,7 @@ import 'dart:convert' as convert;
 
 class Foto {
   int? fotId;
-  var fotFoto;
+  String? fotFoto;
   int? fotVlojId;
   int? fotIndice;
 

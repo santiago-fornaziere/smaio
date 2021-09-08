@@ -91,8 +91,9 @@ class Loja {
     data['cid_uf'] = this.cidUf;
     data['cid_pais'] = this.cidPais;
     data['loj_status'] = this.lojStatus;
-    data['loj_latitude'] = this.lojLatitude;
-    data['loj_longitude'] = this.lojLongitude;
+    data['loj_latitude'] = this.lojLatitude.toString().replaceAll('.', ',');
+    data['loj_longitude'] =
+        double.parse(this.lojLongitude).toString().replaceAll('.', ',');
     data['loj_sit_reg'] = this.lojSitReg;
     return data;
   }
@@ -132,8 +133,10 @@ class LojaUsuario {
     data['cid_uf'] = this.loja!.cidUf;
     data['cid_pais'] = this.loja!.cidPais;
     data['loj_status'] = this.loja!.lojStatus;
-    data['loj_latitude'] = this.loja!.lojLatitude;
-    data['loj_longitude'] = this.loja!.lojLongitude;
+    data['loj_latitude'] =
+        this.loja!.lojLatitude.toString().replaceAll('.', ',');
+    data['loj_longitude'] =
+        this.loja!.lojLongitude.toString().replaceAll('.', ',');
     data['loj_sit_reg'] = this.loja!.lojSitReg;
     data['usu_senha'] = this.senha;
     return data;

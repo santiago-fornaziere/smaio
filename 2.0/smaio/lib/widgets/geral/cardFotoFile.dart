@@ -1,10 +1,9 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class WidgetCardFotoFile extends StatelessWidget {
   VoidCallback? onPressed;
-  Uint8List image;
+  String image;
   WidgetCardFotoFile({
     this.onPressed,
     required this.image,
@@ -23,7 +22,7 @@ class WidgetCardFotoFile extends StatelessWidget {
                 size: 50,
                 color: Colors.grey,
               )
-            : Image.memory(
+            : Image.network(
                 image,
                 fit: BoxFit.contain,
                 height: 100,

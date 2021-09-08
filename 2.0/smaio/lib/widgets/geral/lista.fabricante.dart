@@ -44,7 +44,7 @@ class WidgetFabricanteLista extends StatelessWidget {
                   child: Container(
                     width: 300,
                     child: TextFormField(
-                      autofocus: true,
+                      autofocus: false,
                       controller: _fabDescricaoController,
                       validator: (String? text) => (text!.isEmpty)
                           ? showSnackMessage(

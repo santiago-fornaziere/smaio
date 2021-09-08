@@ -6,10 +6,11 @@ import 'package:intl/intl.dart';
 Color menuCadastroLateral = Colors.grey[200]!;
 Color fundoBranco = Colors.grey[50]!;
 
-String hostapi = '147.135.87.217';
-// String localhost = 'localhost';
-String tituloSistema = 'SMAIO - FERRO VELHO VIRTUAL';
-String phone = '556699990000';
+//String hostapi = '147.135.87.217';
+String hostapi = '51.81.103.232';
+//String localhost = 'localhost';
+String tituloSistema = 'SMAIO PEÇAS';
+String phone = '5547989211067';
 
 TextStyle styleTexto() {
   return TextStyle(

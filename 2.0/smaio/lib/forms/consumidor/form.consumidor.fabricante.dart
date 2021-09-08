@@ -82,8 +82,8 @@ class _ConsumidorFabricante extends State<ConsumidorFabricante> {
                   TextStyle(fontSize: fontSizePadrao, color: corTextoPadrao[1]),
             ),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height - 260,
+          Expanded(
+            // height: MediaQuery.of(context).size.height - 260,
             child: ListView(
               scrollDirection: Axis.vertical,
               children: [

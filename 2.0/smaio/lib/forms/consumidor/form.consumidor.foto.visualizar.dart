@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:smaio/forms/consumidor/form.consumidor.fabricante.dart';
 import 'package:smaio/models/model.foto.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:provider/provider.dart';
 import 'package:smaio/utils/funcoes.dart';
+import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
 // ignore: must_be_immutable
 class ConsumidorFotoVisualizar extends StatefulWidget {
@@ -51,10 +50,13 @@ class _ConsumidorFotoVisualizar extends State<ConsumidorFotoVisualizar> {
         child: Container(
       child: ListView(
         children: [
-          Image.memory(
-            base64Decode(widget.foto.fotFoto),
-            fit: BoxFit.fill,
-          )
+          PinchZoomImage(
+            hideStatusBarWhileZooming: true,
+            image: Image.network(
+              widget.foto.fotFoto.toString(),
+              fit: BoxFit.contain,
+            ),
+          ),
         ],
       ),
     ));

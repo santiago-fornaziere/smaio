@@ -13,7 +13,7 @@ class VeiculoLoja {
   String? vlojModDescricao;
   int? vlojLojId;
   String? vlojLojNome;
-  var foto;
+  String? foto;
   bool? vlojAtivo;
   bool? vlojSitReg;
 

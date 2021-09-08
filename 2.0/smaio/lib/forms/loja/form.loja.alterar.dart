@@ -5,7 +5,6 @@ import 'package:smaio/models/model.loja.dart';
 import 'package:smaio/notifiers/notifier.sistema.dart';
 import 'package:smaio/utils/const.dart';
 import 'package:smaio/utils/funcoes.dart';
-import 'package:smaio/widgets/geral/appBarTransparente.dart';
 import 'package:provider/provider.dart';
 import 'package:smaio/widgets/geral/bottonNavigationBarSalvar.dart';
 import 'package:smaio/widgets/geral/edit.texto.dart';
@@ -13,8 +12,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:search_cep/search_cep.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
-import 'package:smaio/utils/location/utilities/loc.dart';
-import 'package:js/js.dart';
+// import 'package:smaio/utils/location/utilities/loc.dart';
+// import 'package:js/js.dart';
 
 // ignore: must_be_immutable
 class CadastroLoja extends StatefulWidget {
@@ -50,11 +49,11 @@ class _CadastroLoja extends State<CadastroLoja> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetAppBarTransparente(
-        titulo:
-            '${widget.loja.lojNome.toString()} \n${widget.loja.lojEmail.toString()}',
-        mostraIcone: false,
-        tema: 0,
+      appBar: AppBar(
+        title: Text(
+          '${widget.loja.lojNome.toString()} \n${widget.loja.lojEmail.toString()}',
+        ),
+        centerTitle: true,
       ),
       bottomNavigationBar:
           Consumer<Sistema>(builder: (context, sistema, child) {
@@ -69,8 +68,8 @@ class _CadastroLoja extends State<CadastroLoja> {
 
               _fromController();
 //              print(widget.loja.lojRazao);
-              int retorno = await LojaApi.put(widget.loja);
-              if (retorno == 202) {
+              RetornoLoja retorno = await LojaApi.put(widget.loja);
+              if (retorno.statusCode == 202) {
                 setState(() {
                   _showProgress = false;
                 });
@@ -80,7 +79,8 @@ class _CadastroLoja extends State<CadastroLoja> {
                 setState(() {
                   _showProgress = false;
                 });
-                showSnackMessage(context, 'Erro ao gravar os dados...');
+                showSnackMessage(
+                    context, 'Erro ao gravar os dados: ' + retorno.mensagem);
               }
             } else {
               setState(() {
@@ -90,8 +90,8 @@ class _CadastroLoja extends State<CadastroLoja> {
           },
         );
       }),
-      //      backgroundColor: Theme.of(context).primaryColor,
-      backgroundColor: corTemaDark,
+      backgroundColor: Theme.of(context).primaryColor,
+//      backgroundColor: corTemaDark,
       body: _body(),
     );
   }
@@ -219,6 +219,7 @@ class _CadastroLoja extends State<CadastroLoja> {
         });
       }
     } else {
+      /*
       getCurrentPosition(
         allowInterop(
           (pos) {
@@ -230,6 +231,7 @@ class _CadastroLoja extends State<CadastroLoja> {
           },
         ),
       );
+      */
     }
   }
 

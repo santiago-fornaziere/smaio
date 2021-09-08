@@ -34,9 +34,8 @@ class _FormPeca extends State<FormPeca> {
 //      backgroundColor: Theme.of(context).primaryColor,
       backgroundColor: corTemaDark,
       bottomNavigationBar: WidgetBottonNavigatorBar(
-        avancarFunction: null,
         context: context,
-        mostraAvancar: false,
+        mostraInicio: true,
       ),
       body: _body(),
     );

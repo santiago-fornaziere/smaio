@@ -148,7 +148,7 @@ class _FormPecaEdit extends State<FormPecaEdit> {
 
   toogleButtonDescricao() {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(2),
       child: Column(
         children: [
           Padding(
@@ -166,7 +166,7 @@ class _FormPecaEdit extends State<FormPecaEdit> {
             fillColor: Colors.green,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5),
                 child: Column(
                   children: [
                     Icon(
@@ -185,7 +185,7 @@ class _FormPecaEdit extends State<FormPecaEdit> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5),
                 child: Column(
                   children: [
                     Icon(
@@ -204,7 +204,7 @@ class _FormPecaEdit extends State<FormPecaEdit> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5),
                 child: Column(
                   children: [
                     Icon(

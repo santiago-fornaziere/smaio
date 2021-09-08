@@ -7,7 +7,7 @@ class PecaVeiLoja {
   String? pecGruDescricao;
   int? pecIteId;
   String? pecIteDescricao;
-  double? pecIteValor;
+  var pecIteValor;
   String? pecIteSituacao;
   int? pecIteVlojId;
   String? pecDtEntrada;

@@ -12,8 +12,6 @@ class FaleConoscoApi {
       String c = pRegistro.toJson();
       var url = Uri.http('$hostapi:9101', '/smaio/faleconosco');
       var response = await http.post(url, headers: headers, body: c);
-      print(response.body);
-
       return response.statusCode;
     } catch (e) {
       print(e);

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class FotoApi {
     }
   }
 
-  static Future<int> post(Uint8List foto, int pId) async {
+  static Future<Foto> post(Uint8List foto, int pId) async {
     String token = await Prefs.getString("token");
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
@@ -64,14 +65,15 @@ class FotoApi {
       var url = Uri.http('$hostapi:9198', '/smaio/foto/$pId');
       var response = await http.post(url, headers: headers, body: foto);
       if (response.statusCode == 201) {
-        String json = response.body;
-        return int.parse(json);
+        var retorno = json.decode(response.body);
+        Foto foto = Foto.fromJson(retorno);
+        return foto;
       } else {
-        return 0;
+        return Foto();
       }
     } catch (e) {
       print(e);
-      return 0;
+      return Foto();
     }
   }
 }

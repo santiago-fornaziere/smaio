@@ -5,8 +5,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:smaio/prefs.dart';
 import 'package:flutter/foundation.dart';
-import 'package:smaio/utils/location/utilities/loc.dart';
-import 'package:js/js.dart';
+// import 'package:smaio/utils/location/utilities/loc.dart';
+// import 'package:js/js.dart';
 
 Future push(BuildContext context, Widget page, {bool replace = false}) {
   if (replace == true) {
@@ -77,6 +77,10 @@ showSnackMessage(context, String pTexto, {int pDuracao = 2}) {
 Future<double> calcDistancia(double lat1, double lon1) async {
   double lat2 = await Prefs.getDouble('latitude');
   double lon2 = await Prefs.getDouble('longitude');
+  print('lat1 $lat1');
+  print('lon1 $lon1');
+  print('lat2 $lat2');
+  print('lon2 $lon2');
 
   return Geolocator.distanceBetween(lat1, lon1, lat2, lon2) / 1000;
 }
@@ -104,7 +108,7 @@ Future<Map<String, double>> getPosicao() async {
           "longitude": position.longitude,
         };
 
-        Prefs.setDouble('latutude', position.latitude);
+        Prefs.setDouble('latitude', position.latitude);
         Prefs.setDouble('longitude', position.longitude);
         return retorno;
       } else {
@@ -120,6 +124,7 @@ Future<Map<String, double>> getPosicao() async {
       };
     }
   } else {
+    /*
     getCurrentPosition(
       allowInterop(
         (pos) {
@@ -131,6 +136,7 @@ Future<Map<String, double>> getPosicao() async {
         },
       ),
     );
+    */
     return retorno;
   }
 }
